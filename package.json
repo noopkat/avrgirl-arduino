@@ -1,0 +1,31 @@
+{
+  "name": "avrgirl-arduino",
+  "version": "0.0.0",
+  "description": "avrgirl-wrapper module for programming arduino",
+  "main": "avrgirl-arduino.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noopkat/avrgirl-arduino.git"
+  },
+  "keywords": [
+    "arduino",
+    "avr",
+    "avrdude",
+    "isp",
+    "avrgirl"
+  ],
+  "author": "Suz Hinton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noopkat/avrgirl-arduino/issues"
+  },
+  "homepage": "https://github.com/noopkat/avrgirl-arduino",
+  "dependencies": {
+    "intel-hex": "^0.1.1",
+    "serialport": "^1.7.4",
+    "stk500": "git://github.com/noopkat/js-stk500v1#avrgirl"
+  }
+}
