@@ -28,7 +28,7 @@ Avrgirl_arduino.prototype._parseHex = function(file) {
   return intel_hex.parse(data).data;
 };
 
-Avrgirl_arduino.prototype.flash = function(file) {
+Avrgirl_arduino.prototype.flash = function(file, callback) {
   var self = this;
   var hex = Avrgirl_arduino.prototype._parseHex(file);
 
@@ -37,8 +37,8 @@ Avrgirl_arduino.prototype.flash = function(file) {
       serialPort.close(function (error) {
         console.log(error);
       });
-      // define a 'report back' function
-      // callback(error);
+
+      callback(error);
     });
   });
 };
