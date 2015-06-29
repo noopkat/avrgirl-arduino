@@ -12,11 +12,15 @@ var Avrgirl_arduino = function (opts) {
   }; 
 };
 
-Avrgirl_arduino.prototype.connect = function(opts) {
+Avrgirl_arduino.prototype._connect = function() {
 
 };
 
-Avrgirl_arduino.prototype.flash = function(opts) {
+Avrgirl_arduino.prototype._disconnect = function() {
+
+};
+
+Avrgirl_arduino.prototype.flash = function() {
 
 };
 
@@ -24,13 +28,6 @@ Avrgirl_arduino.prototype.erase = function() {
 
 };
 
-Avrgirl_arduino.prototype._flashProgram = function() {
-
-};
-
-Avrgirl_arduino.prototype._flashEEPROM = function() {
-
-};
 
 Avrgirl_arduino.prototype.read = function() {
 
