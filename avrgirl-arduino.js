@@ -17,18 +17,18 @@ var Avrgirl_arduino = function (opts) {
   this._setUpSerial();
 };
 
-Avrgirl_arduino.prototype._setUpSerial = function() {
+Avrgirl_arduino.prototype._setUpSerial = function () {
   this.serialPort = new SerialPort.SerialPort(path, {
     baudrate: this.options.board.baud,
   }, false);
 };
 
-Avrgirl_arduino.prototype._parseHex = function(file) {
+Avrgirl_arduino.prototype._parseHex = function (file) {
   var data = fs.readFileSync(file, {encoding: 'utf8'});
   return intel_hex.parse(data).data;
 };
 
-Avrgirl_arduino.prototype.flash = function(file, callback) {
+Avrgirl_arduino.prototype.flash = function (file, callback) {
   var self = this;
   var hex = Avrgirl_arduino.prototype._parseHex(file);
 
