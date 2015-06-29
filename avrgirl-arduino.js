@@ -33,7 +33,7 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
   var hex = Avrgirl_arduino.prototype._parseHex(file);
 
   this.serialPort.open(function (error) {
-    stk500.bootload(self.serialPort, hex, self.board, function (error) {
+    self.stk500.bootload(self.serialPort, hex, self.board, function (error) {
       if (error) {
         return callback(error);
       }
