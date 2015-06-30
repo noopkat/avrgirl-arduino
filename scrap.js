@@ -1,6 +1,8 @@
 var Avrgirl = require('./avrgirl-arduino');
-
-var avrgirl = new Avrgirl('uno');
+var avrgirl = new Avrgirl({
+  board: 'uno',
+  port: '/dev/cu.usbmodem1411'
+});
 
 avrgirl.flash('./node_modules/stk500/arduino-1.0.6/uno/Blink.cpp.hex', function (error) {
   if (error) {
