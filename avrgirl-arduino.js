@@ -39,9 +39,7 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
         this.options.port = port;
         this._upload(hex, callback);
       } else {
-        // delete me
-        console.error('no Arduino found.');
-        // return callback(new Error('Error: no Arduino found.'))
+        return callback(new Error('no Arduino found.'))
       }
     }.bind(this));
   } else {
