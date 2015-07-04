@@ -6,18 +6,26 @@ var fs = require('fs');
 var boards = require('./boards');
 var childProcess = require('child_process');
 
+/**
+ * Constructor
+ *
+ * @param {object} options - options for consumer to pass in
+ */
 var Avrgirl_arduino = function (opts) {
   var opts = opts || {};
 
   this.options = {
-    quiet: opts.quiet || false,
+    debug: opts.debug || false,
     board: opts.board || 'uno',
     port: opts.port || ''
   };
 
-  this.board = boards[this.options.board];
   this.chip;
 
+  // get board properties
+  this.board = boards[this.options.board];
+
+  // assign the correct module to the protocol of the chosen board
   if (this.board.protocol === 'stk500v1') {
     this.chip = new Stk500({quiet: true});
   } else if (this.board.protocol === 'avr109') {
@@ -25,35 +33,58 @@ var Avrgirl_arduino = function (opts) {
   }
 };
 
+/**
+ * Create new serialport instance for the Arduino board, but do not immediately connect.
+ */
 Avrgirl_arduino.prototype._setUpSerial = function () {
   this.serialPort = new Serialport.SerialPort(this.options.port, {
     baudRate: this.board.baud,
   }, false);
 };
 
+/**
+ * Opens and parses a given hex file
+ */
 Avrgirl_arduino.prototype._parseHex = function (file) {
   var data = fs.readFileSync(file, {encoding: 'utf8'});
   return intelhex.parse(data).data;
 };
 
+/**
+ * Public method for flashing a hex file to the main program allocation of the Arduino
+ *
+ * param {string} file - path to hex file for uploading
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype.flash = function (file, callback) {
   var self = this;
   var hex = file;
 
+  // if we haven't been supplied an explicit port to connect to, auto sniff one.
   if (this.options.port === '') {
     this._sniffPort(function (port) {
       if (port !== null) {
+        // found a port, save it
         self.options.port = port;
+        // upload hex
         self._upload(hex, callback);
       } else {
+        // we didn't find the board
         return callback(new Error('no Arduino found.'))
       }
     });
   } else {
+    // we already know the port, so upload
     this._upload(hex, callback);
   }
 };
 
+/**
+ * Calls the correct upload method, depending on which protocol the Arduino uses
+ *
+ * param {string} hex - path to hex file for uploading
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype._upload = function (hex, callback) {
   var self = this;
   var eggs = hex;
@@ -71,19 +102,31 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
   }
 };
 
+/**
+ * Upload method for the STK500v1 protocol
+ *
+ * param {string} eggs - path to hex file for uploading
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   var self = this;
 
+  // do we have a connection instance yet?
   if (!this.serialPort) {
     this._setUpSerial();
   }
 
+  // open connection
   this.serialPort.open(function (error) {
     if (error) { return callback(error) }
 
+    // open/parse supplied hex file 
     var hex = self._parseHex(eggs);
+
+    // flash
     self.chip.bootload(self.serialPort, hex, self.board, function (error) {
       if (error) { return callback(error) }
+      // flashing success, close connection and call 'em back
       self.serialPort.close(function (error) {
         return callback(error);
       });
@@ -91,22 +134,42 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   });
 };
 
+/**
+ * Software resets an Arduino AVR109 bootloaded chip into bootloader mode
+ *
+ * Note: this method runs a child process, as it is currently difficult to guarantee
+ * that a serialport connection has truly closed via node-serialport.
+ * Exiting the child process when done ensures we have a true closure, 
+ * and therefore a completed board reset.
+ *
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
   var self = this;
   var resetFile = __dirname + '/lib/leo-reset.js';
 
   childProcess.execFile('node', [resetFile, self.options.port], function() {
+    // replace this timeout with a port poll instead.
     setTimeout(callback, 600);
   });
 };
 
+
+/**
+ * Upload method for the AVR109 protocol
+ *
+ * param {string} eggs - path to hex file for uploading
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   var self = this;
 
+  // do we have a connection instance yet?
   if (!this.serialPort) {
     this._setUpSerial();
   }
 
+  // TODO: async.serial
   this.serialPort.open(function (error) {
     if (error) { return callback(error) }
 
@@ -124,7 +187,10 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
               if (error) { return callback(error) }
 
               flasher.fuseCheck(function (error) {
-                return callback(error);
+                // finally, if the fuses are cool, close the connetion and call 'em back.
+                self.serialPort.close(function (error) {
+                  return callback(error);
+                });
               });
             });
           });
@@ -134,18 +200,28 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   });
 };
 
-
+/**
+ * Finds a list of available USB ports, and matches for the right pid
+ * Auto finds the correct port for the chosen Arduino
+ *
+ * param {function} callback - function to run upon completion/error
+ */
 Avrgirl_arduino.prototype._sniffPort = function (callback) {
   var self = this;
 
+  // list all available ports
   Serialport.list(function (err, ports) {
+    // iterate through ports
     for (var i = 0; i < ports.length; i++) {
+      // iterate through all possible pid's
       for (var j = 0; j < self.board.productId.length; j ++) {
         if (ports[i].productId === self.board.productId[j]) {
+          // match! Return the port/path
           return callback(ports[i].comName);
         }
       } 
     }
+    // didn't find a match :(
     return callback(null);
   });
 };
