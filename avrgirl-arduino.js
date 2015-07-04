@@ -33,6 +33,7 @@ var Avrgirl_arduino = function (opts) {
   }
 };
 
+
 /**
  * Create new serialport instance for the Arduino board, but do not immediately connect.
  */
@@ -42,6 +43,7 @@ Avrgirl_arduino.prototype._setUpSerial = function () {
   }, false);
 };
 
+
 /**
  * Opens and parses a given hex file
  */
@@ -50,11 +52,12 @@ Avrgirl_arduino.prototype._parseHex = function (file) {
   return intelhex.parse(data).data;
 };
 
+
 /**
  * Public method for flashing a hex file to the main program allocation of the Arduino
  *
- * param {string} file - path to hex file for uploading
- * param {function} callback - function to run upon completion/error
+ * @param {string} file - path to hex file for uploading
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype.flash = function (file, callback) {
   var self = this;
@@ -79,11 +82,12 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
   }
 };
 
+
 /**
  * Calls the correct upload method, depending on which protocol the Arduino uses
  *
- * param {string} hex - path to hex file for uploading
- * param {function} callback - function to run upon completion/error
+ * @param {string} hex - path to hex file for uploading
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._upload = function (hex, callback) {
   var self = this;
@@ -102,11 +106,12 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
   }
 };
 
+
 /**
  * Upload method for the STK500v1 protocol
  *
- * param {string} eggs - path to hex file for uploading
- * param {function} callback - function to run upon completion/error
+ * @param {string} eggs - path to hex file for uploading
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   var self = this;
@@ -134,6 +139,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   });
 };
 
+
 /**
  * Software resets an Arduino AVR109 bootloaded chip into bootloader mode
  *
@@ -142,7 +148,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
  * Exiting the child process when done ensures we have a true closure, 
  * and therefore a completed board reset.
  *
- * param {function} callback - function to run upon completion/error
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
   var self = this;
@@ -158,8 +164,8 @@ Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
 /**
  * Upload method for the AVR109 protocol
  *
- * param {string} eggs - path to hex file for uploading
- * param {function} callback - function to run upon completion/error
+ * @param {string} eggs - path to hex file for uploading
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   var self = this;
@@ -200,11 +206,12 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   });
 };
 
+
 /**
  * Finds a list of available USB ports, and matches for the right pid
  * Auto finds the correct port for the chosen Arduino
  *
- * param {function} callback - function to run upon completion/error
+ * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._sniffPort = function (callback) {
   var self = this;
