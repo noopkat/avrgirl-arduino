@@ -13,9 +13,11 @@
   "keywords": [
     "arduino",
     "avr",
+    "avr109",
+    "stk500",
     "avrdude",
-    "isp",
-    "avrgirl"
+    "avrgirl",
+    "avrg"
   ],
   "author": "Suz Hinton",
   "license": "MIT",
@@ -24,6 +26,7 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
+    "chip.avr.avr109": "^1.0.3",
     "intel-hex": "^0.1.1",
     "serialport": "^1.7.4",
     "stk500": "git://github.com/noopkat/js-stk500v1#avrgirl"
