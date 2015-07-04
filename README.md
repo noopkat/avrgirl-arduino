@@ -32,7 +32,7 @@ This library is designed to ultimately be rolled into the avrgirl project, howev
 
 ## How do I use it?
 
-Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. [See this guide](#sourcing-a-compiled-arduino hex-file) if you're unsure of how to go about this.
+Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. I have provided some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino hex-file) if you're unsure of how to go about this.
 
 Don't forget to plug your supported Arduino of choice into an available USB port on your computer!
 
@@ -71,7 +71,9 @@ If you'd like a quick way of listing out the current available USB ports on your
 
 ## Sourcing a compiled Arduino hex file
 
-A .hex file is the compiled end result of an Arduino sketch file. The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+A .hex file is the compiled end result of an Arduino sketch file. I have provided some example hex files for each board within the `junk/hex` folder of this repo. Feel free to use these, or if you're after something specific not provided, see the directions below.
+
+The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
 First make sure you have checked the 'compliation' box under "Show verbose output' heading in your Arduino preferences: 
 
