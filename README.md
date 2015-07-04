@@ -2,6 +2,8 @@
 
 An avrgirl-wrapper library for flashing Arduino microcontroller boards. 
 
+![logo](http://i.imgur.com/PnRue3V.png)
+
 ## What is this?
 
 avrgirl-arduino is a library written to present a convenient way to upload precompiled sketches to an Arduino. avrgirl-arduino supports a selection of Arduino boards, with more to be added soon. 
