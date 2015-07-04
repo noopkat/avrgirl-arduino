@@ -1,19 +1,19 @@
 # avrgirl-arduino
 
-An avrgirl-wrapper library for flashing Arduino microcontroller boards. 
+An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS. 
 
-![logo](http://i.imgur.com/PnRue3V.png)
+![logo](http://i.imgur.com/AAvwp0F.png)
 
 ## What is this?
 
-avrgirl-arduino is a library written to present a convenient way to upload precompiled sketches to an Arduino. avrgirl-arduino supports a selection of Arduino boards, with more to be added soon. 
+avrgirl-arduino is a NodeJS library written to present a convenient way to upload precompiled sketches to an Arduino. avrgirl-arduino supports a selection of Arduino boards, with more to be added soon. 
 
 The current supported list:
 
-+ Arduino Uno
-+ Arduino Leonardo
-+ Arduino Micro
-+ Femtuduino IMUduino
++ **Arduino Uno**
++ **Arduino Leonardo**
++ **Arduino Micro**
++ **Femtuduino IMUduino**
 
 Coming soon:
 
@@ -28,7 +28,7 @@ This library is designed to ultimately be rolled into the avrgirl project, howev
 
 ## How to install
 
-1. Install NodeJS from http://nodejs.org
+1. Install NodeJS from [nodejs.org](http://nodejs.org)
 2. Run `npm install avrgirl-arduino` in your shell of choice
 3. Node-serialport is a dependency of avrgirl-arduino, so if you run into any troubles in step 2 and the stack trace pins it on node-serialport, [check here](https://github.com/voodootikigod/node-serialport#to-install) for further instructions on how to get everything all fixed up.
 
@@ -42,6 +42,7 @@ The following example code should get you up and running with an Arduino Uno:
 
 ```javascript
 var Avrgirl = require('avrgirl-arduino');
+
 var avrgirl = new Avrgirl({
   board: 'uno'
 });
@@ -84,6 +85,7 @@ First make sure you have checked the 'compliation' box under "Show verbose outpu
 Open your sketch (for example 'Blink' under the File -> Examples -> Basics menu), then choose the correct board and port under your Tools menu. Clicking the Verify button (or Ctrl/Cmd + R) will then compile your hex file.
 
 While the compilation is happening you'll see a ton of lines outputting on screen. Search for something like the following when it completes:
+
 ```
 /var/folders/zp/bpw8zd0141j5zf7l8m_qtt8w0000gp/T/build6252696906929781517.tmp/Blink.cpp.hex 
 
