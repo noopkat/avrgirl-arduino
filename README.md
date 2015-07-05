@@ -18,7 +18,7 @@ The current supported list:
 Coming soon:
 
 + Arduino Mega
-+ Arduino Diecimila / Duemilanove
++ ~~Arduino Diecimila / Duemilanove~~
 + Arduino Nano
 + Arduino Pro
 + Blend-Micro
