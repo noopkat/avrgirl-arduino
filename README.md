@@ -14,6 +14,7 @@ The current supported list:
 + **Arduino Leonardo**
 + **Arduino Micro**
 + **Femtuduino IMUduino**
++ **Blend-Micro**
 
 Coming soon:
 
@@ -21,7 +22,6 @@ Coming soon:
 + ~~Arduino Diecimila / Duemilanove~~
 + Arduino Nano
 + Arduino Pro
-+ Blend-Micro
 + Tinyduino
 
 This library is designed to ultimately be rolled into the avrgirl project, however it still works perfectly well as a stand alone package to be used outside of avrgirl if you wish.
