@@ -154,21 +154,21 @@ Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
   var self = this;
   var resetFile = __dirname + '/lib/leo-reset.js';
   var tries = 0;
-  var cb = callback;
 
   childProcess.execFile('node', [resetFile, self.options.port], function() {
     tryConnect(function(connected) {
       var status = connected ? null : new Error('could not complete reset.');
-      cb(status);
+      callback(status);
     });
   });
 
+  // here we have to retry the serialport polling,
+  // until the chip boots back up to recreate the virtual com port
   function tryConnect (callback) {
     function checkList() {
       Serialport.list(function (error, ports) {
-        // iterate through ports
+        // iterate through ports looking for the one port to rule them all
         for (var i = 0; i < ports.length; i++) {
-          // iterate through all possible pid's
           if (ports[i].comName === self.options.port) {
             return callback(true);
           }
@@ -177,6 +177,7 @@ Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
         if (tries < 4) {
           setTimeout(checkList, 300);
         } else {
+          // timeout on too many tries
           return callback(false);
         }
       });
