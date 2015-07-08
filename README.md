@@ -33,7 +33,7 @@ This library is designed to ultimately be rolled into the avrgirl project, howev
 
 ## How do I use it?
 
-Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. I have provided some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino hex-file) if you're unsure of how to go about this.
+Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. You'll find some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino hex-file) if you're unsure of how to go about this.
 
 Don't forget to plug your supported Arduino of choice into an available USB port on your computer!
 
