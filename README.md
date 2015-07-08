@@ -30,7 +30,6 @@ This library is designed to ultimately be rolled into the avrgirl project, howev
 
 1. Install NodeJS from [nodejs.org](http://nodejs.org)
 2. Run `npm install avrgirl-arduino` in your shell of choice
-3. Node-serialport is a dependency of avrgirl-arduino, so if you run into any troubles in step 2 and the stack trace pins it on node-serialport, [check here](https://github.com/voodootikigod/node-serialport#to-install) for further instructions on how to get everything all fixed up.
 
 ## How do I use it?
 
@@ -73,13 +72,13 @@ var avrgirl = new Avrgirl({
 If you'd like a quick way of listing out the current available USB ports on your system, run `node lib/list.js` from the `avrgirl-arduino` root within your `node_modules` directory.
 
 
-### Q: Can I use avrgirl-Arduino as a CLI tool?
+### Q: Can I use avrgirl-arduino as a CLI tool?
 
 **A: You sure can!**
 
 Run `npm install -g avrgirl-arduino` to install globally for easy CLI use.
 
-The same example above would be as followed for the CLI call in your Terminal:
+The same example above would look like the following as a CLI call in your Terminal:
 
 `avrgirl-arduino flash -f Blink.cpp.hex -a uno`
 
@@ -117,4 +116,4 @@ Credit to Jacob Rosenthal, Ryan Day, and Elijah Insua for a lot of the heavy lif
 ## todo
 
 + tests
-+ support stk500v2 boards
++ support moar boards
