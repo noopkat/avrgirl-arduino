@@ -24,7 +24,7 @@ Coming soon:
 + Arduino Pro
 + Tinyduino
 
-This library is designed to ultimately be rolled into the avrgirl project, however it still works perfectly well as a stand alone package to be used outside of avrgirl if you wish.
+This library is designed to ultimately be rolled into the avrgirl project, however it still works perfectly well as a stand-alone package to be used outside of avrgirl if you wish.
 
 ## How to install
 
@@ -71,6 +71,22 @@ var avrgirl = new Avrgirl({
 ```
 
 If you'd like a quick way of listing out the current available USB ports on your system, run `node lib/list.js` from the `avrgirl-arduino` root within your `node_modules` directory.
+
+
+### Q: Can I use avrgirl-Arduino as a CLI tool?
+
+**A: You sure can!**
+
+Run `npm install -g avrgirl-arduino` to install globally for easy CLI use.
+
+The same example above would be as followed for the CLI call in your Terminal:
+
+`avrgirl-arduino flash -f Blink.cpp.hex -a uno`
+
+Optional flags:
+
++ **-p** will allow you to specify the port where your Arduino is plugged in.
++ **-v** will turn on debug/verbose mode, which will log things when you run the command.
 
 ## Sourcing a compiled Arduino hex file
 
