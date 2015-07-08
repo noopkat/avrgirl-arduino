@@ -6,20 +6,27 @@ var path = require('path');
 var args = (process.argv.slice(2));
 var argv = parseArgs(args, opts={})
 var userAction = argv._[0];
-var help = 'usage: avrgirl-arduino flash -f <file> -a <arduino name> [-p <port>]';
+var help = 'usage: avrgirl-arduino flash -f <file> -a <arduino name> [-p <port>] [-v]';
 
-// console.log(argv._[0], argv);
+function showHelp() {
+  console.log(help);
+}
 
-// change this to verbose instead, then set up proper error codes and exit statuses (via process.exit)
-var debug = argv.q ? function() {} : console.log;
+var debug = argv.v ? console.log : function() {};
 
 handleInput(userAction, argv);
 
 function handleInput(action, argz) {
   switch (action) {
     case 'flash':
-      if (!argz.f || !argz.a) { return debug(help) }
-      else if (!boards[argz.a]) { return debug('Oops! That board is not supported, sorry.') }
+      if (!argz.f || !argz.a) { 
+        return showHelp();
+        process.exit(1);
+      }
+      else if (!boards[argz.a]) {
+        console.error(new Error('Oops! That board is not supported, sorry.'));
+        process.exit(1);
+      }
       else {
         var options = {};
         options.board = argz.a;
@@ -28,11 +35,16 @@ function handleInput(action, argz) {
       }
       // run flash function here if all is well
       break;
+    case 'help':
+      showHelp();
+      return process.exit();
     case undefined:
-      return debug(help);
+      showHelp();
+      return process.exit(1);
       break;
     default:
-      return debug(help);
+      showHelp();
+      return process.exit(1);
       break;
   }
 }
@@ -42,8 +54,13 @@ function flash(file, options) {
   var filepath = path.resolve(process.cwd(), file);
 
   avrgirl.flash(filepath, function(error) {
-    if (error) { return debug(error) }
-     return debug('flash complete.'); 
+    if (error) { 
+      console.error(error);
+      return process.exit(1);
+    } else {
+      debug('flash complete.'); 
+      return process.exit();
+    }
   });
 
 }
