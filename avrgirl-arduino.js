@@ -153,11 +153,36 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
 Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
   var self = this;
   var resetFile = __dirname + '/lib/leo-reset.js';
+  var tries = 0;
+  var cb = callback;
 
   childProcess.execFile('node', [resetFile, self.options.port], function() {
-    // replace this timeout with a port poll instead.
-    setTimeout(callback, 600);
+    tryConnect(function(connected) {
+      var status = connected ? null : new Error('could not complete reset.');
+      cb(status);
+    });
   });
+
+  function tryConnect (callback) {
+    function checkList() {
+      Serialport.list(function (error, ports) {
+        // iterate through ports
+        for (var i = 0; i < ports.length; i++) {
+          // iterate through all possible pid's
+          if (ports[i].comName === self.options.port) {
+            return callback(true);
+          }
+        }
+        tries += 1;
+        if (tries < 4) {
+          setTimeout(checkList, 300);
+        } else {
+          return callback(false);
+        }
+      });
+    }
+    setTimeout(checkList, 300);
+  }
 };
 
 
