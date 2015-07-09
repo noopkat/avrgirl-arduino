@@ -19,7 +19,6 @@ The current supported list:
 Coming soon:
 
 + Arduino Mega
-+ ~~Arduino Diecimila / Duemilanove~~
 + Arduino Nano
 + Arduino Pro
 + Tinyduino
