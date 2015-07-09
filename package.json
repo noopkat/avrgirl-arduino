@@ -5,7 +5,7 @@
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: tests coming soon!\" && exit 1"
   },
   "repository": {
     "type": "git",
