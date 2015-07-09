@@ -26,6 +26,12 @@ module.exports = {
     productId: ['0x0036', '0x8036'],
     protocol: 'avr109'
   },
+  'little-bits': {
+    baud: 57600,
+    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    productId: ['0x0036', '0x8036'],
+    protocol: 'avr109'
+  },
   'blend-micro': {
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
