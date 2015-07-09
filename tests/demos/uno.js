@@ -1,9 +1,9 @@
-var Avrgirl = require('../avrgirl-arduino');
+var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
   board: 'uno'
 });
 
-var hex = __dirname + '/../node_modules/stk500/arduino-1.0.6/uno/Blink.cpp.hex';
+var hex = __dirname + '/../../node_modules/stk500/arduino-1.0.6/uno/Blink.cpp.hex';
 
 avrgirl.flash(hex, function (error) {
   if (error) {

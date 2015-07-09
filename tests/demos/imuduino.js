@@ -1,9 +1,9 @@
-var Avrgirl = require('../avrgirl-arduino');
+var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
   board: 'imuduino'
 });
 
-var hex = __dirname + '/../junk/hex/imuduino/Blink.cpp.hex';
+var hex = __dirname + '/../../junk/hex/imuduino/Blink.cpp.hex';
 
 avrgirl.flash(hex, function (error) {
   if (error) {

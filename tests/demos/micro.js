@@ -1,9 +1,9 @@
-var Avrgirl = require('../avrgirl-arduino');
+var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
   board: 'micro'
 });
 
-var hex = __dirname + '/../junk/hex/micro/Blink.cpp.hex';
+var hex = __dirname + '/../../junk/hex/micro/Blink.cpp.hex';
 
 avrgirl.flash(hex, function (error) {
   if (error) {
