@@ -157,6 +157,7 @@ Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
 
   childProcess.execFile('node', [resetFile, self.options.port], function() {
     tryConnect(function(connected) {
+      console.log('reset')
       var status = connected ? null : new Error('could not complete reset.');
       callback(status);
     });
@@ -219,10 +220,8 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
               if (error) { return callback(error) }
 
               flasher.fuseCheck(function (error) {
-                // finally, if the fuses are cool, close the connetion and call 'em back.
-                self.serialPort.close(function (error) {
-                  return callback(error);
-                });
+                // finally, if the fuses are cool, call 'em back.
+                return callback(error);
               });
             });
           });
