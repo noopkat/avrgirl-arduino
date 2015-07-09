@@ -13,7 +13,7 @@ The current supported list:
 + **Arduino Uno**
 + **Arduino Leonardo**
 + **Arduino Micro**
-+ **Femtuduino IMUduino**
++ **Femtoduino IMUduino**
 + **Blend-Micro**
 
 Coming soon:
