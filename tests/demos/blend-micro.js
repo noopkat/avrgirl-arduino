@@ -1,6 +1,7 @@
 var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
-  board: 'blend-micro'
+  board: 'blend-micro',
+  debug: true
 });
 
 var hex = __dirname + '/../../junk/hex/blend-micro/Blink.cpp.hex';

@@ -31,6 +31,7 @@ function handleInput(action, argz) {
         var options = {};
         options.board = argz.a;
         if (argz.p) { options.port = argz.p; }
+        if (argz.v) { options.debug = true; }
         flash(argz.f, options);
       }
       // run flash function here if all is well
@@ -58,7 +59,6 @@ function flash(file, options) {
       console.error(error);
       return process.exit(1);
     } else {
-      debug('flash complete.'); 
       return process.exit();
     }
   });

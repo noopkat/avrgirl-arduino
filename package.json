@@ -28,6 +28,7 @@
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
     "chip.avr.avr109": "^1.0.3",
+    "colors": "^1.1.2",
     "intel-hex": "^0.1.1",
     "minimist": "^1.1.1",
     "serialport": "^1.7.4",

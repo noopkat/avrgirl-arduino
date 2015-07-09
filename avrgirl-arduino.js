@@ -5,6 +5,7 @@ var avr109 = require('chip.avr.avr109');
 var fs = require('fs');
 var boards = require('./boards');
 var childProcess = require('child_process');
+var colors = require('colors');
 
 /**
  * Constructor
@@ -19,6 +20,8 @@ var Avrgirl_arduino = function (opts) {
     board: opts.board || 'uno',
     port: opts.port || ''
   };
+
+  this.debug = this.options.debug ? console.log : function() {};
 
   this.chip;
 
@@ -67,6 +70,7 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
   if (this.options.port === '') {
     this._sniffPort(function (port) {
       if (port !== null) {
+        self.debug('found ' + self.options.board + ' on port ' + port);
         // found a port, save it
         self.options.port = port;
         // upload hex
@@ -101,6 +105,7 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
   else if (self.board.protocol === 'avr109') {
     self._resetAVR109(function (error) {
       if (error) { return cb(error) }
+        self.debug('reset complete.');
         self._uploadAVR109(eggs, cb);
     });
   }
@@ -125,12 +130,19 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   this.serialPort.open(function (error) {
     if (error) { return callback(error) }
 
+    self.debug('connected');
+
     // open/parse supplied hex file 
     var hex = self._parseHex(eggs);
+
+    self.debug('flashing, please wait...');
 
     // flash
     self.chip.bootload(self.serialPort, hex, self.board, function (error) {
       if (error) { return callback(error) }
+
+      self.debug(colors.green('flash complete.'));
+
       // flashing success, close connection and call 'em back
       self.serialPort.close(function (error) {
         return callback(error);
@@ -155,9 +167,10 @@ Avrgirl_arduino.prototype._resetAVR109 = function (callback) {
   var resetFile = __dirname + '/lib/leo-reset.js';
   var tries = 0;
 
+  self.debug('resetting board...');
+
   childProcess.execFile('node', [resetFile, self.options.port], function() {
     tryConnect(function(connected) {
-      console.log('reset')
       var status = connected ? null : new Error('could not complete reset.');
       callback(status);
     });
@@ -205,12 +218,14 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   // TODO: async.serial
   this.serialPort.open(function (error) {
     if (error) { return callback(error) }
+    self.debug('connected');
 
     fs.readFile(eggs, function (error, data) {
       if (error) { return callback(error) }
 
       self.chip.init(self.serialPort, {signature: self.board.signature.toString()}, function (error, flasher) {
         if (error) { return callback(error) }
+        self.debug('flashing, please wait...');
 
         flasher.erase(function() {
           flasher.program(data.toString(), function (error) {
@@ -221,6 +236,7 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
 
               flasher.fuseCheck(function (error) {
                 // finally, if the fuses are cool, call 'em back.
+                self.debug(colors.green('flash complete.'));
                 return callback(error);
               });
             });
