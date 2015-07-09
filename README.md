@@ -24,7 +24,7 @@ Coming soon:
 + Tinyduino
 + Little Bits Arduino module
 
-This library is designed to ultimately be rolled into the avrgirl project, however it still works perfectly well as a stand-alone package to be used outside of avrgirl if you wish.
+This library is designed to ultimately be rolled into the avrgirl project (in development), however it still works perfectly well as a stand-alone package to be used outside of avrgirl if you wish.
 
 ## How to install
 
@@ -56,9 +56,9 @@ avrgirl.flash('Blink.cpp.hex', function (error) {
 
 ```
 
-When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, or `'imuduino'`.
+When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, `'blend-micro'`, or `'imuduino'`.
 
-You can also optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you.
+You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you.
 
 Specifying the port would look something like this:
 
@@ -71,21 +71,46 @@ var avrgirl = new Avrgirl({
 
 If you'd like a quick way of listing out the current available USB ports on your system, run `node lib/list.js` from the `avrgirl-arduino` root within your `node_modules` directory.
 
+**Like logs?** Turn on debug mode to see simple flashing progress logs in the console:
+
+```javascript
+var avrgirl = new Avrgirl({
+  board: 'uno',
+  // turn on debug mode!
+  debug: true
+});
+```
+
+A sample:
+
+```
+found uno on port /dev/cu.usbmodem14141
+connected
+flashing, please wait...
+flash complete.
+```
+
 
 ### Q: Can I use avrgirl-arduino as a CLI tool?
 
 **A: You sure can!**
 
-Run `npm install -g avrgirl-arduino` to install globally for easy CLI use.
+Run `npm install -g avrgirl-arduino` in a shell session to install globally for easy CLI use.
 
-The same example above would look like the following as a CLI call in your Terminal:
+The same example above would look like the following as a CLI call in your shell:
 
 `avrgirl-arduino flash -f Blink.cpp.hex -a uno`
+
+Required flags:
+
++ **-f** specify the location of the hex file to flash
++ **-a** specify the name of the Arduino (`'uno'`, `'leonardo'`, `'micro'`, `'blend-micro'`, or `'imuduino'`)
+
 
 Optional flags:
 
 + **-p** will allow you to specify the port where your Arduino is plugged in.
-+ **-v** will turn on debug/verbose mode, which will log things when you run the command.
++ **-v** will turn on debug/verbose mode, which will print a log of things when you run the command.
 
 ## Sourcing a compiled Arduino hex file
 
