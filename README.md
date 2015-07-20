@@ -13,13 +13,14 @@ The current supported list:
 + **Arduino Uno**
 + **Arduino Leonardo**
 + **Arduino Micro**
++ **Arduino Nano**
++ **Arduino Duemilanove (168)**
 + **Femtoduino IMUduino**
 + **Blend-Micro**
 
 Coming soon:
 
 + Arduino Mega
-+ Arduino Nano
 + Arduino Pro
 + Tinyduino
 + Little Bits Arduino module
@@ -56,7 +57,7 @@ avrgirl.flash('Blink.cpp.hex', function (error) {
 
 ```
 
-When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, `'blend-micro'`, or `'imuduino'`.
+When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, or `'imuduino'`.
 
 You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you.
 
@@ -104,7 +105,7 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`'uno'`, `'leonardo'`, `'micro'`, `'blend-micro'`, or `'imuduino'`)
++ **-a** specify the name of the Arduino (`'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, or `'imuduino'`)
 
 
 Optional flags:
