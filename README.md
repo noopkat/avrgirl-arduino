@@ -17,12 +17,12 @@ The current supported list:
 + **Arduino Duemilanove (168)**
 + **Femtoduino IMUduino**
 + **Blend-Micro**
++ **Tinyduino**
 
 Coming soon:
 
 + Arduino Mega
 + Arduino Pro
-+ Tinyduino
 + Little Bits Arduino module
 
 This library is designed to ultimately be rolled into the avrgirl project (in development), however it still works perfectly well as a stand-alone package to be used outside of avrgirl if you wish.
@@ -57,7 +57,7 @@ avrgirl.flash('Blink.cpp.hex', function (error) {
 
 ```
 
-When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, or `'imuduino'`.
+When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, `'tinyduino'`, or `'imuduino'`.
 
 You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you.
 
@@ -105,7 +105,7 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, or `'imuduino'`)
++ **-a** specify the name of the Arduino (`'uno'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, `'tinyduino'`, or `'imuduino'`)
 
 
 Optional flags:
@@ -119,7 +119,7 @@ A .hex file is the compiled end result of an Arduino sketch file. I have provide
 
 The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
-First make sure you have checked the 'compliation' box under "Show verbose output' heading in your Arduino preferences: 
+First make sure you have checked the 'compilation' box under "Show verbose output' heading in your Arduino preferences: 
 
 ![screencap](http://i.imgur.com/t8IY9z0.png)
 

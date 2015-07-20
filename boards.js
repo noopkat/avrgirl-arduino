@@ -55,5 +55,14 @@ module.exports = {
     timeout: 400,
     productId: ['0x6001'],
     protocol: 'stk500v1'
+  },
+  'tinyduino': {
+    baud: 57600,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x6015'],
+    protocol: 'stk500v1'
   }
 };
