@@ -1,10 +1,10 @@
 var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
-  board: 'uno',
+  board: 'nano',
   debug: true
 });
 
-var hex = __dirname + '/../../junk/hex/uno/Blink.cpp.hex';
+var hex = __dirname + '/../../junk/hex/nano/Blink.cpp.hex';
 
 avrgirl.flash(hex, function (error) {
   if (error) {

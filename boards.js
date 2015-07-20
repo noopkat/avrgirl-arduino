@@ -37,5 +37,23 @@ module.exports = {
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x2404'],
     protocol: 'avr109'
+  },
+  'nano': {
+    baud: 57600,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x6001'],
+    protocol: 'stk500v1'
+  },
+  'duemilanove168': {
+    baud: 19200,
+    signature: new Buffer([0x1e, 0x94, 0x06]),
+    pageSize: 128,
+    numPages: 128,
+    timeout: 400,
+    productId: ['0x6001'],
+    protocol: 'stk500v1'
   }
 };
