@@ -1,6 +1,7 @@
 var Serialport = require('serialport');
 var intelhex = require('intel-hex');
-var Stk500 = require('stk500');
+var Stk500v1 = require('stk500');
+var Stk500v2 = require('stk500-v2');
 var avr109 = require('chip.avr.avr109');
 var fs = require('fs');
 var boards = require('./boards');
@@ -30,12 +31,13 @@ var Avrgirl_arduino = function (opts) {
 
   // assign the correct module to the protocol of the chosen board
   if (this.board.protocol === 'stk500v1') {
-    this.chip = new Stk500({quiet: true});
+    this.chip = new Stk500v1({quiet: true});
+  } if (this.board.protocol === 'stk500v2') {
+    this.chip = Stk500v2;
   } else if (this.board.protocol === 'avr109') {
     this.chip = avr109;
   }
 };
-
 
 /**
  * Create new serialport instance for the Arduino board, but do not immediately connect.
@@ -99,6 +101,10 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
   var cb = callback;
 
   if (self.board.protocol === 'stk500v1') {
+    self._uploadSTK500v1(eggs, cb);
+  } 
+
+  else if (self.board.protocol === 'stk500v2') {
     self._uploadSTK500v2(eggs, cb);
   } 
 
@@ -118,7 +124,7 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
  * @param {string} eggs - path to hex file for uploading
  * @param {function} callback - function to run upon completion/error
  */
-Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
+Avrgirl_arduino.prototype._uploadSTK500v1 = function (eggs, callback) {
   var self = this;
 
   // do we have a connection instance yet?
@@ -147,6 +153,65 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
       self.serialPort.close(function (error) {
         return callback(error);
       });
+    });
+  });
+};
+
+
+/**
+ * Upload method for the STK500v2 protocol
+ *
+ * @param {string} eggs - path to hex file for uploading
+ * @param {function} callback - function to run upon completion/error
+ */
+Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
+  var self = this;
+
+  // do we have a connection instance yet?
+  if (!this.serialPort) {
+    this._setUpSerial();
+  }
+
+  // open connection
+  this.serialPort.open(function (error) {
+    if (error) { return callback(error) }
+
+    // instantiate stk500v2 with newly open serialport
+    self.chip = self.chip(self.serialPort);
+
+    self.debug('connected');
+
+    // open/parse supplied hex file 
+    var hex = self._parseHex(eggs);
+
+    self.debug('flashing, please wait...');
+
+    // flash
+    self.chip.sync(5, function (error, data) {
+      if (error) { return callback(error) }
+    });
+
+    self.chip.verifySignature(self.board.signature, function (error, data) {
+      if (error) { return callback(error) }
+    });
+
+    self.chip.enterProgrammingMode(self.board,function (error, data){
+       if (error) { return callback(error) }
+    });
+
+    self.chip.upload(hex, self.board.pageSize, function (error, data) {
+      if (error) { return callback(error) }
+
+      self.chip.exitProgrammingMode(function (error, data) {
+        if (error) { return callback(error) }
+
+          self.debug(colors.green('flash complete.'));
+
+          // flashing success, close connection and call 'em back
+          self.serialPort.close(function (error) {
+            return callback(error);
+          });
+      })
     });
   });
 };
