@@ -33,9 +33,11 @@ This library is designed to ultimately be rolled into the avrgirl project (in de
 
 ## How do I use it?
 
-Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. You'll find some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino hex-file) if you're unsure of how to go about this.
+Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. You'll find some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino-hex-file) if you're unsure of how to go about this.
 
 Don't forget to plug your supported Arduino of choice into an available USB port on your computer!
+
+Wanna use this in the CLI? See [this section](#can-i-use-avrgirl-arduino-as-a-cli-tool).
 
 The following example code should get you up and running with an Arduino Uno:
 
@@ -91,9 +93,9 @@ flash complete.
 ```
 
 
-### Q: Can I use avrgirl-arduino as a CLI tool?
+## Can I use avrgirl-arduino as a CLI tool?
 
-**A: You sure can!**
+### You sure can!
 
 Run `npm install -g avrgirl-arduino` in a shell session to install globally for easy CLI use.
 
