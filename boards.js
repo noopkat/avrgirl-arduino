@@ -64,5 +64,21 @@ module.exports = {
     timeout: 400,
     productId: ['0x6015'],
     protocol: 'stk500v1'
+  },
+  'mega': {
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x98, 0x01]),
+    pageSize: 256,
+    delay1: 10,
+    delay2: 1,
+    timeout:0xc8,
+    stabDelay:0x64,
+    cmdexeDelay:0x19,
+    synchLoops:0x20,
+    byteDelay:0x00,
+    pollValue:0x53,
+    pollIndex:0x03,
+    productId: ['0x0042'],
+    protocol: 'stk500v2'
   }
 };
