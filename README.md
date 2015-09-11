@@ -1,12 +1,14 @@
 # avrgirl-arduino
 
-An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS. 
+An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS.
+
+Want to [contribute](CONTRIBUTING.md)?
 
 ![logo](http://i.imgur.com/AAvwp0F.png)
 
 ## What is this?
 
-avrgirl-arduino is a NodeJS library written to present a convenient way to upload precompiled sketches to an Arduino. avrgirl-arduino supports a selection of Arduino boards, with more to be added soon. 
+avrgirl-arduino is a NodeJS library written to present a convenient way to upload precompiled sketches to an Arduino. avrgirl-arduino supports a selection of Arduino boards, with more to be added soon.
 
 The current supported list:
 
@@ -120,7 +122,7 @@ A .hex file is the compiled end result of an Arduino sketch file. I have provide
 
 The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
-First make sure you have checked the 'compilation' box under "Show verbose output' heading in your Arduino preferences: 
+First make sure you have checked the 'compilation' box under "Show verbose output' heading in your Arduino preferences:
 
 ![screencap](http://i.imgur.com/t8IY9z0.png)
 
@@ -129,7 +131,7 @@ Open your sketch (for example 'Blink' under the File -> Examples -> Basics menu)
 While the compilation is happening you'll see a ton of lines outputting on screen. Search for something like the following when it completes:
 
 ```
-/var/folders/zp/bpw8zd0141j5zf7l8m_qtt8w0000gp/T/build6252696906929781517.tmp/Blink.cpp.hex 
+/var/folders/zp/bpw8zd0141j5zf7l8m_qtt8w0000gp/T/build6252696906929781517.tmp/Blink.cpp.hex
 
 Sketch uses 896 bytes (2%) of program storage space. Maximum is 32,256 bytes.
 Global variables use 9 bytes (0%) of dynamic memory, leaving 2,039 bytes for local variables. Maximum is 2,048 bytes.
