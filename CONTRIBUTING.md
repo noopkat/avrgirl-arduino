@@ -10,7 +10,10 @@ The best thing to do here is to file an issue if there already isn't one. If it'
 ## Bugs / Issues
 Run a quick look through the currently open and closed issues and pull requests to make sure it hasn't already been reported or closed. If it's unique, feel free to open an issue.
 
-## Contributing workflow
+## Financial contributions
+On average, Arduino boards cost between $15 and $50, depending on the tech included on it. This can add up really quickly, and I've invested a substantial amount of money into the avrgirl project so far to continually expand support for new hardware. If you'd like to donate funds to help me purchase more hardware for testing purposes, [please do so here](https://www.paypal.me/noopkat), and thank you ever so much!
+
+## Code contribution workflow
 1. Fork this repository and clone the new fork locally
 2. Make your changes in a new git branch: `git checkout -b my-fix-branch master`
 3. Follow the coding style of this project. 
