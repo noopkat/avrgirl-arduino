@@ -70,6 +70,12 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
 
   // if we haven't been supplied an explicit port to connect to, auto sniff one.
   if (this.options.port === '') {
+    // if this is a pro-mini, we cannot auto-sniff so return an error
+    if (this.options.board === 'pro-mini') {
+      var error = new Error('you\'re using a pro-mini, please specify the port in your options.');
+      return callback(error);
+    }
+
     this._sniffPort(function (port) {
       if (port !== null) {
         self.debug('found ' + self.options.board + ' on port ' + port);
@@ -102,11 +108,11 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
 
   if (self.board.protocol === 'stk500v1') {
     self._uploadSTK500v1(eggs, cb);
-  } 
+  }
 
   else if (self.board.protocol === 'stk500v2') {
     self._uploadSTK500v2(eggs, cb);
-  } 
+  }
 
   else if (self.board.protocol === 'avr109') {
     self._resetAVR109(function (error) {
@@ -138,7 +144,7 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function (eggs, callback) {
 
     self.debug('connected');
 
-    // open/parse supplied hex file 
+    // open/parse supplied hex file
     var hex = self._parseHex(eggs);
 
     self.debug('flashing, please wait...');
@@ -181,7 +187,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
 
     self.debug('connected');
 
-    // open/parse supplied hex file 
+    // open/parse supplied hex file
     var hex = self._parseHex(eggs);
 
     self.debug('flashing, please wait...');
@@ -222,7 +228,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
  *
  * Note: this method runs a child process, as it is currently difficult to guarantee
  * that a serialport connection has truly closed via node-serialport.
- * Exiting the child process when done ensures we have a true closure, 
+ * Exiting the child process when done ensures we have a true closure,
  * and therefore a completed board reset.
  *
  * @param {function} callback - function to run upon completion/error
