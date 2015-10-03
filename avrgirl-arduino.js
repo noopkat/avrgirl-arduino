@@ -328,7 +328,9 @@ Avrgirl_arduino.prototype._sniffPort = function (callback) {
     for (var i = 0; i < ports.length; i++) {
       // iterate through all possible pid's
       for (var j = 0; j < self.board.productId.length; j ++) {
-        if (ports[i].productId === self.board.productId[j]) {
+        // are we on windows or unix?
+        var pid = ports[i].productId ? ports[i].productId : '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
+        if (pid === self.board.productId[j]) {
           // match! Return the port/path
           return callback(ports[i].comName);
         }
