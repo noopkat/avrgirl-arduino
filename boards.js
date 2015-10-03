@@ -80,5 +80,11 @@ module.exports = {
     pollIndex:0x03,
     productId: ['0x0042'],
     protocol: 'stk500v2'
+  },
+  'sf-pro-micro': {
+    baud: 57600,
+    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    productId: ['0x9206'],
+    protocol: 'avr109'
   }
 };
