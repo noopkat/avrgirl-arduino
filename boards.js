@@ -86,5 +86,13 @@ module.exports = {
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x9206'],
     protocol: 'avr109'
+  },
+  'pro-mini': {
+    baud: 57600,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    protocol: 'stk500v1'
   }
 };
