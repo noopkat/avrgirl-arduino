@@ -18,6 +18,7 @@ The current supported list:
 + **Arduino Micro**
 + **Arduino Nano**
 + **Arduino Duemilanove (168)**
++ **Arduino Pro Mini**
 + **Femtoduino IMUduino**
 + **Blend-Micro**
 + **Tinyduino**
@@ -61,9 +62,9 @@ avrgirl.flash('Blink.cpp.hex', function (error) {
 
 ```
 
-When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'mega'`, `'leonardo'`, `'micro'`, `'nano'`, `'duemilanove168'`, `'blend-micro'`, `'tinyduino'`, `'sf-pro-micro'`, or `'imuduino'`.
+When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'mega'`, `'leonardo'`, `'micro'`, `'nano'`, `'pro-mini'`, `'duemilanove168'`, `'blend-micro'`, `'tinyduino'`, `'sf-pro-micro'`, or `'imuduino'`.
 
-You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you.
+You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you. **The exception to this is if you're using the Arduino Pro Mini - please specify your port in this case as avrgirl-arduino cannot auto detect it for you.**
 
 Specifying the port would look something like this:
 
@@ -109,12 +110,12 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `duemilanove168`, `blend-micro`, `tinyduino`, `sf-pro-micro`, or `imuduino`)
++ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `pro-mini`, `duemilanove168`, `blend-micro`, `tinyduino`, `sf-pro-micro`, or `imuduino`)
 
 
 Optional flags:
 
-+ **-p** will allow you to specify the port where your Arduino is plugged in.
++ **-p** will allow you to specify the port where your Arduino is plugged in. **Remember to specify your port if using an Arduino Pro Mini.**
 + **-v** will turn on debug/verbose mode, which will print a log of things when you run the command.
 
 ## Sourcing a compiled Arduino hex file
