@@ -82,7 +82,7 @@ module.exports = {
     protocol: 'stk500v2'
   },
   'pro-mini': {
-    baud: 115200,
+    baud: 57600,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
