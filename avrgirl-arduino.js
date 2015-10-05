@@ -28,11 +28,14 @@ var Avrgirl_arduino = function (opts) {
 
   // get board properties
   this.board = boards[this.options.board];
+  if (!this.board) {
+    return;
+  }
 
   // assign the correct module to the protocol of the chosen board
   if (this.board.protocol === 'stk500v1') {
     this.chip = new Stk500v1({quiet: true});
-  } if (this.board.protocol === 'stk500v2') {
+  } else if (this.board.protocol === 'stk500v2') {
     this.chip = Stk500v2;
   } else if (this.board.protocol === 'avr109') {
     this.chip = avr109;
@@ -67,6 +70,11 @@ Avrgirl_arduino.prototype._parseHex = function (file) {
 Avrgirl_arduino.prototype.flash = function (file, callback) {
   var self = this;
   var hex = file;
+
+  // if we don't have a valid board, we cannot continue.
+  if (!this.board) {
+    return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
+  }
 
   // if we haven't been supplied an explicit port to connect to, auto sniff one.
   if (this.options.port === '') {
