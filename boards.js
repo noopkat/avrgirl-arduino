@@ -67,7 +67,7 @@ module.exports = {
   },
   'mega': {
     baud: 115200,
-    signature: new Buffer([0x1e, 0x98, 0x01]),
+    signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
     pageSize: 256,
     delay1: 10,
     delay2: 1,
@@ -100,5 +100,21 @@ module.exports = {
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x516d'],
     protocol: 'avr109'
+  },
+  'pinoccio': {
+    baud: 115200,
+    signature: new Buffer([0x1e, 0xa8, 0x02]), // ATmega256RFR2
+    pageSize: 256,
+    delay1: 10,
+    delay2: 1,
+    timeout:0xc8,
+    stabDelay:0x64,
+    cmdexeDelay:0x19,
+    synchLoops:0x20,
+    byteDelay:0x00,
+    pollValue:0x53,
+    pollIndex:0x03,
+    productId: ['0x6051'],
+    protocol: 'stk500v2'
   }
 };
