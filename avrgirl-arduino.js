@@ -338,22 +338,25 @@ Avrgirl_arduino.prototype._sniffPort = function (callback) {
 
   // list all available ports
   Serialport.list(function (err, ports) {
-    // iterate through ports
-    for (var i = 0; i < ports.length; i++) {
-      // iterate through all possible pid's
-      for (var j = 0; j < self.board.productId.length; j ++) {
-        var pid;
-        // are we on windows or unix?
-        if (ports[i].productId) {
-          pid = ports[i].productId;
-        } else if (ports[i].pnpId) {
-          pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
-        } else {
-          pid = '';
-        }
-        if (pid === self.board.productId[j]) {
-          // match! Return the port/path
-          return callback(ports[i].comName);
+    // Handle errors
+    if (!err) {
+      // iterate through ports
+      for (var i = 0; i < ports.length; i++) {
+        // iterate through all possible pid's
+        for (var j = 0; j < self.board.productId.length; j ++) {
+          var pid;
+          // are we on windows or unix?
+          if (ports[i].productId) {
+            pid = ports[i].productId;
+          } else if (ports[i].pnpId) {
+            pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
+          } else {
+            pid = '';
+          }
+          if (pid === self.board.productId[j]) {
+            // match! Return the port/path
+            return callback(ports[i].comName);
+          }
         }
       }
     }
