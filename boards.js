@@ -78,7 +78,7 @@ module.exports = {
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
-    productId: ['0x0042'],
+    productId: ['0x0042', '0x6001'],
     protocol: 'stk500v2'
   },
   'sf-pro-micro': {
