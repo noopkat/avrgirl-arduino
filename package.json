@@ -31,7 +31,7 @@
     "colors": "^1.1.2",
     "intel-hex": "^0.1.1",
     "minimist": "^1.1.1",
-    "serialport": "^2.0.0",
+    "serialport": "^2.0.1",
     "stk500": "git://github.com/noopkat/js-stk500v1#avrgirl",
     "stk500-v2": "^1.0.0"
   }
