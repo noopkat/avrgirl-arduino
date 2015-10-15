@@ -73,19 +73,19 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
   var hex = file;
 
   // if we don't have a valid board, we cannot continue.
-  if (!this.board) {
-    return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
+  if (!self.board) {
+    return callback(new Error('"' + self.options.board + '" is not a supported board type.'));
   }
 
   // if we haven't been supplied an explicit port to connect to, auto sniff one.
-  if (this.options.port === '') {
+  if (self.options.port === '') {
     // if this is a pro-mini, we cannot auto-sniff so return an error
-    if (this.options.board === 'pro-mini') {
+    if (self.options.board === 'pro-mini') {
       var error = new Error('you\'re using a pro-mini, please specify the port in your options.');
       return callback(error);
     }
 
-    this._sniffPort(function (port) {
+    self._sniffPort(function (port) {
       if (port !== null) {
         self.debug('found ' + self.options.board + ' on port ' + port);
         // found a port, save it
@@ -99,7 +99,7 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
     });
   } else {
     // we already know the port, so upload
-    this._upload(hex, callback);
+    self._upload(hex, callback);
   }
 };
 
@@ -143,12 +143,12 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function (eggs, callback) {
   var self = this;
 
   // do we have a connection instance yet?
-  if (!this.serialPort) {
-    this._setUpSerial();
+  if (!self.serialPort) {
+    self._setUpSerial();
   }
 
   // open connection
-  this.serialPort.open(function (error) {
+  self.serialPort.open(function (error) {
     if (error) { return callback(error); }
 
     self.debug('connected');
@@ -183,12 +183,12 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
   var self = this;
 
   // do we have a connection instance yet?
-  if (!this.serialPort) {
-    this._setUpSerial();
+  if (!self.serialPort) {
+    self._setUpSerial();
   }
 
   // open connection
-  this.serialPort.open(function (error) {
+  self.serialPort.open(function (error) {
     if (error) { return callback(error); }
 
     // instantiate stk500v2 with newly open serialport
