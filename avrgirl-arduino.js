@@ -3,7 +3,8 @@ var intelhex = require('intel-hex');
 var Stk500v1 = require('stk500');
 var Stk500v2 = require('stk500-v2');
 var avr109 = require('chip.avr.avr109');
-var fs = require('fs');
+var async = require('async');
+var fs = require('graceful-fs');
 var boards = require('./boards');
 var childProcess = require('child_process');
 var colors = require('colors');
@@ -24,7 +25,7 @@ var Avrgirl_arduino = function (opts) {
 
   this.debug = this.options.debug ? console.log : function() {};
 
-  this.chip;
+  this.chip = undefined;
 
   // get board properties
   this.board = boards[this.options.board];
@@ -93,7 +94,7 @@ Avrgirl_arduino.prototype.flash = function (file, callback) {
         self._upload(hex, callback);
       } else {
         // we didn't find the board
-        return callback(new Error('no Arduino found.'))
+        return callback(new Error('no Arduino found.'));
       }
     });
   } else {
@@ -124,7 +125,7 @@ Avrgirl_arduino.prototype._upload = function (hex, callback) {
 
   else if (self.board.protocol === 'avr109') {
     self._resetAVR109(function (error) {
-      if (error) { return cb(error) }
+      if (error) { return cb(error); }
         self.debug('reset complete.');
         self._uploadAVR109(eggs, cb);
     });
@@ -148,7 +149,7 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function (eggs, callback) {
 
   // open connection
   this.serialPort.open(function (error) {
-    if (error) { return callback(error) }
+    if (error) { return callback(error); }
 
     self.debug('connected');
 
@@ -158,15 +159,15 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function (eggs, callback) {
     self.debug('flashing, please wait...');
 
     // flash
-    self.chip.bootload(self.serialPort, hex, self.board, function (error) {
-      if (error) { return callback(error) }
+    self.chip.bootload(self.serialPort, hex, self.board, function (err) {
+      var color = (err ? colors.red : colors.green);
 
-      self.debug(colors.green('flash complete.'));
+      self.debug(color('flash complete.'));
 
-      // flashing success, close connection and call 'em back
-      self.serialPort.close(function (error) {
-        return callback(error);
-      });
+      // Always close the serialport
+      self.serialPort.close();
+
+      return callback(err);
     });
   });
 };
@@ -188,7 +189,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
 
   // open connection
   this.serialPort.open(function (error) {
-    if (error) { return callback(error) }
+    if (error) { return callback(error); }
 
     // instantiate stk500v2 with newly open serialport
     self.chip = self.chip(self.serialPort);
@@ -200,32 +201,32 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function (eggs, callback) {
 
     self.debug('flashing, please wait...');
 
-    // flash
-    self.chip.sync(5, function (error, data) {
-      if (error) { return callback(error) }
-    });
+    async.series([
+      function (callback) {
+        self.chip.sync(5, callback);
+      },
+      function (callback) {
+        self.chip.verifySignature(self.board.signature, callback);
+      },
+      function (callback) {
+        self.chip.enterProgrammingMode(self.board, callback);
+      },
+      function (callback) {
+        self.chip.upload(hex, self.board.pageSize, callback);
+      },
+      function (callback) {
+        self.chip.exitProgrammingMode(callback);
+      }
+    ],
+    function(err, results) {
+      var color = (err ? colors.red : colors.green);
 
-    self.chip.verifySignature(self.board.signature, function (error, data) {
-      if (error) { return callback(error) }
-    });
+      self.debug(color('flash complete.'));
 
-    self.chip.enterProgrammingMode(self.board,function (error, data){
-       if (error) { return callback(error) }
-    });
+      // Always close the serialport
+      self.serialPort.close();
 
-    self.chip.upload(hex, self.board.pageSize, function (error, data) {
-      if (error) { return callback(error) }
-
-      self.chip.exitProgrammingMode(function (error, data) {
-        if (error) { return callback(error) }
-
-          self.debug(colors.green('flash complete.'));
-
-          // flashing success, close connection and call 'em back
-          self.serialPort.close(function (error) {
-            return callback(error);
-          });
-      })
+      return callback(err);
     });
   });
 };
@@ -290,36 +291,41 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   var self = this;
 
   // do we have a connection instance yet?
-  if (!this.serialPort) {
-    this._setUpSerial();
+  if (!self.serialPort) {
+    self._setUpSerial();
   }
 
-  // TODO: async.serial
-  this.serialPort.open(function (error) {
-    if (error) { return callback(error) }
+
+  self.serialPort.open(function (error) {
+    if (error) { return callback(error); }
     self.debug('connected');
 
     fs.readFile(eggs, function (error, data) {
-      if (error) { return callback(error) }
+      if (error) { return callback(error); }
 
       self.chip.init(self.serialPort, {signature: self.board.signature.toString()}, function (error, flasher) {
-        if (error) { return callback(error) }
+        if (error) { return callback(error); }
         self.debug('flashing, please wait...');
 
-        flasher.erase(function() {
-          flasher.program(data.toString(), function (error) {
-            if (error) { return callback(error) }
+        async.series([
+          function (callback) {
+            flasher.erase(callback);
+          },
+          function (callback) {
+            flasher.program(data.toString(), callback);
+          },
+          function (callback) {
+            flasher.verify(callback);
+          },
+          function (callback) {
+            flasher.fuseCheck(callback);
+          }
+        ],
+        function(err, results) {
+          var color = (err ? colors.red : colors.green);
 
-            flasher.verify(function (error) {
-              if (error) { return callback(error) }
-
-              flasher.fuseCheck(function (error) {
-                // finally, if the fuses are cool, call 'em back.
-                self.debug(colors.green('flash complete.'));
-                return callback(error);
-              });
-            });
-          });
+          self.debug(color('flash complete.'));
+          return callback(err);
         });
       });
     });
