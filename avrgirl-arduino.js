@@ -27,7 +27,7 @@ var Avrgirl_arduino = function(opts) {
   this.chip = undefined;
 
   // get board properties
-  this.board = boards[this.options.board];
+  this.board = boards.byName[this.options.board];
   if (!this.board) {
     return;
   }
@@ -231,7 +231,6 @@ Avrgirl_arduino.prototype._resetSTK500 = function(callback) {
  */
 Avrgirl_arduino.prototype._uploadSTK500v1 = function(eggs, callback) {
   var self = this;
-
   // do we have a connection instance yet?
   if (!self.serialPort) {
     self._setUpSerial();
@@ -414,6 +413,36 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
   });
 };
 
+/**
+ * Return a list of devices on serial ports. In addition to the output provided
+ * by SerialPort.list, adds a platform independent PID in _pid, as well as a list
+ * of possible matching boards in _boardNames.
+ *
+ * @param {function} callback - function to run upon completion/error
+ */
+Avrgirl_arduino.listPorts = function (callback) {
+  var foundPorts = [];
+  // list all available ports
+  Serialport.list(function (err, ports) {
+    if (err) { return callback(err) };
+    // iterate through ports
+    for (var i = 0; i < ports.length; i++) {
+      var pid;
+      // are we on windows or unix?
+      if (ports[i].productId) {
+        pid = ports[i].productId;
+      } else if (ports[i].pnpId) {
+        pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
+      } else {
+        pid = '';
+      }
+      ports[i]._standardPid = pid;
+      ports[i]._boardNames = boards.byPid[ pid ] || [];
+      foundPorts.push(ports[i]);
+    }
+    return callback(null, foundPorts);
+  });
+};
 
 /**
  * Finds a list of available USB ports, and matches for the right pid
@@ -423,32 +452,14 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
  */
 Avrgirl_arduino.prototype._sniffPort = function(callback) {
   var self = this;
-
-  // list all available ports
-  Serialport.list(function (err, ports) {
-    // Handle errors
-    if (!err) {
-      // iterate through ports
-      for (var i = 0; i < ports.length; i++) {
-        // iterate through all possible pid's
-        for (var j = 0; j < self.board.productId.length; j++) {
-          var pid;
-          // are we on windows or unix?
-          if (ports[i].productId) {
-            pid = ports[i].productId;
-          } else if (ports[i].pnpId) {
-            try {
-              pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
-            } catch (err) {
-              pid = '';
-            }
-          } else {
-            pid = '';
-          }
-          if (pid === self.board.productId[j]) {
-            // match! Return the port/path
-            return callback(ports[i].comName);
-          }
+  Avrgirl_arduino.listPorts(function (err, ports) {
+    // iterate through ports
+    for (var i = 0; i < ports.length; i++) {
+      // iterate through all possible pid's
+      for (var j = 0; j < self.board.productId.length; j ++) {
+        if (ports[i]._standardPid === self.board.productId[j]) {
+          // match! Return the port/path
+          return callback(ports[i].comName);
         }
       }
     }
