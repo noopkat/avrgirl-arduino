@@ -119,6 +119,10 @@ var boards = {
   }
 };
 
+/**
+ * Generate a reverse lookup table by pid mapped to possible board names.
+ * @return {object} byPid
+ */
 function pidLookupTable() {
   var byPid = {};
   var boardNames = Object.keys( boards );
