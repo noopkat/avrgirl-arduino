@@ -277,11 +277,6 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function(eggs, callback) {
 /**
  * Software resets an Arduino AVR109 bootloaded chip into bootloader mode
  *
- * Note: this method runs a child process, as it is currently difficult to guarantee
- * that a serialport connection has truly closed via node-serialport.
- * Exiting the child process when done ensures we have a true closure,
- * and therefore a completed board reset.
- *
  * @param {function} callback - function to run upon completion/error
  */
 Avrgirl_arduino.prototype._resetAVR109 = function(callback) {
@@ -291,12 +286,43 @@ Avrgirl_arduino.prototype._resetAVR109 = function(callback) {
 
   self.debug('resetting board...');
 
-  childProcess.execFile('node', [resetFile, self.options.port], function() {
-    tryConnect(function(connected) {
-      var status = connected ? null : new Error('could not complete reset.');
-      callback(status);
+  self.serialPort = new Serialport.SerialPort(self.options.port, {
+    baudRate: 1200,
+  });
+
+  // open a connection, then immediately close to perform the reset of the board.
+  self.serialPort.open(function() {
+    cycleDTR(function(error) {
+      callback(error);
     });
   });
+
+  function cycleDTR(callback) {
+    async.series([
+      setDTR.bind(self, true, 250),
+      setDTR.bind(self, false, 50),
+    ],
+    function(error, results) {
+      if (error) { return callback(error); }
+      tryConnect(function(connected) {
+        var status = connected ? null : new Error('could not complete reset.');
+        callback(status);
+      });
+    });
+  }
+
+  function setDTR (bool, timeout, callback) {
+    var props = {
+      rts: bool,
+      dtr: bool
+    };
+
+    self.serialPort.set(props, function(error) {
+      setTimeout(function() {
+        callback(error);
+      }, timeout);
+    });
+  }
 
   // here we have to retry the serialport polling,
   // until the chip boots back up to recreate the virtual com port
