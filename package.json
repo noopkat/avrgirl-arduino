@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^1.5.0",
     "chip.avr.avr109": "^1.0.3",
     "colors": "^1.1.2",
     "graceful-fs": "^4.1.2",
