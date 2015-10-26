@@ -134,6 +134,73 @@ Avrgirl_arduino.prototype._upload = function(hex, callback) {
   }
 };
 
+/**
+ * Sets the DTR/RTS lines to either true or false
+ *
+ * @param {boolean} bool - value to set DTR and RTS to
+ * @param {number} timeout - number in milliseconds to delay after
+ * @param {function} callback - function to run upon completion/error
+ */
+Avrgirl_arduino.prototype._setDTR = function (bool, timeout, callback) {
+  var self = this;
+  var props = {
+    rts: bool,
+    dtr: bool
+  };
+
+  self.serialPort.set(props, function(error) {
+    if (error) { return callback(error); }
+    setTimeout(function() {
+      callback(error);
+    }, timeout);
+  });
+};
+
+/**
+ * Checks the list of ports 4 times for a device to show up
+ *
+ * @param {function} callback - function to run upon completion/error
+ */
+Avrgirl_arduino.prototype._pollForPort = function (callback) {
+  var self = this;
+  var tries = 0;
+
+  function checkList() {
+    Serialport.list(function(error, ports) {
+      // iterate through ports looking for the one port to rule them all
+      for (var i = 0; i < ports.length; i++) {
+        if (ports[i].comName === self.options.port) {
+          return callback(true);
+        }
+      }
+      tries += 1;
+      if (tries < 4) {
+        setTimeout(checkList, 300);
+      } else {
+        // timeout on too many tries
+        return callback(false);
+      }
+    });
+  }
+  setTimeout(checkList, 300);
+};
+
+/**
+ * Pulse the DTR/RTS lines low then high
+ *
+ * @param {function} callback - function to run upon completion/error
+ */
+Avrgirl_arduino.prototype._cycleDTR = function(callback) {
+  var self = this;
+
+  async.series([
+    self._setDTR.bind(self, true, 250),
+    self._setDTR.bind(self, false, 50)
+  ],
+  function(error, results) {
+    return callback(error);
+  });
+};
 
 /**
  * Resets an Arduino STK500 bootloaded chip by pulsing DTR high.
@@ -146,21 +213,12 @@ Avrgirl_arduino.prototype._upload = function(hex, callback) {
 Avrgirl_arduino.prototype._resetSTK500 = function(callback) {
   var self = this;
 
-  self.serialPort.set({
-    rts: true,
-    dtr: true
-  }, function(err) {
-    setTimeout(function clear() {
-      self.serialPort.set({
-        rts: false,
-        dtr: false
-      }, function(err) {
-        setTimeout(function done() {
-          self.debug("arduino reset.");
-          callback();
-        }, 50);
-      });
-    }, 250);
+  // cycle DTR/RTS from low to high
+  self._cycleDTR(function(error) {
+    if (!error) {
+      self.debug('reset complete.');
+    }
+    callback(error);
   });
 };
 
@@ -273,7 +331,6 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function(eggs, callback) {
   });
 };
 
-
 /**
  * Software resets an Arduino AVR109 bootloaded chip into bootloader mode
  *
@@ -291,62 +348,15 @@ Avrgirl_arduino.prototype._resetAVR109 = function(callback) {
 
   // open a connection, then immediately close to perform the reset of the board.
   self.serialPort.open(function() {
-    cycleDTR(function(error) {
-      callback(error);
-    });
-  });
-
-  function cycleDTR(callback) {
-    async.series([
-      setDTR.bind(self, true, 250),
-      setDTR.bind(self, false, 50),
-    ],
-    function(error, results) {
+    self._cycleDTR(function(error) {
       if (error) { return callback(error); }
-      tryConnect(function(connected) {
+      self._pollForPort(function(connected) {
         var status = connected ? null : new Error('could not complete reset.');
         callback(status);
       });
     });
-  }
-
-  function setDTR (bool, timeout, callback) {
-    var props = {
-      rts: bool,
-      dtr: bool
-    };
-
-    self.serialPort.set(props, function(error) {
-      setTimeout(function() {
-        callback(error);
-      }, timeout);
-    });
-  }
-
-  // here we have to retry the serialport polling,
-  // until the chip boots back up to recreate the virtual com port
-  function tryConnect(callback) {
-    function checkList() {
-      Serialport.list(function(error, ports) {
-        // iterate through ports looking for the one port to rule them all
-        for (var i = 0; i < ports.length; i++) {
-          if (ports[i].comName === self.options.port) {
-            return callback(true);
-          }
-        }
-        tries += 1;
-        if (tries < 4) {
-          setTimeout(checkList, 300);
-        } else {
-          // timeout on too many tries
-          return callback(false);
-        }
-      });
-    }
-    setTimeout(checkList, 300);
-  }
+  });
 };
-
 
 /**
  * Upload method for the AVR109 protocol
