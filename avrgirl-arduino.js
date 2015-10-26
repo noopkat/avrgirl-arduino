@@ -164,6 +164,7 @@ Avrgirl_arduino.prototype._setDTR = function (bool, timeout, callback) {
 Avrgirl_arduino.prototype._pollForPort = function (callback) {
   var self = this;
   var tries = 0;
+  var delay = 300;
 
   function checkList() {
     Serialport.list(function(error, ports) {
@@ -175,14 +176,14 @@ Avrgirl_arduino.prototype._pollForPort = function (callback) {
       }
       tries += 1;
       if (tries < 4) {
-        setTimeout(checkList, 300);
+        setTimeout(checkList, delay);
       } else {
         // timeout on too many tries
         return callback(false);
       }
     });
   }
-  setTimeout(checkList, 300);
+  setTimeout(checkList, delay);
 };
 
 /**
@@ -197,7 +198,7 @@ Avrgirl_arduino.prototype._cycleDTR = function(callback) {
     self._setDTR.bind(self, true, 250),
     self._setDTR.bind(self, false, 50)
   ],
-  function(error, results) {
+  function(error) {
     return callback(error);
   });
 };
@@ -218,7 +219,7 @@ Avrgirl_arduino.prototype._resetSTK500 = function(callback) {
     if (!error) {
       self.debug('reset complete.');
     }
-    callback(error);
+    return callback(error);
   });
 };
 
@@ -251,17 +252,17 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function(eggs, callback) {
     self.debug('flashing, please wait...');
 
     // reset
-    self._resetSTK500(function() {
+    self._resetSTK500(function(error) {
       // flash
-      self.chip.bootload(self.serialPort, hex, self.board, function(err) {
-        var color = (err ? colors.red : colors.green);
+      self.chip.bootload(self.serialPort, hex, self.board, function(error) {
+        var color = (error ? colors.red : colors.green);
 
         self.debug(color('flash complete.'));
 
         // Always close the serialport
         self.serialPort.close();
 
-        return callback(err);
+        return callback(error);
       });
     });
   });
@@ -338,7 +339,6 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function(eggs, callback) {
  */
 Avrgirl_arduino.prototype._resetAVR109 = function(callback) {
   var self = this;
-  var tries = 0;
 
   self.debug('resetting board...');
 
@@ -352,7 +352,7 @@ Avrgirl_arduino.prototype._resetAVR109 = function(callback) {
       if (error) { return callback(error); }
       self._pollForPort(function(connected) {
         var status = connected ? null : new Error('could not complete reset.');
-        callback(status);
+        return callback(status);
       });
     });
   });
