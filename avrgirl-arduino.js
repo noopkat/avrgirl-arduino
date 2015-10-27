@@ -249,10 +249,9 @@ Avrgirl_arduino.prototype._uploadSTK500v1 = function(eggs, callback) {
     // open/parse supplied hex file
     var hex = self._parseHex(eggs);
 
-    self.debug('flashing, please wait...');
-
     // reset
     self._resetSTK500(function(error) {
+      self.debug('flashing, please wait...');
       // flash
       self.chip.bootload(self.serialPort, hex, self.board, function(error) {
         var color = (error ? colors.red : colors.green);
@@ -297,8 +296,6 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function(eggs, callback) {
     // open/parse supplied hex file
     var hex = self._parseHex(eggs);
 
-    self.debug('flashing, please wait...');
-
     async.series([
         function(callback) {
           self._resetSTK500(callback);
@@ -313,6 +310,7 @@ Avrgirl_arduino.prototype._uploadSTK500v2 = function(eggs, callback) {
           self.chip.enterProgrammingMode(self.board, callback);
         },
         function(callback) {
+          self.debug('flashing, please wait...');
           self.chip.upload(hex, self.board.pageSize, callback);
         },
         function(callback) {
