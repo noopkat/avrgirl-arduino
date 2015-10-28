@@ -22,7 +22,7 @@ var Avrgirl_arduino = function(opts) {
     port: opts.port || ''
   };
 
-  this.debug = this.options.debug ? console.log : function() {};
+  this.debug = this.options.debug ? console.log.bind(console) : function() {};
 
   this.chip = undefined;
 
