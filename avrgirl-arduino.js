@@ -6,7 +6,6 @@ var avr109 = require('chip.avr.avr109');
 var async = require('async');
 var fs = require('graceful-fs');
 var boards = require('./boards');
-var childProcess = require('child_process');
 var colors = require('colors');
 
 /**
