@@ -437,7 +437,11 @@ Avrgirl_arduino.prototype._sniffPort = function(callback) {
           if (ports[i].productId) {
             pid = ports[i].productId;
           } else if (ports[i].pnpId) {
-            pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
+            try {
+              pid = '0x' + /PID_\d*/.exec(ports[i].pnpId)[0].substr(4);
+            } catch (err) {
+              pid = '';
+            }
           } else {
             pid = '';
           }
