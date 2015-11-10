@@ -33,7 +33,7 @@
     "graceful-fs": "^4.1.2",
     "intel-hex": "^0.1.1",
     "minimist": "^1.2.0",
-    "serialport": "^2.0.2",
+    "serialport": "^2.0.4",
     "stk500": "git://github.com/noopkat/js-stk500v1#avrgirl",
     "stk500-v2": "^1.0.0"
   }
