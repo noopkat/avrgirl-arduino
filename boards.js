@@ -5,7 +5,7 @@ module.exports = {
     pageSize: 128,
     numPages: 256,
     timeout: 400,
-    productId: ['0x0043'],
+    productId: ['0x0043', '0x7523'],
     protocol: 'stk500v1'
   },
   'micro': {
@@ -44,7 +44,7 @@ module.exports = {
     pageSize: 128,
     numPages: 256,
     timeout: 400,
-    productId: ['0x6001'],
+    productId: ['0x6001', '0x7523'],
     protocol: 'stk500v1'
   },
   'duemilanove168': {
