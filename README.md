@@ -76,7 +76,7 @@ var avrgirl = new Avrgirl({
 You can list available USB ports programmatically using the the `listPorts` method:
 
 ```javascript
-Avrgurl.listPorts(function(err, ports) {
+Avrgirl.listPorts(function(err, ports) {
   console.log( ports );
   // [ { comName: '/dev/cu.usbmodem1421',
   // manufacturer: 'Arduino (www.arduino.cc)',
@@ -90,12 +90,14 @@ Avrgurl.listPorts(function(err, ports) {
 });
 ```
 
-Alternatively, you can use the CLI:
+Alternatively, you can use the CLI to list active ports:
 
 ```
 $ avrgirl-arduino list
-Listing Devices:
- - port: /dev/cu.usbmodem1421 / pid: 0x0043 / mfg: Arduino (www.arduino.cc) / board: uno
+[ { port: '/dev/cu.usbmodem1421',
+    pid: '0x0043',
+    mfg: 'Arduino (www.arduino.cc)',
+    board: [ 'uno' ] } ]
 ```
 
 **Like logs?** Turn on debug mode to see simple flashing progress logs in the console:
@@ -146,7 +148,7 @@ As well as listing available USB devices:
 
 `avrgirl-arduino list [--raw]`
 
-If you add the `--raw` flag, the output will be in a very verbose JSON format.
+If you add the `--raw` flag, inactive ports will also be listed and the output will be presented in a more verbose JSON format similar to the output of `Serialport.list()`.
 
 ## Sourcing a compiled Arduino hex file
 

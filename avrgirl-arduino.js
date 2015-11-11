@@ -130,6 +130,8 @@ Avrgirl_arduino.prototype._upload = function(hex, callback) {
       self.debug('reset complete.');
       self._uploadAVR109(eggs, cb);
     });
+  } else {
+    cb(new Error('not a supported programming protocol: ' + self.board.protocol));
   }
 };
 

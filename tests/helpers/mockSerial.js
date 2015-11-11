@@ -33,6 +33,13 @@ MockSerial.prototype.drain = function(callback) {
   return;
 };
 
+MockSerial.prototype.set = function(props, callback) {
+  if (callback) {
+    return callback(null);
+  }
+  return;
+};
+
 module.exports = {
   list: function(callback) {
     callback(null, []);

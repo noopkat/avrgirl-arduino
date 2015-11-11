@@ -2,8 +2,8 @@ var test = require('tape');
 var proxyquire = require('proxyquire');
 
 test('pid board detection', function(t) {
-  t.plan(2);
-  var Avrgirl = proxyquire('../avrgirl-arduino', {
+  t.plan(1);
+  var Avrgirl = proxyquire.noCallThru().load('../avrgirl-arduino', {
     'serialport': {
       list: function(callback) {
         callback( null, [
@@ -18,21 +18,21 @@ test('pid board detection', function(t) {
         ]);
       },
       SerialPort: require('./helpers/mockSerial').SerialPort
-    }
+    },
+    'stk500': require('./helpers/mockStk500')
   });
   var avrgirl = new Avrgirl({
     board: 'uno',
   });
-  t.notOk(avrgirl.options.port, 'no port was passed in');
   avrgirl.flash('junk/hex/uno/Blink.cpp.hex', function(err) {
     t.equal( avrgirl.options.port, '/dev/cu.usbmodem1421', 'found an uno on /dev/cu.usbmodem1421' );
+    t.end();
   });
-  t.end();
 });
 
 test('pnpId board detection', function(t) {
-  t.plan(2);
-  var Avrgirl = proxyquire('../avrgirl-arduino', {
+  t.plan(1);
+  var Avrgirl = proxyquire.noCallThru().load('../avrgirl-arduino', {
     'serialport': {
       list: function(callback) {
         callback( null, [
@@ -42,14 +42,14 @@ test('pnpId board detection', function(t) {
         ]);
       },
       SerialPort: require('./helpers/mockSerial').SerialPort
-    }
+    },
+    'stk500': require('./helpers/mockStk500')
   });
   var avrgirl = new Avrgirl({
     board: 'uno',
   });
-  t.notOk(avrgirl.options.port, 'no port was passed in');
   avrgirl.flash('junk/hex/uno/Blink.cpp.hex', function(err) {
     t.equal( avrgirl.options.port, 'COM3', 'found an uno on COM3' );
+    t.end();
   });
-  t.end();
 });

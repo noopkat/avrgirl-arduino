@@ -47,23 +47,22 @@ function handleInput(action, argz) {
       break;
     case 'list':
       Avrgirl.listPorts(function(err,ports) {
-        console.log("Listing Devices:");
         if ( argz.raw ) {
           console.log( ports );
         } else {
+          var portOverview = [];
           for (var i=0;i<ports.length;i++) {
             var port = ports[i];
             if ( port._standardPid ) {
-              console.log(
-                util.format(" - port: %s / pid: %s / mfg: %s / board: %s",
-                  port.comName,
-                  port._standardPid || 'unknown',
-                  port.manufacturer || 'unknown',
-                  port._boardNames.length > 0 ? port._boardNames.join(', ') : 'unknown'
-                )
-              );
+              portOverview.push({
+                port: port.comName,
+                pid: port._standardPid,
+                mfg: port.manufacturer,
+                board: port._boardNames
+              });
             }
           }
+          console.log( portOverview );
         }
       });
       break;
