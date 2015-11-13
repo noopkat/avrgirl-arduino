@@ -67,8 +67,12 @@ function handleInput(action, argz) {
       });
       break;
     case 'help':
+      showHelp();
+      return process.exit();
+      break;
     case undefined:
     default:
+      // Invalid or no argument specified, show help and exit with an error status
       showHelp();
       return process.exit(1);
       break;
