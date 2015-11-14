@@ -1,4 +1,4 @@
-module.exports = {
+var boards = {
   'uno': {
     baud: 115200,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
@@ -118,3 +118,29 @@ module.exports = {
     protocol: 'stk500v2'
   }
 };
+
+/**
+ * Generate a reverse lookup table by pid mapped to possible board names.
+ * @return {object} byPid
+ */
+function pidLookupTable() {
+  var byPid = {};
+  var boardNames = Object.keys( boards );
+  for (var i=0;i<boardNames.length;i++) {
+    var boardName = boardNames[i];
+    var board = boards[ boardName ];
+    if (board.productId) {
+      for (var j=0;j<board.productId.length;j++) {
+        var productId = board.productId[j];
+        byPid[ productId ] = byPid[ productId ] || [];
+        byPid[ productId ].push( boardName );
+      }
+    }
+  }
+  return byPid;
+}
+
+module.exports = {
+  byName: boards,
+  byPid: pidLookupTable()
+}

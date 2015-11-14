@@ -73,7 +73,32 @@ var avrgirl = new Avrgirl({
 });
 ```
 
-If you'd like a quick way of listing out the current available USB ports on your system, run `node lib/list.js` from the `avrgirl-arduino` root within your `node_modules` directory.
+You can list available USB ports programmatically using the the `listPorts` method:
+
+```javascript
+Avrgirl.listPorts(function(err, ports) {
+  console.log( ports );
+  // [ { comName: '/dev/cu.usbmodem1421',
+  // manufacturer: 'Arduino (www.arduino.cc)',
+  // serialNumber: '55432333038351F03170',
+  // pnpId: '',
+  // locationId: '0x14200000',
+  // vendorId: '0x2341',
+  // productId: '0x0043',
+  // _standardPid: '0x0043',
+  // _boardNames: [ 'uno' ] } ]
+});
+```
+
+Alternatively, you can use the CLI to list active ports:
+
+```
+$ avrgirl-arduino list
+[ { port: '/dev/cu.usbmodem1421',
+    pid: '0x0043',
+    mfg: 'Arduino (www.arduino.cc)',
+    board: [ 'uno' ] } ]
+```
 
 **Like logs?** Turn on debug mode to see simple flashing progress logs in the console:
 
@@ -110,11 +135,20 @@ Required flags:
 + **-f** specify the location of the hex file to flash
 + **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `pro-mini`, `duemilanove168`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio` or `imuduino`)
 
-
 Optional flags:
 
 + **-p** will allow you to specify the port where your Arduino is plugged in. **Remember to specify your port if using an Arduino Pro Mini.**
 + **-v** will turn on debug/verbose mode, which will print a log of things when you run the command.
+
+You can also list the supported boards:
+
+`avrgirl-arduino boards`
+
+As well as listing available USB devices:
+
+`avrgirl-arduino list [--raw]`
+
+If you add the `--raw` flag, inactive ports will also be listed and the output will be presented in a more verbose JSON format similar to the output of `Serialport.list()`.
 
 ## Sourcing a compiled Arduino hex file
 
