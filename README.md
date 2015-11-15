@@ -175,8 +175,3 @@ Select and copy the entire file path to your clipboard. You can use your shell/T
 ## Thanks
 
 Credit to Jacob Rosenthal, Ryan Day, and Elijah Insua for a lot of the heavy lifting going on underneath in this library.
-
-## todo
-
-+ tests
-+ support moar boards
