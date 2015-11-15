@@ -77,16 +77,17 @@ You can list available USB ports programmatically using the the `listPorts` meth
 
 ```javascript
 Avrgirl.listPorts(function(err, ports) {
-  console.log( ports );
-  // [ { comName: '/dev/cu.usbmodem1421',
-  // manufacturer: 'Arduino (www.arduino.cc)',
-  // serialNumber: '55432333038351F03170',
-  // pnpId: '',
-  // locationId: '0x14200000',
-  // vendorId: '0x2341',
-  // productId: '0x0043',
-  // _standardPid: '0x0043',
-  // _boardNames: [ 'uno' ] } ]
+  console.log(ports);
+  /*
+  [ { comName: '/dev/cu.usbmodem1421',
+  	   manufacturer: 'Arduino (www.arduino.cc)',
+      serialNumber: '55432333038351F03170',
+      pnpId: '',
+      locationId: '0x14200000',
+      vendorId: '0x2341',
+      productId: '0x0043',
+      _standardPid: '0x0043' } ]
+  */
 });
 ```
 
@@ -94,10 +95,14 @@ Alternatively, you can use the CLI to list active ports:
 
 ```
 $ avrgirl-arduino list
-[ { port: '/dev/cu.usbmodem1421',
-    pid: '0x0043',
-    mfg: 'Arduino (www.arduino.cc)',
-    board: [ 'uno' ] } ]
+[ { comName: '/dev/cu.usbmodem1421',
+  	 manufacturer: 'Arduino (www.arduino.cc)',
+    serialNumber: '55432333038351F03170',
+    pnpId: '',
+    locationId: '0x14200000',
+    vendorId: '0x2341',
+    productId: '0x0043',
+    _standardPid: '0x0043' } ]
 ```
 
 **Like logs?** Turn on debug mode to see simple flashing progress logs in the console:
@@ -144,11 +149,11 @@ You can also list the supported boards:
 
 `avrgirl-arduino boards`
 
-As well as listing available USB devices:
+As well as listing all available USB devices on your computer:
 
-`avrgirl-arduino list [--raw]`
+`avrgirl-arduino list`
 
-If you add the `--raw` flag, inactive ports will also be listed and the output will be presented in a more verbose JSON format similar to the output of `Serialport.list()`.
+The output will be presented in JSON format, very similar to the output of the `Serialport.list()` method (if you've used [node-serialport](https://github.com/voodootikigod/node-serialport) before).
 
 ## Sourcing a compiled Arduino hex file
 
@@ -175,8 +180,3 @@ Select and copy the entire file path to your clipboard. You can use your shell/T
 ## Thanks
 
 Credit to Jacob Rosenthal, Ryan Day, and Elijah Insua for a lot of the heavy lifting going on underneath in this library.
-
-## todo
-
-+ tests
-+ support moar boards
