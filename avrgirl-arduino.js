@@ -417,8 +417,7 @@ Avrgirl_arduino.prototype._uploadAVR109 = function(eggs, callback) {
 
 /**
  * Return a list of devices on serial ports. In addition to the output provided
- * by SerialPort.list, adds a platform independent PID in _pid, as well as a list
- * of possible matching boards in _boardNames.
+ * by SerialPort.list, it adds a platform independent PID in _pid
  *
  * @param {function} callback - function to run upon completion/error
  */
@@ -439,7 +438,6 @@ Avrgirl_arduino.listPorts = function (callback) {
         pid = '';
       }
       ports[i]._standardPid = pid;
-      ports[i]._boardNames = boards.byPid[ pid ] || [];
       foundPorts.push(ports[i]);
     }
     return callback(null, foundPorts);

@@ -11,7 +11,7 @@ var userAction = argv._[0];
 var help = "Usage:\n" +
   "  avrgirl-arduino flash -f <file> -a <arduino name> [-p <port>] [-v]\n" +
   "  avrgirl-arduino boards\n" +
-  "  avrgirl-arduino list [--raw]";
+  "  avrgirl-arduino list";
 
 function showHelp() {
   console.log(help);
@@ -47,23 +47,7 @@ function handleInput(action, argz) {
       break;
     case 'list':
       Avrgirl.listPorts(function(err,ports) {
-        if ( argz.raw ) {
-          console.log( ports );
-        } else {
-          var portOverview = [];
-          for (var i=0;i<ports.length;i++) {
-            var port = ports[i];
-            if ( port._standardPid ) {
-              portOverview.push({
-                port: port.comName,
-                pid: port._standardPid,
-                mfg: port.manufacturer,
-                board: port._boardNames
-              });
-            }
-          }
-          console.log( portOverview );
-        }
+        console.log( ports );
       });
       break;
     case 'help':
@@ -74,7 +58,7 @@ function handleInput(action, argz) {
     default:
       // Invalid or no argument specified, show help and exit with an error status
       showHelp();
-      return process.exit(1);
+      return process.exit(9);
       break;
   }
 }
