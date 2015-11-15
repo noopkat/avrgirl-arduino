@@ -6,7 +6,7 @@ var avrgirl = new Avrgirl({
 
 var hex = __dirname + '/../../junk/hex/nano/Blink.cpp.hex';
 
-avrgirl.flash(hex, function (error) {
+avrgirl.flash(hex, function(error) {
   if (error) {
     console.error(error);
   } else {
