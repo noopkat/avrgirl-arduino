@@ -177,6 +177,13 @@ Global variables use 9 bytes (0%) of dynamic memory, leaving 2,039 bytes for loc
 ```
 Select and copy the entire file path to your clipboard. You can use your shell/Terminal to copy that file to somewhere more convenient first if you wish, so that you don't have to bother compiling it again if you lose it.
 
-## Thanks
+## Acknowledgements
 
-Credit to Jacob Rosenthal, Ryan Day, and Elijah Insua for a lot of the heavy lifting going on underneath in this library.
+Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https://github.com/soldair), and [Elijah Insua](https://github.com/tmpvar) for a lot of the heavy lifting going on underneath in this library.
+
+## Contributors
+
++ [Arek Sredzki](https://github.com/ArekSredzki)
++ [Pawel Szymczykowski](https://github.com/makenai)
++ [Andrew 'AJ' Fisher](https://github.com/ajfisher)
++ [Derek Wheelden](https://github.com/frxnz)
