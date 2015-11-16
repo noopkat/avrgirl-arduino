@@ -5,7 +5,8 @@
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino.js",
   "scripts": {
-    "test": "tape ./tests/*.spec.js | tap-spec"
+    "test": "gulp test",
+    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,8 @@
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.12.0",
     "gulp-tape": "0.0.5",
+    "istanbul": "^0.4.0",
+    "istanbul-coveralls": "^1.0.3",
     "jshint-stylish": "^2.1.0",
     "proxyquire": "^1.7.3",
     "tap-spec": "^4.1.0",
