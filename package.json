@@ -38,6 +38,11 @@
     "stk500-v2": "^1.0.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^1.12.0",
+    "gulp-tape": "0.0.5",
+    "jshint-stylish": "^2.1.0",
     "proxyquire": "^1.7.3",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.1",
