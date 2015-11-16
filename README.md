@@ -20,7 +20,7 @@ The current supported list:
 + **Arduino Duemilanove (168)**
 + **Arduino Pro Mini**
 + **Femtoduino IMUduino**
-+ **Blend-Micro**
++ **RedBearLab Blend Micro**
 + **Tinyduino**
 + **Sparkfun Pro Micro**
 + **Qtechknow Qduino**
@@ -60,7 +60,22 @@ avrgirl.flash('Blink.cpp.hex', function (error) {
 
 ```
 
-When creating `new Avrgirl()`, only the `board` property is required. The current board names can be specified as `'uno'`, `'mega'`, `'leonardo'`, `'micro'`, `'nano'`, `'pro-mini'`, `'duemilanove168'`, `'blend-micro'`, `'tinyduino'`, `'sf-pro-micro'`, `'qduino'`, `'pinoccio'` or `'imuduino'`.
+When creating `new Avrgirl()`, only the `board` property is required. The board names to use are detailed in the table below: 
+
+|Programmer|Board Option String|
+|:----------|:--------------|
+|Arduino Uno|`uno`|
+|Arduino Mega|`mega`|
+|Arduino Leonardo|`leonardo`|
+|Arduino Micro|`micro`|
+|Arduino Nano|`nano`|
+|Arduino Duemilanove|`duemilanove168`|
+|RedBearLab Blend Micro|`blend-micro`|
+|Tiny Circuits Tinyduino|`tinyduino`|
+|SparkFun Pro Micro|`sf-pro-micro`|
+|Qtechknow Qduino|`qduino`|
+|Pinoccio Scout|`pinoccio`|
+|Femtoduino IMUduino|`imuduino`|
 
 You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you. **The exception to this is if you're using the Arduino Pro Mini - please specify your port in this case as avrgirl-arduino cannot auto detect it for you.**
 
