@@ -5,7 +5,7 @@ var protocols = require('./lib/protocols');
 /**
  * Constructor
  *
- * @param {object} options - options for consumer to pass in
+ * @param {object} opts - options for consumer to pass in
  */
 var AvrgirlArduino = function(opts) {
   opts = opts || {};
@@ -22,7 +22,6 @@ var AvrgirlArduino = function(opts) {
 
   this.board = boards.byName[this.options.board];
 
-  // figure out what to do when no board/protocol
   if (this.board) {
     var Protocol = protocols[this.board.protocol] || function() {};
 
