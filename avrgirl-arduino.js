@@ -18,14 +18,19 @@ var AvrgirlArduino = function(opts) {
 
   this.debug = this.options.debug ? console.log.bind(console) : function() {};
 
-  this.connection = new Connection(this.options, this.options.debug);
+  this.connection = new Connection(this.options);
+
   this.board = boards.byName[this.options.board];
 
   // figure out what to do when no board/protocol
   if (this.board) {
     var Protocol = protocols[this.board.protocol] || function() {};
 
-    this.protocol = new Protocol(this.board, this.connection, this.options.debug);
+    this.protocol = new Protocol({
+      board: this.board,
+      connection: this.connection,
+      debug: this.options.debug
+    });
   }
 };
 
