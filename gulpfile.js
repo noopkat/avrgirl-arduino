@@ -5,8 +5,8 @@ var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
-gulp.task('spec', ['jscs', 'lint'], function() {
-  return gulp.src('tests/*.spec.js')
+gulp.task('spec', function() {
+  return gulp.src(['tests/*.spec.js'])
     .pipe(tape({
       reporter: tapSpec()
     }));
