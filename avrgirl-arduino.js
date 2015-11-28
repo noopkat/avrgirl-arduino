@@ -38,12 +38,15 @@ AvrgirlArduino.prototype._validateBoard = function(callback) {
   if (!this.board) {
     // cannot find a matching board in supported list
     return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
+
   } else if (!this.protocol.chip) {
     // something went wrong trying to set up the protocol
     return callback(new Error('not a supported programming protocol: ' + this.board.protocol));
+
   } else if (!this.options.port && this.options.board === 'pro-mini') {
     // when using a pro mini, a port is required in the options
     return callback(new Error('using a pro-mini, please specify the port in your options.'));
+
   } else {
     // all good
     return callback(null);
@@ -59,9 +62,11 @@ AvrgirlArduino.prototype._validateBoard = function(callback) {
 AvrgirlArduino.prototype.flash = function(file, callback) {
   var _this = this;
 
+  // validate board properties first
   _this._validateBoard(function(error) {
     if (error) { return callback(error); }
 
+    // set up serialport connection
     _this.connection._setup(function(error) {
       if (error) { return callback(error); }
 
