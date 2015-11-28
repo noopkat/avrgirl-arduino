@@ -67,7 +67,7 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
     if (error) { return callback(error); }
 
     // set up serialport connection
-    _this.connection._setup(function(error) {
+    _this.connection._init(function(error) {
       if (error) { return callback(error); }
 
       // upload file to board
