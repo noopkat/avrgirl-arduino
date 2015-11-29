@@ -99,16 +99,16 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
 test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
-          { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
-            pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
-            locationId: '', vendorId: '', productId: '' }
-        ]);
-      },
+    list: function(callback) {
+      callback(null, [
+        { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
+          pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
+          locationId: '', vendorId: '', productId: '' }
+      ]);
+    },
 
-      SerialPort: require('./helpers/mockSerial').SerialPort
-    }});
+    SerialPort: require('./helpers/mockSerial').SerialPort
+  }});
 
   var c = new ConnectionTest(DEF_OPTS1);
   c._sniffPort(function(error, match) {
@@ -139,21 +139,21 @@ test('[ Connection ] ::_cycleDTR', function(t) {
 test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
-          { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-            pnpId: '', locationId: '', vendorId: '', productId: '' },
-          { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-            serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-            productId: '' },
-          { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-            serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-            vendorId: '0x2341', productId: '0x0043' }
-        ]);
-      },
+    list: function(callback) {
+      callback(null, [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ]);
+    },
 
-      SerialPort: require('./helpers/mockSerial').SerialPort
-    }});
+    SerialPort: require('./helpers/mockSerial').SerialPort
+  }});
 
   var options = {
     debug: false,
