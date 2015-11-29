@@ -30,7 +30,7 @@ var DEF_OPTS2 = {
   board: 'uno'
 };
 
-test('[ AVRGIRL-STK500V2 ] method presence', function(t) {
+test('[ AVRGIRL-ARDUINO ] method presence', function(t) {
   var a = new Avrgirl(DEF_OPTS2);
   function isFn(name) {
     return typeof a[name] === 'function';
