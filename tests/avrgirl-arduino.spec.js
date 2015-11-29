@@ -1,7 +1,6 @@
 var test = require('tape');
 var proxyquire = require('proxyquire');
 
-var mockSTK500 = require('./helpers/mockStk500');
 var sinon = require('sinon');
 
 // proxyquired connection module
@@ -31,11 +30,12 @@ var DEF_OPTS2 = {
   board: 'uno'
 };
 
-test('[ AVRGIRL-STK500V2 ] method presence', function (t) {
+test('[ AVRGIRL-STK500V2 ] method presence', function(t) {
   var a = new Avrgirl(DEF_OPTS2);
   function isFn(name) {
     return typeof a[name] === 'function';
-  };
+  }
+
   var methods = [
     'flash',
     '_validateBoard',
@@ -115,15 +115,20 @@ test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function(t) {
 });
 
 test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
-  t.plan(3);
+  t.plan(4);
   var a = new Avrgirl(DEF_OPTS2);
-  var spyInit = sinon.stub(a.connection, '_init', function(callback) {return callback(null)});
-  var spyUpload = sinon.stub(a.protocol, '_upload', function(file, callback) {return callback(null)});
+  var spyInit = sinon.stub(a.connection, '_init', function(callback) {return callback(null);});
+
+  var spyUpload = sinon.stub(a.protocol, '_upload', function(file, callback) {
+    return callback(null);
+  });
+
   var spyValidate = sinon.spy(a, '_validateBoard');
 
   a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
     t.ok(spyValidate.calledOnce, 'validated board');
     t.ok(spyInit.calledOnce, 'connection init');
     t.ok(spyUpload.calledOnce, 'upload to board attempt');
+    t.error(error, 'no error');
   });
 });
