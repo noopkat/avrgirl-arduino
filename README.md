@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/noopkat/avrgirl-arduino.svg?branch=master)](https://travis-ci.org/noopkat/avrgirl-arduino) [![Coverage Status](https://coveralls.io/repos/noopkat/avrgirl-arduino/badge.svg?branch=master&service=github)](https://coveralls.io/github/noopkat/avrgirl-arduino?branch=master)
+
 # avrgirl-arduino
 
 An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS.
