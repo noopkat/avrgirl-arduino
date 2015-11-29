@@ -1,6 +1,4 @@
 node_modules
-c.js
 lib/progress.js
-megatest.js
 .DS_Store
 coverage
