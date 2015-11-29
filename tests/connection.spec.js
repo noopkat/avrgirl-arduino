@@ -4,25 +4,25 @@ var mockSerial = require('./helpers/mockSerial');
 var sinon = require('sinon');
 
 // module to test
-var Connection = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
+var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
 
 // default options
-var DEF_OPTS = {
+var DEF_OPTS1 = {
   debug: false,
   board: 'uno',
   port: ''
 };
 
-test('Connection - new creation', function(t) {
+test('[ Connection ]  - new creation', function(t) {
   t.plan(2);
-  var c = new Connection(DEF_OPTS);
+  var c = new ConnectionTest(DEF_OPTS1);
   t.ok(c.board, 'board exists');
   t.equal(c.board.protocol, 'stk500v1', 'random board property is as expected');
 });
 
-test('Connection::_listPorts (UNIX)', function(t) {
+test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
-  var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
       list: function(callback) {
         callback(null, [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
@@ -39,7 +39,7 @@ test('Connection::_listPorts (UNIX)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     }});
 
-  var c = new Connection(DEF_OPTS);
+  var c = new ConnectionTest(DEF_OPTS1);
   c._listPorts(function(error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[2]._standardPid, 'added _standardPid property');
@@ -47,9 +47,9 @@ test('Connection::_listPorts (UNIX)', function(t) {
   });
 });
 
-test('Connection::_listPorts (WINDOWS)', function(t) {
+test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   t.plan(3);
-  var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
       list: function(callback) {
         callback(null, [
           { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
@@ -61,7 +61,7 @@ test('Connection::_listPorts (WINDOWS)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     }});
 
-  var c = new Connection(DEF_OPTS);
+  var c = new ConnectionTest(DEF_OPTS1);
   c._listPorts(function(error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[0]._standardPid, 'added _standardPid property');
@@ -69,9 +69,9 @@ test('Connection::_listPorts (WINDOWS)', function(t) {
   });
 });
 
-test('Connection::_sniffPort (UNIX)', function(t) {
+test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   t.plan(3);
-  var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
       list: function(callback) {
         callback(null, [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
@@ -88,7 +88,7 @@ test('Connection::_sniffPort (UNIX)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     }});
 
-  var c = new Connection(DEF_OPTS);
+  var c = new ConnectionTest(DEF_OPTS1);
   c._sniffPort(function(error, match) {
     t.ok(match.length, 'board was detected');
     t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
@@ -96,9 +96,9 @@ test('Connection::_sniffPort (UNIX)', function(t) {
   });
 });
 
-test('Connection::_sniffPort (WINDOWS)', function(t) {
+test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   t.plan(3);
-  var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
       list: function(callback) {
         callback(null, [
           { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
@@ -110,7 +110,7 @@ test('Connection::_sniffPort (WINDOWS)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     }});
 
-  var c = new Connection(DEF_OPTS);
+  var c = new ConnectionTest(DEF_OPTS1);
   c._sniffPort(function(error, match) {
     t.ok(match.length, 'board was detected');
     t.equal(match[0].comName, 'COM3', 'correct comName to match against');
@@ -118,14 +118,14 @@ test('Connection::_sniffPort (WINDOWS)', function(t) {
   });
 });
 
-test('Connection::_cycleDTR', function(t) {
+test('[ Connection ] ::_cycleDTR', function(t) {
   t.plan(2);
   var options = {
     debug: false,
     board: 'uno',
     port: '/dev/cu.usbmodem1421'
   };
-  var c = new Connection(options);
+  var c = new ConnectionTest(options);
   var stub = sinon.stub(c, '_setDTR', function(bool, timeout, callback) {
     return callback(null);
   });
@@ -136,9 +136,9 @@ test('Connection::_cycleDTR', function(t) {
   });
 });
 
-test('Connection::_pollForPort', function(t) {
+test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
-  var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
       list: function(callback) {
         callback(null, [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
@@ -161,7 +161,7 @@ test('Connection::_pollForPort', function(t) {
     port: '/dev/cu.usbmodem1421'
   };
 
-  var c = new Connection(options);
+  var c = new ConnectionTest(options);
   c._pollForPort(function(error) {
     t.error(error, 'no error on polling result');
   });
