@@ -2,6 +2,5 @@ node_modules
 c.js
 lib/progress.js
 megatest.js
-stk500v2.js
 .DS_Store
 coverage
