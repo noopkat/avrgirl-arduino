@@ -4,7 +4,7 @@ Thank you for your interest in contributing to the avrgirl project to make it ev
 
 Not sure where to start? Check out the currently filed issues to see if there's anything there you'd like to work on. 
 
-Please ensure first that someone is not already working on an issue. If the issue seems stale or inactive and you want to take it over, get in touch with [noopkat](http://github.com/noopkat), the assigned person (check the comments on the issue for whom), or simple comment on the issue asking for status.
+Please ensure first that someone is not already working on an issue. If the issue seems stale or inactive and you want to take it over, get in touch with [noopkat](http://github.com/noopkat), the assigned person (check the comments on the issue for whom), or simply comment on the issue asking for status.
 
 ## Feature requests
 
