@@ -36,7 +36,7 @@
     "minimist": "^1.2.0",
     "serialport": "^2.0.5",
     "stk500": "git://github.com/noopkat/js-stk500v1#avrgirl",
-    "stk500-v2": "^1.0.0"
+    "stk500-v2": "^1.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
