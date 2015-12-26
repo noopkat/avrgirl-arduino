@@ -92,10 +92,10 @@ var avrgirl = new Avrgirl({
 });
 ```
 
-You can list available USB ports programmatically using the the `listPorts` method:
+You can list available USB ports programmatically using the the `list` method:
 
 ```javascript
-Avrgirl.listPorts(function(err, ports) {
+Avrgirl.list(function(err, ports) {
   console.log(ports);
   /*
   [ { comName: '/dev/cu.usbmodem1421',

@@ -86,7 +86,8 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
  *
  * @param {function} callback - function to run upon completion/error
  */
-AvrgirlArduino.prototype.listPorts = AvrgirlArduino.listPorts = function(callback) {
+AvrgirlArduino.prototype.listPorts = AvrgirlArduino.listPorts =
+AvrgirlArduino.prototype.list = AvrgirlArduino.list = function(callback) {
   return Connection.prototype._listPorts(callback);
 };
 
