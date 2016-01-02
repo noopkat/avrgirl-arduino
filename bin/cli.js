@@ -3,6 +3,7 @@ var Avrgirl = require('../avrgirl-arduino');
 var boards = require('../boards');
 var parseArgs = require('minimist');
 var path = require('path');
+var child = require('child_process');
 
 var args = (process.argv.slice(2));
 var argv = parseArgs(args, {});
@@ -68,6 +69,12 @@ function handleInput(action, argz) {
     case 'help': {
       showHelp();
       process.exit();
+      break;
+    }
+
+    case 'test-pilot': {
+      var tp = child.exec('node ' + path.join(__dirname, '..', 'tests', 'test-pilot.js'));
+      tp.stdout.pipe(process.stdout);
       break;
     }
 
