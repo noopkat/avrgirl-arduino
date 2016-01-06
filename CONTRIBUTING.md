@@ -6,6 +6,12 @@ Not sure where to start? Check out the currently filed issues to see if there's 
 
 Please ensure first that someone is not already working on an issue. If the issue seems stale or inactive and you want to take it over, get in touch with [noopkat](http://github.com/noopkat), the assigned person (check the comments on the issue for whom), or simply comment on the issue asking for status.
 
+## Manual testing
+
+AVRGirl Arduino has a built-in manual testing tool called Test Pilot. It allows you to run a local test with an Arduino plugged in, and generates a tidy report for you to submit for feedback. No  coding required, just a few button presses / keyboard taps in a browser window! I would really appreciate your help testing this software on your own unique, local computer.
+
+Once AVRGirl Arduino is globally installed on your machine using `npm install -g avrgirl-arduino@latest`, type `avrgirl-arduino test-pilot` into your terminal program and follow the prompts. Shouldn't take more than two minutes of your time, but will make a big difference to ensuring any issues are reported and fixed promptly!
+
 ## Feature requests
 
 The best thing to do here is to file an issue if there already isn't one. If it's something fairly obviously needed (in your opinion) and you are happy to code it, feel free to open a pull request without filing an issue first.

@@ -11,7 +11,8 @@ var userAction = argv._[0];
 var help = 'Usage:\n' +
   '  avrgirl-arduino flash -f <file> -a <arduino name> [-p <port>] [-v]\n' +
   '  avrgirl-arduino boards\n' +
-  '  avrgirl-arduino list';
+  '  avrgirl-arduino list\n' +
+  '  avrgirl-arduino test-pilot';
 
 function showHelp() {
   console.log(help);
@@ -73,7 +74,9 @@ function handleInput(action, argz) {
     }
 
     case 'test-pilot': {
-      var tp = child.exec('node ' + path.join(__dirname, '..', 'tests', 'test-pilot.js'));
+      var tp = child.exec('node ' + path.join(__dirname, '..', 'tests', 'test-pilot.js'), function(error) {
+        console.log(error);
+      });
       tp.stdout.pipe(process.stdout);
       break;
     }

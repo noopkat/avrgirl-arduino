@@ -4,7 +4,13 @@
 
 An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS.
 
-Want to [contribute](CONTRIBUTING.md)?
+**Want to [contribute](CONTRIBUTING.md)?**
+
+**Own a supported Arduino and want to be a test pilot fo this project with two minutes of your time?**
+
+1. Run `npm install -g avrgirl-arduino@latest` in your terminal.
+2. Type `avrgirl-arduino test-pilot`, hit enter / return key and follow the prompts.
+3. Thank you, friend :heart:
 
 ![logo](http://i.imgur.com/AAvwp0F.png)
 
