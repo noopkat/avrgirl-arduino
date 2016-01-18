@@ -2,7 +2,7 @@
 
 # avrgirl-arduino
 
-An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS.
+A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.
 
 **Want to [contribute](CONTRIBUTING.md)?**
 
