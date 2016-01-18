@@ -184,23 +184,13 @@ The output will be presented in JSON format, very similar to the output of the `
 
 A .hex file is the compiled end result of an Arduino sketch file. I have provided some example hex files for each board within the `junk/hex` folder of this repo. Feel free to use these, or if you're after something specific not provided, see the directions below.
 
-The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+The most common way to compile a sketch for your Arduino of choice is to download and install the [Arduino IDE](https://www.arduino.cc/en/Main/Software). Ensure you install version 1.6.5 or greater for the following steps.
 
-First make sure you have checked the 'compilation' box under "Show verbose output' heading in your Arduino preferences:
-
-![screencap](http://i.imgur.com/t8IY9z0.png)
-
-Open your sketch (for example 'Blink' under the File -> Examples -> Basics menu), then choose the correct board and port under your Tools menu. Clicking the Verify button (or Ctrl/Cmd + R) will then compile your hex file.
-
-While the compilation is happening you'll see a ton of lines outputting on screen. Search for something like the following when it completes:
-
-```
-/var/folders/zp/bpw8zd0141j5zf7l8m_qtt8w0000gp/T/build6252696906929781517.tmp/Blink.cpp.hex
-
-Sketch uses 896 bytes (2%) of program storage space. Maximum is 32,256 bytes.
-Global variables use 9 bytes (0%) of dynamic memory, leaving 2,039 bytes for local variables. Maximum is 2,048 bytes.
-```
-Select and copy the entire file path to your clipboard. You can use your shell/Terminal to copy that file to somewhere more convenient first if you wish, so that you don't have to bother compiling it again if you lose it.
+1. Open the sketch file you'd like to export, or write a new one if you need to. 
+2. Choose the correct target Arduino board you want to compile the hex file for, from the Tools -> Board menu.
+3. Export your hex file by navigating to Sketch -> Export compiled binary
+![screenshot of the Sketch menu in Arduino IDE with Export compiled binary menu item highlighted in blue](http://f.cl.ly/items/0r1A082H3U3G0U2z1Z40/export_bin.png)
+4. You can find the exported hex file in the same directory your sketch file is located in.
 
 ## Acknowledgements
 
