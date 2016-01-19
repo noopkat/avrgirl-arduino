@@ -42,6 +42,10 @@ This library is designed to ultimately be rolled into the avrgirl project (in de
 1. Install NodeJS from [nodejs.org](http://nodejs.org)
 2. Run `npm install avrgirl-arduino` in your shell of choice
 
+## For Windows users
+
+Before using your Arduino with avrgirl-arduino on Windows XP, 7, and 8, you may need to install the Arduino drivers included with the Arduino IDE.  You can follow steps 1-4 on [this guide](https://www.arduino.cc/en/Guide/Windows) to install the [Arduino IDE](https://www.arduino.cc/en/Main/Software) and activate the [relevant drivers](https://www.arduino.cc/en/Guide/Windows#toc4).  After step 4 of the guide (drivers) you will be ready to use your Arduino with avrgirl!
+
 ## How do I use it?
 
 Your first task is to source a pre-compiled .hex of the sketch you're interested in uploading to your Arduino. It needs to be compiled for your specific Arduino. You'll find some example hex files for each board within the `junk/hex` folder of this repo, however if you'd like to use your own, [see this guide](#sourcing-a-compiled-arduino-hex-file) if you're unsure of how to go about this.
@@ -202,3 +206,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Pawel Szymczykowski](https://github.com/makenai)
 + [Andrew 'AJ' Fisher](https://github.com/ajfisher)
 + [Derek Wheelden](https://github.com/frxnz)
++ [Byron Hulcher](https://github.com/byronhulcher)
