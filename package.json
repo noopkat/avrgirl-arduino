@@ -1,6 +1,6 @@
 {
   "name": "avrgirl-arduino",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "An avrgirl-wrapper library for flashing Arduino microcontroller boards with NodeJS.",
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino.js",
