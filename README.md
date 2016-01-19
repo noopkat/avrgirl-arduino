@@ -206,3 +206,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Pawel Szymczykowski](https://github.com/makenai)
 + [Andrew 'AJ' Fisher](https://github.com/ajfisher)
 + [Derek Wheelden](https://github.com/frxnz)
++ [Byron Hulcer](https://github.com/byronhulcher)
