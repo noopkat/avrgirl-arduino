@@ -6,7 +6,7 @@ var sinon = require('sinon');
 // proxyquired connection module
 // var Connection = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
 var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-  list: function(callback) {
+  list: function (callback) {
     callback(null, [
       { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
         pnpId: '', locationId: '', vendorId: '', productId: '' },
@@ -20,17 +20,17 @@ var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport:
   },
 
   SerialPort: require('./helpers/mockSerial').SerialPort
-}});
+} });
 
 // module to test
-var Avrgirl = proxyquire('../avrgirl-arduino', {Connection: Connection});
+var Avrgirl = proxyquire('../avrgirl-arduino', { Connection: Connection });
 
 // default options
 var DEF_OPTS2 = {
   board: 'uno'
 };
 
-test('[ AVRGIRL-ARDUINO ] method presence', function(t) {
+test('[ AVRGIRL-ARDUINO ] method presence', function (t) {
   var a = new Avrgirl(DEF_OPTS2);
   function isFn(name) {
     return typeof a[name] === 'function';
@@ -49,7 +49,7 @@ test('[ AVRGIRL-ARDUINO ] method presence', function(t) {
   }
 });
 
-test('[ AVRGIRL-ARDUINO ] new creation', function(t) {
+test('[ AVRGIRL-ARDUINO ] new creation', function (t) {
   t.plan(3);
 
   var a = new Avrgirl(DEF_OPTS2);
@@ -58,74 +58,74 @@ test('[ AVRGIRL-ARDUINO ] new creation', function(t) {
   t.ok(a.protocol.chip, 'protocol was established');
 });
 
-test('[ AVRGIRL-ARDUINO ] ::_validateBoard (GOOD)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (GOOD)', function (t) {
   t.plan(1);
 
   var a = new Avrgirl(DEF_OPTS2);
-  a._validateBoard(function(error) {
+  a._validateBoard(function (error) {
     t.error(error, 'no error');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO BOARD)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO BOARD)', function (t) {
   t.plan(1);
 
-  var a = new Avrgirl({board: 'bacon'});
-  a._validateBoard(function(error) {
+  var a = new Avrgirl({ board: 'bacon' });
+  a._validateBoard(function (error) {
     t.ok(error, 'error returned');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PROTOCOL)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PROTOCOL)', function (t) {
   t.plan(1);
 
   var a = new Avrgirl(DEF_OPTS2);
   a.protocol = 'bacon';
-  a._validateBoard(function(error) {
+  a._validateBoard(function (error) {
     t.ok(error, 'error returned');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PORT & PRO-MINI)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PORT & PRO-MINI)', function (t) {
   t.plan(1);
 
-  var a = new Avrgirl({board: 'pro-mini'});
-  a._validateBoard(function(error) {
+  var a = new Avrgirl({ board: 'pro-mini' });
+  a._validateBoard(function (error) {
     t.ok(error, 'error returned');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::listPorts', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::listPorts', function (t) {
   t.plan(3);
-  Avrgirl.listPorts(function(error, ports) {
+  Avrgirl.listPorts(function (error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[2]._standardPid, 'added _standardPid property');
     t.error(error, 'no error on listing');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function (t) {
   t.plan(3);
   var a = new Avrgirl(DEF_OPTS2);
-  a.listPorts(function(error, ports) {
+  a.listPorts(function (error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[2]._standardPid, 'added _standardPid property');
     t.error(error, 'no error on listing');
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
+test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function (t) {
   t.plan(4);
   var a = new Avrgirl(DEF_OPTS2);
-  var spyInit = sinon.stub(a.connection, '_init', function(callback) {return callback(null);});
+  var spyInit = sinon.stub(a.connection, '_init', function (callback) {return callback(null);});
 
-  var spyUpload = sinon.stub(a.protocol, '_upload', function(file, callback) {
+  var spyUpload = sinon.stub(a.protocol, '_upload', function (file, callback) {
     return callback(null);
   });
 
   var spyValidate = sinon.spy(a, '_validateBoard');
 
-  a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
+  a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function (error) {
     t.ok(spyValidate.calledOnce, 'validated board');
     t.ok(spyInit.calledOnce, 'connection init');
     t.ok(spyUpload.calledOnce, 'upload to board attempt');

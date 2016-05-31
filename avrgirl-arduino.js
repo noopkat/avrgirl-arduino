@@ -7,7 +7,7 @@ var protocols = require('./lib/protocols');
  *
  * @param {object} opts - options for consumer to pass in
  */
-var AvrgirlArduino = function(opts) {
+var AvrgirlArduino = function (opts) {
   opts = opts || {};
 
   this.options = {
@@ -16,14 +16,14 @@ var AvrgirlArduino = function(opts) {
     port: opts.port || ''
   };
 
-  this.debug = this.options.debug ? console.log.bind(console) : function() {};
+  this.debug = this.options.debug ? console.log.bind(console) : function () {};
 
   this.connection = new Connection(this.options);
 
   this.board = boards.byName[this.options.board];
 
   if (this.board) {
-    var Protocol = protocols[this.board.protocol] || function() {};
+    var Protocol = protocols[this.board.protocol] || function () {};
 
     this.protocol = new Protocol({
       board: this.board,
@@ -38,7 +38,7 @@ var AvrgirlArduino = function(opts) {
  *
  * @param {function} callback - function to run upon completion/error
  */
-AvrgirlArduino.prototype._validateBoard = function(callback) {
+AvrgirlArduino.prototype._validateBoard = function (callback) {
   if (!this.board) {
     // cannot find a matching board in supported list
     return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
@@ -63,15 +63,15 @@ AvrgirlArduino.prototype._validateBoard = function(callback) {
  * @param {string} file - path to hex file for uploading
  * @param {function} callback - function to run upon completion/error
  */
-AvrgirlArduino.prototype.flash = function(file, callback) {
+AvrgirlArduino.prototype.flash = function (file, callback) {
   var _this = this;
 
   // validate board properties first
-  _this._validateBoard(function(error) {
+  _this._validateBoard(function (error) {
     if (error) { return callback(error); }
 
     // set up serialport connection
-    _this.connection._init(function(error) {
+    _this.connection._init(function (error) {
       if (error) { return callback(error); }
 
       // upload file to board
@@ -87,7 +87,7 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
  * @param {function} callback - function to run upon completion/error
  */
 AvrgirlArduino.prototype.listPorts = AvrgirlArduino.listPorts =
-AvrgirlArduino.prototype.list = AvrgirlArduino.list = function(callback) {
+AvrgirlArduino.prototype.list = AvrgirlArduino.list = function (callback) {
   return Connection.prototype._listPorts(callback);
 };
 
