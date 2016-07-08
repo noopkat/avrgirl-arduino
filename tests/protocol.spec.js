@@ -18,7 +18,7 @@ var DEF_OPTS3 = {
   debug: false
 };
 
-test('[ Protocol ]  - new creation', function (t) {
+test('[ Protocol ]  - new creation', function(t) {
   t.plan(4);
   var p = new Protocol(DEF_OPTS3);
   t.ok(p.board, 'established board');

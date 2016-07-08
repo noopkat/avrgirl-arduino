@@ -13,17 +13,17 @@ var DEF_OPTS1 = {
   port: ''
 };
 
-test('[ Connection ]  - new creation', function (t) {
+test('[ Connection ]  - new creation', function(t) {
   t.plan(2);
   var c = new ConnectionTest(DEF_OPTS1);
   t.ok(c.board, 'board exists');
   t.equal(c.board.protocol, 'stk500v1', 'random board property is as expected');
 });
 
-test('[ Connection ] ::_listPorts (UNIX)', function (t) {
+test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function (callback) {
+      list: function(callback) {
         callback(null, [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
             pnpId: '', locationId: '', vendorId: '', productId: '' },
@@ -40,17 +40,17 @@ test('[ Connection ] ::_listPorts (UNIX)', function (t) {
     } });
 
   var c = new ConnectionTest(DEF_OPTS1);
-  c._listPorts(function (error, ports) {
+  c._listPorts(function(error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[2]._standardPid, 'added _standardPid property');
     t.error(error, 'no error on listing');
   });
 });
 
-test('[ Connection ] ::_listPorts (WINDOWS)', function (t) {
+test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function (callback) {
+      list: function(callback) {
         callback(null, [
           { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
             pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
@@ -62,17 +62,17 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function (t) {
     } });
 
   var c = new ConnectionTest(DEF_OPTS1);
-  c._listPorts(function (error, ports) {
+  c._listPorts(function(error, ports) {
     t.ok(ports.length, 'got a list of ports');
     t.ok(ports[0]._standardPid, 'added _standardPid property');
     t.error(error, 'no error on listing');
   });
 });
 
-test('[ Connection ] ::_sniffPort (UNIX)', function (t) {
+test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function (callback) {
+      list: function(callback) {
         callback(null, [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
             pnpId: '', locationId: '', vendorId: '', productId: '' },
@@ -89,17 +89,17 @@ test('[ Connection ] ::_sniffPort (UNIX)', function (t) {
     } });
 
   var c = new ConnectionTest(DEF_OPTS1);
-  c._sniffPort(function (error, match) {
+  c._sniffPort(function(error, match) {
     t.ok(match.length, 'board was detected');
     t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
     t.error(error, 'no error on return');
   });
 });
 
-test('[ Connection ] ::_sniffPort (WINDOWS)', function (t) {
+test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-    list: function (callback) {
+    list: function(callback) {
       callback(null, [
         { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
           pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
@@ -111,14 +111,14 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function (t) {
   } });
 
   var c = new ConnectionTest(DEF_OPTS1);
-  c._sniffPort(function (error, match) {
+  c._sniffPort(function(error, match) {
     t.ok(match.length, 'board was detected');
     t.equal(match[0].comName, 'COM3', 'correct comName to match against');
     t.error(error, 'no error on return');
   });
 });
 
-test('[ Connection ] ::_cycleDTR', function (t) {
+test('[ Connection ] ::_cycleDTR', function(t) {
   t.plan(2);
   var options = {
     debug: false,
@@ -126,20 +126,20 @@ test('[ Connection ] ::_cycleDTR', function (t) {
     port: '/dev/cu.usbmodem1421'
   };
   var c = new ConnectionTest(options);
-  var stub = sinon.stub(c, '_setDTR', function (bool, timeout, callback) {
+  var stub = sinon.stub(c, '_setDTR', function(bool, timeout, callback) {
     return callback(null);
   });
 
-  c._cycleDTR(function (error) {
+  c._cycleDTR(function(error) {
     t.ok(stub.calledTwice, '_setDTR was called twice');
     t.error(error, 'no error');
   });
 });
 
-test('[ Connection ] ::_pollForPort', function (t) {
+test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-    list: function (callback) {
+    list: function(callback) {
       callback(null, [
         { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
           pnpId: '', locationId: '', vendorId: '', productId: '' },
@@ -162,7 +162,7 @@ test('[ Connection ] ::_pollForPort', function (t) {
   };
 
   var c = new ConnectionTest(options);
-  c._pollForPort(function (error) {
+  c._pollForPort(function(error) {
     t.error(error, 'no error on polling result');
   });
 });

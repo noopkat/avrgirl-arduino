@@ -6,13 +6,13 @@
 var util = require('util');
 var VirtualSerialPort = require('virtual-serialport');
 
-var MockSerial = function () {
+var MockSerial = function() {
   VirtualSerialPort.call(this);
 };
 
 util.inherits(MockSerial, VirtualSerialPort);
 
-MockSerial.prototype.open = function (callback) {
+MockSerial.prototype.open = function(callback) {
   if (callback) {
     return callback(null);
   }
@@ -20,7 +20,7 @@ MockSerial.prototype.open = function (callback) {
   return;
 };
 
-MockSerial.prototype.close = function (callback) {
+MockSerial.prototype.close = function(callback) {
   if (callback) {
     return callback(null);
   }
@@ -28,7 +28,7 @@ MockSerial.prototype.close = function (callback) {
   return;
 };
 
-MockSerial.prototype.drain = function (callback) {
+MockSerial.prototype.drain = function(callback) {
   if (callback) {
     return callback(null);
   }
@@ -36,7 +36,7 @@ MockSerial.prototype.drain = function (callback) {
   return;
 };
 
-MockSerial.prototype.set = function (props, callback) {
+MockSerial.prototype.set = function(props, callback) {
   if (callback) {
     return callback(null);
   }
@@ -45,18 +45,18 @@ MockSerial.prototype.set = function (props, callback) {
 };
 
 module.exports = {
-  list: function (callback) {
+  list: function(callback) {
     callback(null, []);
   },
 
   parsers: {
-    raw: function () {},
+    raw: function() {},
 
-    readline: function () {},
+    readline: function() {},
 
-    byteLength: function () {},
+    byteLength: function() {},
 
-    byteDelimeter: function () {}
+    byteDelimeter: function() {}
   },
   SerialPort: MockSerial
 };
