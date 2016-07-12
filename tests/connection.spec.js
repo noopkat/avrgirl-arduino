@@ -39,12 +39,15 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     } });
 
-  var c = new ConnectionTest(DEF_OPTS1);
-  c._listPorts(function(error, ports) {
-    t.ok(ports.length, 'got a list of ports');
-    t.ok(ports[2]._standardPid, 'added _standardPid property');
-    t.error(error, 'no error on listing');
-  });
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(DEF_OPTS1);
+    c._listPorts(function(error, ports) {
+      t.ok(ports.length, 'got a list of ports');
+      t.ok(ports[2]._standardPid, 'added _standardPid property');
+      t.error(error, 'no error on listing');
+    });
+  }, 200);
 });
 
 test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
@@ -61,12 +64,15 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     } });
 
-  var c = new ConnectionTest(DEF_OPTS1);
-  c._listPorts(function(error, ports) {
-    t.ok(ports.length, 'got a list of ports');
-    t.ok(ports[0]._standardPid, 'added _standardPid property');
-    t.error(error, 'no error on listing');
-  });
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(DEF_OPTS1);
+    c._listPorts(function(error, ports) {
+      t.ok(ports.length, 'got a list of ports');
+      t.ok(ports[0]._standardPid, 'added _standardPid property');
+      t.error(error, 'no error on listing');
+    });
+  }, 200);
 });
 
 test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
@@ -88,12 +94,15 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
       SerialPort: require('./helpers/mockSerial').SerialPort
     } });
 
-  var c = new ConnectionTest(DEF_OPTS1);
-  c._sniffPort(function(error, match) {
-    t.ok(match.length, 'board was detected');
-    t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
-    t.error(error, 'no error on return');
-  });
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(DEF_OPTS1);
+    c._sniffPort(function(error, match) {
+      t.ok(match.length, 'board was detected');
+      t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
+      t.error(error, 'no error on return');
+    });
+  }, 200);
 });
 
 test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
@@ -110,12 +119,15 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
     SerialPort: require('./helpers/mockSerial').SerialPort
   } });
 
-  var c = new ConnectionTest(DEF_OPTS1);
-  c._sniffPort(function(error, match) {
-    t.ok(match.length, 'board was detected');
-    t.equal(match[0].comName, 'COM3', 'correct comName to match against');
-    t.error(error, 'no error on return');
-  });
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(DEF_OPTS1);
+    c._sniffPort(function(error, match) {
+      t.ok(match.length, 'board was detected');
+      t.equal(match[0].comName, 'COM3', 'correct comName to match against');
+      t.error(error, 'no error on return');
+    });
+  }, 200);
 });
 
 test('[ Connection ] ::_cycleDTR', function(t) {
@@ -161,8 +173,12 @@ test('[ Connection ] ::_pollForPort', function(t) {
     port: '/dev/cu.usbmodem1421'
   };
 
-  var c = new ConnectionTest(options);
-  c._pollForPort(function(error) {
-    t.error(error, 'no error on polling result');
-  });
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(options);
+    c._pollForPort(function(error) {
+      t.error(error, 'no error on polling result');
+    });
+  }, 200);
+
 });
