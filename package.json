@@ -31,7 +31,7 @@
     "async": "^1.4.2",
     "avrga-tester": "1.x",
     "awty": "^0.1.0",
-    "browser-serialport": "^2.0.3",
+    "browser-serialport": "git://github.com/noopkat/browser-serialport#api-updates",
     "chip.avr.avr109": "^1.0.6",
     "colors": "^1.1.2",
     "graceful-fs": "^4.1.2",
