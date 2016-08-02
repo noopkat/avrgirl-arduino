@@ -211,3 +211,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Andrew 'AJ' Fisher](https://github.com/ajfisher)
 + [Derek Wheelden](https://github.com/frxnz)
 + [Byron Hulcher](https://github.com/byronhulcher)
++ [Luis Montes](https://github.com/monteslu)
