@@ -1,7 +1,6 @@
 var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
   board: 'pro-mini',
-  port: '/dev/cu.usbmodem1d1131',
   debug: true
 });
 
