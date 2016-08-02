@@ -5,7 +5,7 @@ var boards = {
     pageSize: 128,
     numPages: 256,
     timeout: 400,
-    productId: ['0x0043', '0x7523'],
+    productId: ['0x0043', '0x7523','0x0001'],
     protocol: 'stk500v1'
   },
   'micro': {
