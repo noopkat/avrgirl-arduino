@@ -78,14 +78,14 @@ var boards = {
     protocol: 'stk500v1'
   },
   'bqZum': {
-   baud: 19200,
-   signature: new Buffer([0x1e, 0x95, 0x0f]),
-   pageSize: 128,
-   numPages: 256,
-   timeout: 400,
-   productId: ['0x6001', '0x7523'],
-   protocol: 'stk500v1'
-   },
+    baud: 19200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x6001', '0x7523'],
+    protocol: 'stk500v1'
+  },
   'mega': {
     baud: 115200,
     signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
