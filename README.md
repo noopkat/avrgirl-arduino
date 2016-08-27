@@ -212,3 +212,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Derek Wheelden](https://github.com/frxnz)
 + [Byron Hulcher](https://github.com/byronhulcher)
 + [Luis Montes](https://github.com/monteslu)
++ [Ryan Braganza](https://github.com/ryanbraganza)
