@@ -4,7 +4,8 @@ var mockSerial = require('./helpers/mockSerial');
 var sinon = require('sinon');
 
 // module to test
-var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { SerialPort: mockSerial });
+var ConnectionTest = proxyquire.noCallThru()
+                      .load('../lib/connection', { SerialPort: mockSerial.SerialPort });
 
 // default options
 var DEF_OPTS1 = {
@@ -36,7 +37,7 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
         ]);
       },
 
-      SerialPort: require('./helpers/mockSerial').SerialPort
+      SerialPort: mockSerial.SerialPort
     } });
 
   // nodejs 0.10.x race condition needs this
@@ -61,7 +62,7 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
         ]);
       },
 
-      SerialPort: require('./helpers/mockSerial').SerialPort
+      SerialPort: mockSerial.SerialPort
     } });
 
   // nodejs 0.10.x race condition needs this
@@ -91,7 +92,7 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
         ]);
       },
 
-      SerialPort: require('./helpers/mockSerial').SerialPort
+      SerialPort: mockSerial.SerialPort
     } });
 
   // nodejs 0.10.x race condition needs this
@@ -116,7 +117,7 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
       ]);
     },
 
-    SerialPort: require('./helpers/mockSerial').SerialPort
+    SerialPort: mockSerial.SerialPort
   } });
 
   // nodejs 0.10.x race condition needs this
@@ -150,8 +151,8 @@ test('[ Connection ] ::_cycleDTR', function(t) {
 
 test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
-  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-    list: function(callback) {
+  var mockedSerial = mockSerial.SerialPort;
+  mockedSerial.list = function(callback) {
       callback(null, [
         { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
           pnpId: '', locationId: '', vendorId: '', productId: '' },
@@ -162,10 +163,10 @@ test('[ Connection ] ::_pollForPort', function(t) {
           serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
           vendorId: '0x2341', productId: '0x0043' }
       ]);
-    },
+    };
 
-    SerialPort: require('./helpers/mockSerial').SerialPort
-  } });
+  var ConnectionTest = proxyquire.noCallThru()
+                        .load('../lib/connection', { serialport: mockSerial.SerialPort });
 
   var options = {
     debug: false,
