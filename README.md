@@ -213,3 +213,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Byron Hulcher](https://github.com/byronhulcher)
 + [Luis Montes](https://github.com/monteslu)
 + [Ryan Braganza](https://github.com/ryanbraganza)
++ [Alvaro Sanchez](https://github.com/alvarosBQ)
