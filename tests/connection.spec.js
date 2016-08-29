@@ -143,7 +143,7 @@ test('[ Connection ] ::_cycleDTR', function(t) {
   });
 
   c._cycleDTR(function(error) {
-    t.ok(stub.calledOnce, '_setDTR was called twice');
+    t.ok(stub.calledTwice, '_setDTR was called twice');
     t.error(error, 'no error');
   });
 });
