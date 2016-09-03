@@ -5,7 +5,7 @@ var boards = {
     pageSize: 128,
     numPages: 256,
     timeout: 400,
-    productId: ['0x0043', '0x7523','0x0001'],
+    productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
     protocol: 'stk500v1'
   },
   'micro': {
@@ -99,7 +99,7 @@ var boards = {
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
-    productId: ['0x0042', '0x6001'],
+    productId: ['0x0042', '0x6001', '0x0010'],
     protocol: 'stk500v2'
   },
   'sf-pro-micro': {
