@@ -48,7 +48,7 @@
     "gulp-tape": "0.0.9",
     "istanbul": "^0.4.0",
     "istanbul-coveralls": "^1.0.3",
-    "jshint": "^2.9.2",
+    "jshint": "^2.9.4",
     "jshint-stylish": "^2.1.0",
     "proxyquire": "^1.7.3",
     "sinon": "^1.17.2",
