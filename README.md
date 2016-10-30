@@ -22,6 +22,7 @@ The current supported list:
 
 + **Arduino Uno**
 + **Arduino Mega**
++ **Arduino ADK**
 + **Arduino Leonardo**
 + **Arduino Micro**
 + **Arduino Nano**
@@ -82,6 +83,7 @@ When creating `new Avrgirl()`, only the `board` property is required. The board 
 |:----------|:--------------|
 |Arduino Uno|`uno`|
 |Arduino Mega|`mega`|
+|Arduino ADK|`adk`|
 |Arduino Leonardo|`leonardo`|
 |Arduino Micro|`micro`|
 |Arduino Nano|`nano`|
