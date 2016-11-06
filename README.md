@@ -159,6 +159,23 @@ flashing, please wait...
 flash complete.
 ```
 
+**Prefer your own custom debug behaviour?** No Problem!
+
+You can pass in your own debug function instead of a boolean, and avrgirl-arduino will run that instead.
+
+Example:
+
+```javascript
+var myCustomDebug = function() {
+  // do your own debug stuff in here
+}
+
+var avrgirl = new Avrgirl({
+  board: 'uno',
+  // turn on debug with your own function
+  debug: myCustomDebug
+});
+```
 
 ## Can I use avrgirl-arduino as a CLI tool?
 
