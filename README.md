@@ -235,3 +235,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Alvaro Sanchez](https://github.com/alvarosBQ)
 + [Francis Gulotta](https://github.com/reconbot)
 + [Tom Calvo](https://github.com/tocalvo)
++ [Kimio Kosaka](https://github.com/kimio-kosaka)
