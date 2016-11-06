@@ -166,7 +166,7 @@ You can pass in your own debug function instead of a boolean, and avrgirl-arduin
 Example:
 
 ```javascript
-var myCustomDebug = function() {
+var myCustomDebug = function(debugLogString) {
   // do your own debug stuff in here
 }
 
