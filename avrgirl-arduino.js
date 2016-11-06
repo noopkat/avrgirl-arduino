@@ -16,7 +16,19 @@ var AvrgirlArduino = function(opts) {
     port: opts.port || ''
   };
 
-  this.debug = this.options.debug ? console.log.bind(console) : function() {};
+  this.debug;
+
+  // this here checks for 3 conditions:
+  // if debug option is simply true, we want to fall back to default debug function
+  // if a custom debug function is passed in, we want to assign debug to be that
+  // if debug option is false, then run debug as a no-op
+  if (this.options.debug === true) {
+    this.debug = console.log.bind(console);
+  } else if (typeof this.options.debug === 'function') {
+    this.debug = this.options.debug;
+  } else {
+    this.debug = function(){};
+  }
 
   this.connection = new Connection(this.options);
 
