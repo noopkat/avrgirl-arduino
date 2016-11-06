@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^2.1.0",
     "avrga-tester": "1.x",
     "awty": "^0.1.0",
     "browser-serialport": "git://github.com/noopkat/browser-serialport#api-updates",
