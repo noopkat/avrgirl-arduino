@@ -16,8 +16,6 @@ var AvrgirlArduino = function(opts) {
     port: opts.port || ''
   };
 
-  this.debug;
-
   // this here checks for 3 conditions:
   // if debug option is simply true, we want to fall back to default debug function
   // if a custom debug function is passed in, we want to assign debug to be that
@@ -27,7 +25,7 @@ var AvrgirlArduino = function(opts) {
   } else if (typeof this.options.debug === 'function') {
     this.debug = this.options.debug;
   } else {
-    this.debug = function(){};
+    this.debug = function() {};
   }
 
   this.connection = new Connection(this.options);
