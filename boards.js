@@ -1,5 +1,6 @@
-var boards = {
-  'uno': {
+var boards = [
+  {
+    name: 'uno',
     baud: 115200,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
@@ -8,49 +9,57 @@ var boards = {
     productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
     protocol: 'stk500v1'
   },
-  'micro': {
+  {
+    name: 'micro',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0037', '0x8037', '0x0036'],
     protocol: 'avr109'
   },
-  'imuduino': {
+  {
+    name: 'imuduino',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8037', '0x8036'],
     protocol: 'avr109'
   },
-  'leonardo': {
+  {
+    name: 'leonardo',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036', '0x800c'],
     protocol: 'avr109'
   },
-  'arduboy': {
+  {
+    name: 'arduboy',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036', '0x800c'],
     protocol: 'avr109'
   },
-  'feather': {
+  {
+    name: 'feather',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x800c', '0x000c'],
     protocol: 'avr109'
   },
-  'little-bits': {
+  {
+    name: 'little-bits',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036'],
     protocol: 'avr109'
   },
-  'blend-micro': {
+  {
+    name: 'blend-micro',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x2404'],
     protocol: 'avr109'
   },
-  'nano': {
+  {
+    name: 'nano',
     baud: 57600,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
@@ -59,7 +68,8 @@ var boards = {
     productId: ['0x6001', '0x7523'],
     protocol: 'stk500v1'
   },
-  'duemilanove168': {
+  {
+    name: 'duemilanove168',
     baud: 19200,
     signature: new Buffer([0x1e, 0x94, 0x06]),
     pageSize: 128,
@@ -68,7 +78,8 @@ var boards = {
     productId: ['0x6001'],
     protocol: 'stk500v1'
   },
-  'tinyduino': {
+  {
+    name: 'tinduino',
     baud: 57600,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
@@ -77,7 +88,8 @@ var boards = {
     productId: ['0x6015'],
     protocol: 'stk500v1'
   },
-  'bqZum': {
+  {
+    name: 'bqZum',
     baud: 19200,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
@@ -86,7 +98,8 @@ var boards = {
     productId: ['0x6001', '0x7523'],
     protocol: 'stk500v1'
   },
-  'mega': {
+  {
+    name: 'mega',
     baud: 115200,
     signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
     pageSize: 256,
@@ -102,7 +115,8 @@ var boards = {
     productId: ['0x0042', '0x6001', '0x0010'],
     protocol: 'stk500v2'
   },
-  'adk': {
+  {
+    name: 'adk',
     baud: 115200,
     signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
     pageSize: 256,
@@ -118,13 +132,15 @@ var boards = {
     productId: ['0x0044', '0x6001', '0x003F'],
     protocol: 'stk500v2'
   },
-  'sf-pro-micro': {
+  {
+    name: 'sf-pro-micro',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x9206'],
     protocol: 'avr109'
   },
-  'pro-mini': {
+  {
+    name: 'pro-mini',
     baud: 57600,
     signature: new Buffer([0x1e, 0x95, 0x0f]),
     pageSize: 128,
@@ -132,13 +148,15 @@ var boards = {
     timeout: 400,
     protocol: 'stk500v1'
   },
-  'qduino': {
+  {
+    name: 'qduino',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x516d'],
     protocol: 'avr109'
   },
-  'pinoccio': {
+  {
+    name: 'pinoccio',
     baud: 115200,
     signature: new Buffer([0x1e, 0xa8, 0x02]), // ATmega256RFR2
     pageSize: 256,
@@ -154,30 +172,21 @@ var boards = {
     productId: ['0x6051'],
     protocol: 'stk500v2'
   }
-};
+];
 
 /**
- * Generate a reverse lookup table by pid mapped to possible board names.
- * @return {object} byPid
+ * Generate an object with board name keys for faster lookup
+ * @return {object} byBoardName
  */
-function pidLookupTable() {
-  var byPid = {};
-  var boardNames = Object.keys( boards );
-  for (var i=0;i<boardNames.length;i++) {
-    var boardName = boardNames[i];
-    var board = boards[ boardName ];
-    if (board.productId) {
-      for (var j=0;j<board.productId.length;j++) {
-        var productId = board.productId[j];
-        byPid[ productId ] = byPid[ productId ] || [];
-        byPid[ productId ].push( boardName );
-      }
-    }
+function boardLookupTable() {
+  var byBoard = {};
+  for (var i = 0; i < boards.length; i++) {
+    var currentBoard = boards[i];
+    byBoard[currentBoard.name] = currentBoard;
   }
-  return byPid;
+  return byBoard;
 }
 
 module.exports = {
-  byName: boards,
-  byPid: pidLookupTable()
+  byName: boardLookupTable()
 }

@@ -10,7 +10,15 @@ var ConnectionTest = proxyquire.noCallThru()
 // default options
 var DEF_OPTS1 = {
   debug: false,
-  board: 'uno',
+  board: {
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
+    protocol: 'stk500v1'
+  },
   port: ''
 };
 
@@ -170,7 +178,15 @@ test('[ Connection ] ::_pollForPort', function(t) {
 
   var options = {
     debug: false,
-    board: 'uno',
+    board: {
+      baud: 115200,
+      signature: new Buffer([0x1e, 0x95, 0x0f]),
+      pageSize: 128,
+      numPages: 256,
+      timeout: 400,
+      productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
+      protocol: 'stk500v1'
+    },
     port: '/dev/cu.usbmodem1421'
   };
 

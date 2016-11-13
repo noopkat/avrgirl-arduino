@@ -28,15 +28,19 @@ var AvrgirlArduino = function(opts) {
     this.debug = function() {};
   }
 
+  if (typeof this.options.board === 'string') {
+    this.options.board = boards.byName[this.options.board];
+  } else if (typeof this.options.board === 'object') {
+    this.options.board = this.options.board;
+  }
+
   this.connection = new Connection(this.options);
 
-  this.board = boards.byName[this.options.board];
-
-  if (this.board) {
-    var Protocol = protocols[this.board.protocol] || function() {};
+  if (this.options.board) {
+    var Protocol = protocols[this.options.board.protocol] || function() {};
 
     this.protocol = new Protocol({
-      board: this.board,
+      board: this.options.board,
       connection: this.connection,
       debug: this.options.debug
     });
@@ -49,15 +53,16 @@ var AvrgirlArduino = function(opts) {
  * @param {function} callback - function to run upon completion/error
  */
 AvrgirlArduino.prototype._validateBoard = function(callback) {
-  if (!this.board) {
+  if (typeof this.options.board !== 'object') {
     // cannot find a matching board in supported list
     return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
 
   } else if (!this.protocol.chip) {
     // something went wrong trying to set up the protocol
-    return callback(new Error('not a supported programming protocol: ' + this.board.protocol));
+    var errorMsg = 'not a supported programming protocol: ' + this.options.board.protocol;
+    return callback(new Error(errorMsg));
 
-  } else if (!this.options.port && this.options.board === 'pro-mini') {
+  } else if (!this.options.port && this.options.board.name === 'pro-mini') {
     // when using a pro mini, a port is required in the options
     return callback(new Error('using a pro-mini, please specify the port in your options.'));
 

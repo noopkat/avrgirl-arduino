@@ -1,11 +1,11 @@
 var Avrgirl = require('../../avrgirl-arduino');
 var avrgirl = new Avrgirl({
   board: 'pro-mini',
-  port: '/dev/cu.usbmodem1d1131',
+  port: '/dev/cu.usbserial-A50285BI',
   debug: true
 });
 
-var hex = __dirname + '/../../junk/hex/pro-mini/Blink-3v.cpp.hex';
+var hex = __dirname + '/../../junk/hex/pro-mini/StandardFirmata-3v.cpp.hex';
 
 avrgirl.flash(hex, function(error) {
   if (error) {

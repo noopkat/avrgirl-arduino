@@ -54,7 +54,7 @@ test('[ AVRGIRL-ARDUINO ] new creation', function(t) {
 
   var a = new Avrgirl(DEF_OPTS2);
   t.ok(a.connection, 'connection was established');
-  t.ok(a.board.baud, 'board was established');
+  t.ok(a.options.board.baud, 'board was established');
   t.ok(a.protocol.chip, 'protocol was established');
 });
 
