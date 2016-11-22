@@ -8,7 +8,7 @@ var board = {
 };
 
 var avrgirl = new Avrgirl({
-  board: 'micro',
+  board: board,
   debug: true
 });
 
