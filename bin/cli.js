@@ -4,6 +4,7 @@ var boards = require('../boards');
 var parseArgs = require('minimist');
 var path = require('path');
 var child = require('child_process');
+var testPilot = require('../lib/test-pilot-checker');
 
 var args = (process.argv.slice(2));
 var argv = parseArgs(args, {});
@@ -74,10 +75,25 @@ function handleInput(action, argz) {
     }
 
     case 'test-pilot': {
-      var tp = child.exec('node ' + path.join(__dirname, '..', 'tests', 'test-pilot.js'), function(error) {
-        console.log(error);
+      console.log('running preflight check...');
+      testPilot.checkForInstall(function(err, isInstalled) {
+        if (isInstalled) {
+          testPilot.run();
+        } else {
+          console.log('installing test pilot, won\'t be long...');
+          testPilot.install(function(err) {
+            if (err) {
+              var msg = err;
+              if (err.code === 'EACCES' || err.code === 'EPERM') {
+                msg = new Error('Oops! We ran into a permissions issue... you might want to check out this resource https://docs.npmjs.com/getting-started/fixing-npm-permissions');
+              }
+              return console.log(msg);
+            } else {
+              testPilot.run();
+            }
+          });
+        }
       });
-      tp.stdout.pipe(process.stdout);
       break;
     }
 
