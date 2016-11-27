@@ -20,11 +20,11 @@ gulp.task('jscs', function() {
     .pipe(jscs.reporter('fail'))
 });
 
-gulp.task('lint', ['jscs'], function() {
+gulp.task('lint', function() {
   return gulp.src(['tests/*.spec.js', 'tests/helpers/*.js', 'avrgirl-arduino.js', 'lib/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('test', ['spec', 'jscs', 'lint']);
+gulp.task('test', ['spec', 'lint']);
