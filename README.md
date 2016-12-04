@@ -28,6 +28,7 @@ The current supported list:
 + **Arduino Nano**
 + **Arduino Duemilanove (168)**
 + **Arduino Pro Mini**
++ **Arduino Lilypad USB**
 + **Femtoduino IMUduino**
 + **RedBearLab Blend Micro**
 + **Tinyduino**
@@ -87,6 +88,7 @@ When creating `new Avrgirl()`, only the `board` property is required. The board 
 |Arduino Leonardo|`leonardo`|
 |Arduino Micro|`micro`|
 |Arduino Nano|`nano`|
+|Arduino Lilypad USB|`lilypad-usb`|
 |Arduino Duemilanove|`duemilanove168`|
 |RedBearLab Blend Micro|`blend-micro`|
 |Tiny Circuits Tinyduino|`tinyduino`|
