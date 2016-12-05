@@ -112,7 +112,7 @@ var boards = [
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
-    productId: ['0x0042', '0x6001', '0x0010'],
+    productId: ['0x0042', '0x6001', '0x0010', '0x7523'],
     protocol: 'stk500v2'
   },
   {
