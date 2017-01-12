@@ -15,7 +15,7 @@ var DEF_OPTS3 = {
     protocol: 'stk500v1'
   },
   connection: {},
-  debug: false
+  debug: function() {}
 };
 
 test('[ Protocol ]  - new creation', function(t) {
