@@ -42,7 +42,7 @@ var AvrgirlArduino = function(opts) {
     this.protocol = new Protocol({
       board: this.options.board,
       connection: this.connection,
-      debug: this.options.debug
+      debug: this.debug
     });
   }
 };
