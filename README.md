@@ -29,6 +29,7 @@ The current supported list:
 + **Arduino Duemilanove (168)**
 + **Arduino Pro Mini**
 + **Arduino Lilypad USB**
++ **Arduino Yun**
 + **Femtoduino IMUduino**
 + **RedBearLab Blend Micro**
 + **Tinyduino**
@@ -90,6 +91,7 @@ When creating `new Avrgirl()`, only the `board` property is required. The board 
 |Arduino Nano|`nano`|
 |Arduino Lilypad USB|`lilypad-usb`|
 |Arduino Duemilanove|`duemilanove168`|
+|Arduino Yun|`yun`|
 |RedBearLab Blend Micro|`blend-micro`|
 |Tiny Circuits Tinyduino|`tinyduino`|
 |SparkFun Pro Micro|`sf-pro-micro`|
@@ -192,7 +194,7 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `pro-mini`, `duemilanove168`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
++ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `pro-mini`, `duemilanove168`, `yun`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
 
 Optional flags:
 
