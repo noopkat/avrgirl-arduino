@@ -13,7 +13,8 @@ var AvrgirlArduino = function(opts) {
   this.options = {
     debug: opts.debug || false,
     board: opts.board || 'uno',
-    port: opts.port || ''
+    port: opts.port || '',
+    manualReset: opts.manualReset || false
   };
 
   // this here checks for 3 conditions:
@@ -32,6 +33,10 @@ var AvrgirlArduino = function(opts) {
     this.options.board = boards.byName[this.options.board];
   } else if (typeof this.options.board === 'object') {
     this.options.board = this.options.board;
+  }
+
+  if (!this.options.board.manualReset) {
+    this.options.board.manualReset = this.options.manualReset;
   }
 
   this.connection = new Connection(this.options);
