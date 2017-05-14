@@ -35,7 +35,7 @@ var AvrgirlArduino = function(opts) {
     this.options.board = this.options.board;
   }
 
-  if (!this.options.board.manualReset) {
+  if (this.options.board && !this.options.board.manualReset) {
     this.options.board.manualReset = this.options.manualReset;
   }
 
