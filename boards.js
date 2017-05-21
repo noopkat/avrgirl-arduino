@@ -136,7 +136,7 @@ var boards = [
     name: 'sf-pro-micro',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x9206'],
+    productId: ['0x9206', '0x9205'],
     protocol: 'avr109'
   },
   {
@@ -152,7 +152,7 @@ var boards = [
     name: 'qduino',
     baud: 57600,
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x516d'],
+    productId: ['0x516d', '0x514d'],
     protocol: 'avr109'
   },
   {
