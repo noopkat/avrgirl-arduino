@@ -30,7 +30,7 @@ var AvrgirlArduino = function(opts) {
   }
 
   if (typeof this.options.board === 'string') {
-    this.options.board = boards.byName[this.options.board];
+    this.options.board = boards[this.options.board];
   } else if (typeof this.options.board === 'object') {
     this.options.board = this.options.board;
   }
@@ -115,7 +115,13 @@ AvrgirlArduino.prototype.list = AvrgirlArduino.list = function(callback) {
  * Static method to return the names of all known boards.
  */
 AvrgirlArduino.listKnownBoards = function() {
-  return Object.keys(boards.byName);
+  // filter the boards to find all non-aliases
+  return Object.keys(boards).filter(function(name) {
+    // fetch the current board aliases
+    var aliases = boards[name].aliases;
+    // only allow the name if it's not an alias
+    return !aliases || !~aliases.indexOf(name);
+  });
 };
 
 module.exports = AvrgirlArduino;

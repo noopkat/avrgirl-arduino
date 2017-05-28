@@ -222,6 +222,4 @@ function boardLookupTable() {
   return byBoard;
 }
 
-module.exports = {
-  byName: boardLookupTable()
-};
+module.exports = boardLookupTable();
