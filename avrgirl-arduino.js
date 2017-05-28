@@ -111,4 +111,11 @@ AvrgirlArduino.prototype.list = AvrgirlArduino.list = function(callback) {
   return Connection.prototype._listPorts(callback);
 };
 
+/**
+ * Static method to return the names of all known boards.
+ */
+AvrgirlArduino.listKnownBoards = function() {
+  return Object.keys(boards.byName);
+};
+
 module.exports = AvrgirlArduino;
