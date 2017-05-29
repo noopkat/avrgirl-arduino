@@ -2,6 +2,8 @@
 
 # avrgirl-arduino
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/noopkat/avrgirl-arduino.svg)](https://greenkeeper.io/)
+
 A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.
 
 **Want to [contribute](CONTRIBUTING.md)?**
