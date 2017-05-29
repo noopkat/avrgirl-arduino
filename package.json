@@ -43,7 +43,7 @@
   "devDependencies": {
     "avrga-tester": "1.x",
     "gulp": "^3.9.0",
-    "gulp-jscs": "^3.0.2",
+    "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.3",
     "gulp-tape": "0.0.9",
     "istanbul": "^0.4.0",
