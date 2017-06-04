@@ -4,8 +4,9 @@
   "description": "A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.",
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino.js",
+  "types": "avrgirl-arduino.d.ts",
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp test && tsc",
     "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
   },
   "repository": {
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
+    "@types/node": "^7.0.27",
     "async": "^2.1.2",
     "awty": "^0.1.0",
     "browser-serialport": "https://github.com/noopkat/browser-serialport#api-updates",
@@ -54,6 +56,7 @@
     "sinon": "^2.3.2",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.1",
+    "typescript": "^2.3.4",
     "virtual-serialport": "^0.3.1"
   },
   "browser": {
