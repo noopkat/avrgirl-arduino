@@ -209,6 +209,13 @@ var boards = [
     productId: ['0x0041', '0x8041'],
     protocol: 'avr109'
   },
+  {
+    name: 'esplora',
+    baud: 57600,
+    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    productId: ['0x003C', '0x803C'],
+    protocol: 'avr109'
+  },
 ];
 
 /**
