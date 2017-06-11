@@ -12,6 +12,10 @@ AVRGirl Arduino has a built-in manual testing tool called Test Pilot. It allows 
 
 Once AVRGirl Arduino is globally installed on your machine using `npm install -g avrgirl-arduino@latest`, type `avrgirl-arduino test-pilot` into your terminal program and follow the prompts. Shouldn't take more than two minutes of your time, but will make a big difference to ensuring any issues are reported and fixed promptly!
 
+## Auto unit testing
+
+AVRGirl Arduino has built-in support for automated unit testing on _push_ and _commit_. When either of these git commands are used, the test command, `npm run test` is invoked. __Note:__ this does not run Test Pilot.
+
 ## Feature requests
 
 The best thing to do here is to file an issue if there already isn't one. If it's something fairly obviously needed (in your opinion) and you are happy to code it, feel free to open a pull request without filing an issue first.
@@ -26,9 +30,11 @@ On average, Arduino boards cost between $15 and $50, depending on the tech inclu
 
 ## Code contribution workflow
 
+The steps below show you how to fork, install, work on, and sync back with the main repository.
+
 1. Fork this repository and clone the new fork locally. 
 
-2. Run `npm install` to install the dev dependencies.
+2. Run `npm install` to install the all dependencies.
 
 3. Make your changes in a new git branch: `git checkout -b my-fix-branch master`
 
@@ -36,7 +42,7 @@ On average, Arduino boards cost between $15 and $50, depending on the tech inclu
 
 5. Create your patch/feature, including appropriate tests if a test suite is present
 
-6. Commit your changes using a descriptive commit message
+6. Commit your changes using a descriptive commit message.
 
 7. Rebase on master if your branch falls behind on commits
 
