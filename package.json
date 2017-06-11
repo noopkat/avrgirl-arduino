@@ -6,7 +6,9 @@
   "main": "avrgirl-arduino.js",
   "scripts": {
     "test": "gulp test",
-    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
+    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,7 @@
     "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.3",
     "gulp-tape": "0.0.9",
+    "husky": "^0.13.4",
     "istanbul": "^0.4.0",
     "istanbul-coveralls": "^1.0.3",
     "jshint": "^2.9.2",
