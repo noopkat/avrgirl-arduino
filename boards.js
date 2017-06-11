@@ -88,19 +88,8 @@ var boards = [
     productId: ['0x6001'],
     protocol: 'stk500v1'
   },
-  // this is here because of an accidental naming change of the tinyduino
+  // the alias is here because of an accidental naming change of the tinyduino
   // keeping in for backwards compatibility (SHA 05d65842)
-  {
-    name: 'tinduino',
-    baud: 57600,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
-    pageSize: 128,
-    numPages: 256,
-    timeout: 400,
-    productId: ['0x6015'],
-    protocol: 'stk500v1'
-  },
-  // correct naming of tinyduino
   {
     name: 'tinyduino',
     baud: 57600,
@@ -109,7 +98,8 @@ var boards = [
     numPages: 256,
     timeout: 400,
     productId: ['0x6015'],
-    protocol: 'stk500v1'
+    protocol: 'stk500v1',
+    aliases: ['tinduino']
   },
   {
     name: 'bqZum',
@@ -208,7 +198,7 @@ var boards = [
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0041', '0x8041'],
     protocol: 'avr109'
-  },
+  }
 ];
 
 /**
@@ -220,10 +210,16 @@ function boardLookupTable() {
   for (var i = 0; i < boards.length; i++) {
     var currentBoard = boards[i];
     byBoard[currentBoard.name] = currentBoard;
+
+    var aliases = currentBoard.aliases;
+    if (Array.isArray(aliases)) {
+      for (var j = 0; j < aliases.length; j++) {
+        var currentAlias = aliases[j];
+        byBoard[currentAlias] = currentBoard;
+      }
+    }
   }
   return byBoard;
 }
 
-module.exports = {
-  byName: boardLookupTable()
-}
+module.exports = boardLookupTable();
