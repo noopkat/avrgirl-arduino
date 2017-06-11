@@ -29,6 +29,25 @@ test('[ Connection ]  - new creation', function(t) {
   t.equal(c.board.protocol, 'stk500v1', 'random board property is as expected');
 });
 
+test('[ Connection ] ::_listPorts failure', function(t) {
+  t.plan(2);
+  var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
+      list: function(callback) {
+        callback(new Error('Fake Error'));
+      },
+      SerialPort: mockSerial.SerialPort
+    } });
+
+  // nodejs 0.10.x race condition needs this
+  setTimeout(function() {
+    var c = new ConnectionTest(DEF_OPTS1);
+    c._listPorts(function(error, ports) {
+      t.notOk(ports);
+      t.ok(error);
+    });
+  }, 200);
+});
+
 test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
