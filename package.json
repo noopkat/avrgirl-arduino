@@ -6,6 +6,7 @@
   "main": "avrgirl-arduino.js",
   "scripts": {
     "test": "gulp test",
+    "coverage": "istanbul cover ./tests/*.spec.js",
     "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
   },
   "repository": {
