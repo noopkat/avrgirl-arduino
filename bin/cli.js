@@ -37,7 +37,7 @@ function handleInput(action, argz) {
       if (!argz.f || !argz.a) {
         showHelp();
         process.exit(1);
-      } else if (!boards.byName[argz.a]) {
+      } else if (!boards[argz.a]) {
         console.error(new Error('Oops! That board is not supported, sorry.'));
         process.exit(1);
       } else {
@@ -55,7 +55,7 @@ function handleInput(action, argz) {
     }
 
     case 'boards': {
-      var boardNames = Object.keys(boards.byName).sort();
+      var boardNames = Object.keys(boards).sort();
       console.log('Supported Boards:\n - ' + boardNames.join('\n - '));
       break;
     }
