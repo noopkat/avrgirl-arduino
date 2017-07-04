@@ -36,7 +36,9 @@ On average, Arduino boards cost between $15 and $50, depending on the tech inclu
 
 5. Create your patch/feature, including appropriate tests if a test suite is present
 
-6. Commit your changes using a descriptive commit message
+6. Once you are ready to commit your changes, follow the commit [convention](https://github.com/conventional-changelog-archived-repos/conventional-changelog-angular/blob/ed32559941719a130bb0327f886d6a32a8cbc2ba/convention.md) through the use of `commitizen`:
+    1. `git add <files to be committed>`
+    2. `npm run commit` and follow the instruction of the interactive prompt.
 
 7. Rebase on master if your branch falls behind on commits
 
