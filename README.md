@@ -41,6 +41,7 @@ The current supported list:
 + **Pinoccio Scout**
 + **Adafruit Feather 32u4 Basic Proto**
 + **Arduboy**
++ **Adafruit Circuit Playground**
 
 This library is designed to ultimately be rolled into the avrgirl project (in development), however it still works perfectly well as a stand-alone package to be used outside of avrgirl if you wish.
 
@@ -104,6 +105,7 @@ When creating `new Avrgirl()`, only the `board` property is required. The board 
 |Femtoduino IMUduino|`imuduino`|
 |Adafruit Feather 32u4 Basic Proto|`feather`|
 |Arduboy|`arduboy`|
+|Adafruit Circuit Playground|`circuit-playground-classic`|
 
 You can optionally specify a port to connect to the Arduino, but if you omit this property avrgirl-arduino will do a pretty good job of finding it for you. **The exception to this is if you're using the Arduino Pro Mini - please specify your port in this case as avrgirl-arduino cannot auto detect it for you.**
 
@@ -279,3 +281,4 @@ Credit to [Jacob Rosenthal](https://github.com/jacobrosenthal), [Ryan Day](https
 + [Tom Calvo](https://github.com/tocalvo)
 + [Kimio Kosaka](https://github.com/kimio-kosaka)
 + [Sandeep Mistry](https://github.com/sandeepmistry)
++ [Nick Hehr](https://github.com/hipsterbrown)
