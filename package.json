@@ -54,7 +54,7 @@
     "sinon": "^2.3.2",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.1",
-    "virtual-serialport": "^0.3.1"
+    "virtual-serialport": "^4.0.0"
   },
   "browser": {
     "graceful-fs": false,
