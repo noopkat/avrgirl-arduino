@@ -114,18 +114,18 @@ test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function(t) {
   });
 });
 
-test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
-  t.plan(4);
-  var a = new Avrgirl(DEF_OPTS2);
-  var spyInit = sinon.stub(a.connection, '_init', function(callback) {return callback(null);});
+  test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
+    t.plan(4);
+    var a = new Avrgirl(DEF_OPTS2);
+    var spyInit = sinon.stub(a.connection, '_init').callsFake(function(callback) {return callback(null);});
 
-  var spyUpload = sinon.stub(a.protocol, '_upload', function(file, callback) {
-    return callback(null);
-  });
+    var spyUpload = sinon.stub(a.protocol, '_upload').callsFake(function(file, callback) {
+      return callback(null);
+    });
 
-  var spyValidate = sinon.spy(a, '_validateBoard');
+    var spyValidate = sinon.spy(a, '_validateBoard');
 
-  a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
+    a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
     t.ok(spyValidate.calledOnce, 'validated board');
     t.ok(spyInit.calledOnce, 'connection init');
     t.ok(spyUpload.calledOnce, 'upload to board attempt');

@@ -147,7 +147,7 @@ test('[ Connection ] ::_cycleDTR', function(t) {
     port: '/dev/cu.usbmodem1421'
   };
   var c = new ConnectionTest(options);
-  var stub = sinon.stub(c, '_setDTR', function(bool, timeout, callback) {
+  var stub = sinon.stub(c, '_setDTR').callsFake(function(bool, timeout, callback) {
     return callback(null);
   });
 
