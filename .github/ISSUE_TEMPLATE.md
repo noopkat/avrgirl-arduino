@@ -1,5 +1,7 @@
 # Issue Template
 
+Please review the [contribution](https://github.com/noopkat/avrgirl-arduino/blob/master/CONTRIBUTING.md) and [code of conduct](https://github.com/noopkat/avrgirl-arduino/blob/master/CODE_OF_CONDUCT.md) guidelines.
+
 ## Description
 
 _If you raise an issue on bug/issue please provide the requested information, where not possible, please provide as many details as possible and ultimately a thorough description of your issue._

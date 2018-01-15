@@ -1,8 +1,10 @@
 # Description
 
-Please read the [contribution guidelines](https://github.com/noopkat/avrgirl-arduino/blob/master/CONTRIBUTING.md) and include a summary of the proposed improvement or addressed issue.
+Please review the [contribution](https://github.com/noopkat/avrgirl-arduino/blob/master/CONTRIBUTING.md) and [code of conduct](https://github.com/noopkat/avrgirl-arduino/blob/master/CODE_OF_CONDUCT.md) guidelines.
 
-Fixes/addresses (If applicable) # (issue)
+_Please include a summary of the proposed improvement or addressed issue._
+
+_Fixes/addresses (If applicable) # (issue)_
 
 ## Type of change
 
