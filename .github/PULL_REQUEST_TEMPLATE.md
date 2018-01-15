@@ -4,7 +4,7 @@ Please review the [contribution](https://github.com/noopkat/avrgirl-arduino/blob
 
 Please include a summary of the proposed improvement or addressed issue.
 
-_Fixes/addresses (If applicable) # (issue)_
+Fixes/addresses (If applicable) # (issue)
 
 ## Type of change
 
