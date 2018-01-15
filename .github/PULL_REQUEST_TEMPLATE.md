@@ -2,7 +2,7 @@
 
 Please review the [contribution](https://github.com/noopkat/avrgirl-arduino/blob/master/CONTRIBUTING.md) and [code of conduct](https://github.com/noopkat/avrgirl-arduino/blob/master/CODE_OF_CONDUCT.md) guidelines.
 
-_Please include a summary of the proposed improvement or addressed issue._
+Please include a summary of the proposed improvement or addressed issue.
 
 _Fixes/addresses (If applicable) # (issue)_
 
