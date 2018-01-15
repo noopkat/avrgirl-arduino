@@ -13,6 +13,11 @@
 ### Board used
 <!-- What board did you encounter the issue with? -->
 
+### Expected behaviour
+<!-- What behaviour did you expect did occur? -->
+
+### Actual behaviour
+<!-- What unexpected behaviour occurred? -->
 
 ### Log ouput
 <!-- Please include any relevant logs or output -->
