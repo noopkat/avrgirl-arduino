@@ -25,6 +25,8 @@ Please delete options that are not relevant.
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] Changes have been manually tested (please provide information on test platform using the fields below)
 
+## Test/Development Platform Information
+
 - Operating system and version
 - Avrgirl Arduino version
 - NodeJS version
