@@ -6,6 +6,14 @@ Please review the [contribution](https://github.com/noopkat/avrgirl-arduino/blob
 
 _If you raise an issue on bug/issue please provide the requested information, where not possible, please provide as many details as possible and ultimately a thorough description of your issue._
 
+### Expected behaviour
+
+_What behaviour did you expect did occur?_
+
+### Actual behaviour
+
+_What unexpected behaviour occurred?_
+
 ## Operating system and version
 
 _Please provide version on the operating system etc. used._
