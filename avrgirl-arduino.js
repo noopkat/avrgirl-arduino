@@ -1,6 +1,8 @@
 var boards = require('./boards');
 var Connection = require('./lib/connection');
 var protocols = require('./lib/protocols');
+var EventEmitter = require('events');
+var util = require('util');
 
 /**
  * Constructor
@@ -50,7 +52,11 @@ var AvrgirlArduino = function(opts) {
       debug: this.debug
     });
   }
+
+  EventEmitter.call(this);
 };
+
+util.inherits(AvrgirlArduino, EventEmitter);
 
 /**
  * Validates the board properties
@@ -93,6 +99,10 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
     // set up serialport connection
     _this.connection._init(function(error) {
       if (error) { return callback(error); }
+
+      _this.connection.on('connection:open', function() {
+        _this.emit('connection:open');
+      });
 
       // upload file to board
       _this.protocol._upload(file, callback);
