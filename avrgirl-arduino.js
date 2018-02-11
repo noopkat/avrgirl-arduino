@@ -105,6 +105,10 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
         _this.emit(events.connection.open);
       });
 
+      _this.connection.on(events.connection.close, function() {
+        _this.emit(events.connection.close);
+      });
+
       _this.protocol.on(events.board.reset.init, function() {
         _this.emit(events.board.reset.init);
       });
