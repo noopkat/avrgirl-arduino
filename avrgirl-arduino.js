@@ -1,6 +1,7 @@
 var boards = require('./boards');
 var Connection = require('./lib/connection');
 var protocols = require('./lib/protocols');
+var events = require('./lib/eventList');
 var EventEmitter = require('events');
 var util = require('util');
 
@@ -100,8 +101,16 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
     _this.connection._init(function(error) {
       if (error) { return callback(error); }
 
-      _this.connection.on('connection:open', function() {
-        _this.emit('connection:open');
+      _this.connection.on(events.connection.open, function() {
+        _this.emit(events.connection.open);
+      });
+
+      _this.protocol.on(events.board.reset.init, function() {
+        _this.emit(events.board.reset.init);
+      });
+
+      _this.protocol.on(events.board.reset.complete, function() {
+        _this.emit(events.board.reset.complete);
       });
 
       // upload file to board
