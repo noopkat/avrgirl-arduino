@@ -117,6 +117,14 @@ AvrgirlArduino.prototype.flash = function(file, callback) {
         _this.emit(events.board.reset.complete);
       });
 
+      _this.protocol.chip.on(events.board.writePage.complete, function() {
+        _this.emit(events.board.writePage.complete);
+      });
+
+      _this.protocol.chip.on(events.board.writePage.init, function() {
+        _this.emit(events.board.writePage.init);
+      });
+
       _this.emit(events.flash.init);
 
       var eventedCallback = function(error) {
