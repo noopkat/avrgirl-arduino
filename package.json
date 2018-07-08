@@ -36,7 +36,7 @@
     "graceful-fs": "^4.1.2",
     "intel-hex": "^0.1.1",
     "minimist": "^1.2.0",
-    "serialport": "^4.0.1",
+    "serialport": "^6.2.1",
     "stk500": "^2.0.0",
     "stk500-v2": "^1.0.2"
   },
