@@ -6,7 +6,8 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
-    productId: ['0x0043', '0x7523', '0x0001', '0xea60', '0x6015'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2341', '0x0000', '0x0000', '0x0403'],
+    productId: ['0x0043', '0x0001', '0x0043', '0x0243', '0x7523', '0xea60', '0x6015'],
     productPage: 'https://store.arduino.cc/arduino-uno-rev3',
     protocol: 'stk500v1'
   },
@@ -14,7 +15,8 @@ var boards = [
     name: 'micro',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x0037', '0x8037', '0x0036', '0x0237'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03', '0x2341', '0x2341', '0x0000'],
+    productId: ['0x0037', '0x8037', '0x0037', '0x8037', '0x0237', '0x8237', '0x0036'],
     productPage: 'https://store.arduino.cc/arduino-micro',
     protocol: 'avr109'
   },
@@ -22,6 +24,7 @@ var boards = [
     name: 'imuduino',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000', '0x0000'],
     productId: ['0x0036', '0x8037', '0x8036'],
     productPage: 'https://www.kickstarter.com/projects/1265095814/imuduino-wireless-3d-motion-html-js-apps-arduino-p?lang=de',
     protocol: 'avr109'
@@ -30,7 +33,8 @@ var boards = [
     name: 'leonardo',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x0036', '0x8036', '0x800c'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03', '0x0000'],
+    productId: ['0x0036', '0x8036', '0x0036', '0x8036', '0x800c'],
     productPage: 'https://store.arduino.cc/leonardo',
     protocol: 'avr109'
   },
@@ -38,6 +42,7 @@ var boards = [
     name: 'arduboy',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000', '0x0000'],
     productId: ['0x0036', '0x8036', '0x800c'],
     productPage: 'https://arduboy.com/',
     protocol: 'avr109'
@@ -46,6 +51,7 @@ var boards = [
     name: 'feather',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x800c', '0x000c'],
     productPage: 'https://www.adafruit.com/feather',
     protocol: 'avr109'
@@ -54,6 +60,7 @@ var boards = [
     name: 'little-bits',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x0036', '0x8036'],
     productPage: 'https://littlebits.com/collections/bits-and-accessories/products/arduino-bit',
     protocol: 'avr109'
@@ -62,6 +69,7 @@ var boards = [
     name: 'blend-micro',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000'],
     productId: ['0x2404'],
     productPage: 'https://redbear.cc/product/retired/blend-micro.html',
     protocol: 'avr109'
@@ -73,6 +81,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x6001', '0x7523'],
     productPage: 'https://web.archive.org/web/20150813095112/https://www.arduino.cc/en/Main/ArduinoBoardNano',
     protocol: 'stk500v1'
@@ -84,6 +93,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x6001', '0x7523'],
     productPage: 'https://store.arduino.cc/arduino-nano',
     protocol: 'stk500v1'
@@ -95,6 +105,7 @@ var boards = [
     pageSize: 128,
     numPages: 128,
     timeout: 400,
+    vendorId: ['0x0000'],
     productId: ['0x6001'],
     productPage: 'https://www.arduino.cc/en/Main/arduinoBoardDuemilanove',
     protocol: 'stk500v1'
@@ -106,6 +117,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000'],
     productId: ['0x6001'],
     productPage: 'https://www.arduino.cc/en/Main/arduinoBoardDuemilanove',
     protocol: 'stk500v1'
@@ -119,6 +131,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000'],
     productId: ['0x6015'],
     productPage: 'https://tinycircuits.com/pages/tinyduino-overview',
     protocol: 'stk500v1',
@@ -138,7 +151,8 @@ var boards = [
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
-    productId: ['0x0042', '0x6001', '0x0010', '0x7523'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03', '0x2341', '0x2341', '0x0000', '0x0000'],
+    productId: ['0x0010', '0x0042', '0x0010', '0x0042', '0x0210', '0x0242', '0x6001', '0x7523'],
     productPage: 'https://store.arduino.cc/mega-2560-r3',
     protocol: 'stk500v2'
   },
@@ -156,7 +170,8 @@ var boards = [
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
-    productId: ['0x0044', '0x6001', '0x003F'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03', '0x0000'],
+    productId: ['0x003f', '0x0044', '0x003f', '0x0044', '0x6001'],
     productPage: 'https://store.arduino.cc/arduino-mega-adk-rev3',
     protocol: 'stk500v2'
   },
@@ -164,6 +179,7 @@ var boards = [
     name: 'sf-pro-micro',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000', '0x0000'],
     productId: ['0x9206', '0x9205', '0x0036'],
     productPage: 'https://www.sparkfun.com/products/12640',
     protocol: 'avr109'
@@ -182,6 +198,7 @@ var boards = [
     name: 'qduino',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x516d', '0x514d'],
     productPage: 'https://www.sparkfun.com/products/13614',
     protocol: 'avr109'
@@ -200,6 +217,7 @@ var boards = [
     byteDelay:0x00,
     pollValue:0x53,
     pollIndex:0x03,
+    vendorId: ['0x1d50'],
     productId: ['0x6051'],
     productPage: 'https://www.mouser.de/new/crowd-supply/crowd-supply-pinoccio-microcontroller/',
     protocol: 'stk500v2'
@@ -208,6 +226,7 @@ var boards = [
     name: 'lilypad-usb',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x1B4F', '0x1B4F', '0x0000'],
     productId: ['0x9207', '0x9208', '0x1B4F'],
     productPage: 'https://www.sparkfun.com/products/12049',
     protocol: 'avr109'
@@ -216,7 +235,8 @@ var boards = [
     name: 'yun',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x0041', '0x8041'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03'],
+    productId: ['0x0041', '0x8041', '0x0041', '0x8041'],
     productPage: 'https://store.arduino.cc/arduino-yun',
     protocol: 'avr109'
   },
@@ -224,7 +244,8 @@ var boards = [
     name: 'esplora',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x003C', '0x803C'],
+    vendorId: ['0x2341', '0x2341', '0x2A03', '0x2A03'],
+    productId: ['0x003C', '0x803C', '0x003C', '0x803C'],
     productPage: 'https://store.arduino.cc/arduino-esplora',
     protocol: 'avr109'
   },
@@ -232,6 +253,7 @@ var boards = [
     name: 'circuit-playground-classic',
     baud: 57600,
     signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    vendorId: ['0x239A', '0x0000'],
     productId: ['0x0011', '0x8011'],
     productPage: 'https://www.adafruit.com/product/3000',
     protocol: 'avr109'
@@ -244,6 +266,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000'],
     productId: ['0xEA60'],
     productPage: 'https://store-de.bq.com/de/zum-kit-junior',
     protocol: 'stk500v1'
@@ -255,6 +278,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000'],
     productId: ['0xEA60'],
     productPage: 'https://www.bq.com/de/zum-core-2-0',
     protocol: 'stk500v1'
@@ -266,6 +290,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000', '0x0000'],
     productId: ['0x6001', '0x7523'],
     productPage: 'http://diwo.bq.com/zum-bt-328-especificaciones-tecnicas/',
     protocol: 'stk500v1'
@@ -280,6 +305,7 @@ var boards = [
     pageSize: 128,
     numPages: 256,
     timeout: 400,
+    vendorId: ['0x0000', '0x0000', '0x0000', '0x0000'],
     productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
     productPage: 'http://www.spark-concepts.com/cnc-xpro-v4-controller/',
     protocol: 'stk500v1'
