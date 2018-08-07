@@ -5,26 +5,32 @@ var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
-gulp.task('spec', function() {
+function spec() {
   return gulp.src(['tests/*.spec.js'])
     .pipe(tape({
       reporter: tapSpec()
     }));
-});
+};
 
-gulp.task('jscs', function() {
+function jscs() {
   return gulp.src(['tests/*.spec.js', 'tests/helpers/*.js', 'avrgirl-arduino.js', 'lib/*.js'], { base: "./" })
     .pipe(jscs({fix: true}))
     .pipe(gulp.dest('.'))
     .pipe(jscs.reporter())
     .pipe(jscs.reporter('fail'))
-});
+};
 
-gulp.task('lint', function() {
+function lint() {
   return gulp.src(['tests/*.spec.js', 'tests/helpers/*.js', 'avrgirl-arduino.js', 'lib/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'));
-});
+};
 
-gulp.task('test', ['spec', 'lint']);
+exports.spec = spec;
+exports.jscs = jscs;
+exports.lint = lint;
+
+var test = gulp.series(lint, spec);
+
+gulp.task('test', test);
