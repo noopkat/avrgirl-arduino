@@ -102,16 +102,6 @@ var boards = [
     aliases: ['tinduino']
   },
   {
-    name: 'bqZum',
-    baud: 19200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
-    pageSize: 128,
-    numPages: 256,
-    timeout: 400,
-    productId: ['0x6001', '0x7523'],
-    protocol: 'stk500v1'
-  },
-  {
     name: 'mega',
     baud: 115200,
     signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
@@ -212,7 +202,39 @@ var boards = [
     signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0011', '0x8011'],
     protocol: 'avr109'
+  },
+  /** BQ - Arduino Based Boards. Used in Bitbloq -> bitbloq.bq.com and Arduino IDE*/
+  {
+    name: 'zumjunior',
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0xEA60'],
+    protocol: 'stk500v1'
+  },
+  {
+    name: 'zumcore2',
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0xEA60'],
+    protocol: 'stk500v1'
+  },
+  {
+    name: 'bqZum',
+    baud: 19200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x6001', '0x7523'],
+    protocol: 'stk500v1'
   }
+  /** END OF BQ - Arduino Based Boards. Used in Bitbloq -> bitbloq.bq.com and Arduino IDE*/
 ];
 
 /**
