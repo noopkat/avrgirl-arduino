@@ -233,8 +233,20 @@ var boards = [
     timeout: 400,
     productId: ['0x6001', '0x7523'],
     protocol: 'stk500v1'
-  }
+  },
   /** END OF BQ - Arduino Based Boards. Used in Bitbloq -> bitbloq.bq.com and Arduino IDE*/
+  
+  /** START OF Spark Concepts Boards - Arduino Based CNC Controller but uses Atmega328pb (Note 'pb' not 'p' = different signature) https://github.com/Spark-Concepts/xPro-V4 */
+  {
+    name: 'xprov4',
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x95, 0x16]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
+    protocol: 'stk500v1'
+  },
 ];
 
 /**
