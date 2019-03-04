@@ -51,7 +51,7 @@
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.1.0",
     "proxyquire": "^1.7.3",
-    "sinon": "^4.1.2",
+    "sinon": "^7.2.7",
     "tap-spec": "^5.0.0",
     "tape": "^4.2.1",
     "virtual-serialport": "^0.3.1"
