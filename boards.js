@@ -69,6 +69,16 @@ var boards = [
     protocol: 'stk500v1'
   },
   {
+    name: 'nano (New Bootloader)',
+    baud: 115200,
+    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    pageSize: 128,
+    numPages: 256,
+    timeout: 400,
+    productId: ['0x6001', '0x7523'],
+    protocol: 'stk500v1'
+  },
+  {
     name: 'duemilanove168',
     baud: 19200,
     signature: new Buffer([0x1e, 0x94, 0x06]),
