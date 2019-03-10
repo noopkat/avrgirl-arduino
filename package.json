@@ -1,6 +1,6 @@
 {
   "name": "avrgirl-arduino",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.",
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino.js",
