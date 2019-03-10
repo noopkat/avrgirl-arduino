@@ -97,7 +97,7 @@ When creating `new Avrgirl()`, only the `board` property is required. The board 
 |Arduino Leonardo|`leonardo`|
 |Arduino Micro|`micro`|
 |Arduino Nano|`nano`|
-|Arduino Nano (with new bootloader)|`nano (New Bootloader)`|
+|Arduino Nano (with new bootloader)|`nano (new bootloader)`|
 |Arduino Lilypad USB|`lilypad-usb`|
 |Arduino Duemilanove|`duemilanove168`|
 |Arduino Yun|`yun`|
