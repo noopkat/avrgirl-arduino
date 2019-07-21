@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var Avrgirl = require('../avrgirl-arduino');
+var Avrgirl = require('../');
 var boards = require('../boards');
 var parseArgs = require('minimist');
 var path = require('path');
