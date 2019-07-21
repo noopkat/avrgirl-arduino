@@ -3,7 +3,7 @@
   "version": "3.0.2",
   "description": "A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.",
   "bin": "./bin/cli.js",
-  "main": "avrgirl-arduino.js",
+  "main": "avrgirl-arduino-node.js",
   "scripts": {
     "test": "gulp test",
     "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
