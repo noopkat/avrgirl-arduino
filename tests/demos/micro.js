@@ -1,4 +1,4 @@
-var Avrgirl = require('../../avrgirl-arduino');
+var Avrgirl = require('../../');
 var board = {
   name: 'micro',
   baud: 57600,

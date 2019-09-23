@@ -4,6 +4,7 @@
   "description": "A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.",
   "bin": "./bin/cli.js",
   "main": "avrgirl-arduino-node.js",
+  "module": "dist/avrgirl-arduino.min.js",
   "scripts": {
     "test": "gulp test",
     "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
@@ -54,10 +55,13 @@
     "sinon": "^4.1.2",
     "tap-spec": "^5.0.0",
     "tape": "^4.2.1",
-    "virtual-serialport": "^0.3.1"
+    "terser-webpack-plugin": "^2.1.0",
+    "virtual-serialport": "^0.3.1",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   },
   "browser": {
     "graceful-fs": false,
-    "serialport": "browser-serialport"
+    "serialport": false
   }
 }
