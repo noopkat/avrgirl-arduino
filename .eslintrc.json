@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    // Force all variable names to use either camelCase style or UPPER_CASE
+    // with underscores.
+    "camelcase": ["error"],
+
+    // Prohibit use of == and != in favor of === and !==.
+    "eqeqeq": 2,
+
+    // Enforce tab width of 2 spaces.
+    "indent": ["error", 2],
+
+    // Prohibit use of a variable before it is defined.
+    "no-use-before-define": 2,
+
+    // Enforce line length to 100 characters
+    "max-len": ["error", { "code": 200 }],
+
+    // Require capitalized names for constructor functions.
+    "new-cap": 1,
+
+    // Enforce use of single quotation marks for strings.
+    "quotes": ["error", "single"],
+
+    // Enforce placing 'use strict' at the top function scope
+    "strict": 0,
+
+    // Prohibit use of explicitly undeclared variables.
+    "no-undef": 2,
+
+    // Warn when variables are defined but never used.
+    "no-unused-vars": 1,
+
+    // Suppress warnings about == null comparisons.
+    "no-eq-null": 0
+  }
+}
