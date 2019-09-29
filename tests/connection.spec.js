@@ -16,9 +16,9 @@ var DEF_OPTS1 = {
     numPages: 256,
     timeout: 400,
     productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
-    protocol: 'stk500v1',
+    protocol: 'stk500v1'
   },
-  port: '',
+  port: ''
 };
 
 test('[ Connection ]  - new creation', function(t) {
@@ -67,13 +67,13 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
             pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
             locationId: '',
             vendorId: '',
-            productId: '',
-          },
+            productId: ''
+          }
         ]);
       },
 
-      SerialPort: mockSerial.SerialPort,
-    },
+      SerialPort: mockSerial.SerialPort
+    }
   });
 
   // nodejs 0.10.x race condition needs this
@@ -102,9 +102,8 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
             vendorId: '0x2341', productId: '0x0043' }
         ]);
       },
-
-      SerialPort: mockSerial.SerialPort,
-    },
+      SerialPort: mockSerial.SerialPort
+    }
   });
 
   // nodejs 0.10.x race condition needs this
@@ -130,7 +129,7 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
     },
       SerialPort: mockSerial.SerialPort,
     },
-  });
+==  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -171,9 +170,9 @@ test('[ Connection ] ::_pollForPort', function(t) {
       numPages: 256,
       timeout: 400,
       productId: ['0x0043', '0x7523', '0x0001', '0xea60'],
-      protocol: 'stk500v1',
+      protocol: 'stk500v1'
     },
-    port: '/dev/cu.usbmodem1421',
+    port: '/dev/cu.usbmodem1421'
   };
 
   // nodejs 0.10.x race condition needs this

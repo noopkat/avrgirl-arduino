@@ -3,6 +3,7 @@ var proxyquire = require('proxyquire');
 var sinon = require('sinon');
 
 // proxyquired connection module
+<<<<<<< HEAD
 var Connection = proxyquire.noCallThru().load('../lib/connection',
   { serialport: {
     list: function() { return Promise.resolve(
@@ -20,6 +21,45 @@ var Connection = proxyquire.noCallThru().load('../lib/connection',
   },
 
   SerialPort: require('./helpers/mockSerial').SerialPort
+=======
+// var Connection = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
+var Connection = proxyquire.noCallThru().load('../lib/connection', {
+  serialport: {
+    list: function(callback) {
+      callback(null, [
+        {
+          comName: '/dev/cu.sierravsp',
+          manufacturer: '',
+          serialNumber: '',
+          pnpId: '',
+          locationId: '',
+          vendorId: '',
+          productId: ''
+        },
+        {
+          comName: '/dev/cu.Bluetooth-Incoming-Port',
+          manufacturer: '',
+          serialNumber: '',
+          pnpId: '',
+          locationId: '',
+          vendorId: '',
+          productId: ''
+        },
+        {
+          comName: '/dev/cu.usbmodem1421',
+          manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170',
+          pnpId: '',
+          locationId: '0x14200000',
+          vendorId: '0x2341',
+          productId: '0x0043'
+        }
+      ]);
+    },
+
+    SerialPort: require('./helpers/mockSerial').SerialPort
+  }
+>>>>>>> Remove trailing commas
 });
 
 // module to test
@@ -27,7 +67,7 @@ var Avrgirl = proxyquire('../avrgirl-arduino', { Connection: Connection });
 
 // default options
 var DEF_OPTS2 = {
-  board: 'uno',
+  board: 'uno'
 };
 
 test('[ AVRGIRL-ARDUINO ] method presence', function(t) {

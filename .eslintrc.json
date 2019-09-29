@@ -44,6 +44,9 @@
     "no-unused-vars": 1,
 
     // Suppress warnings about == null comparisons.
-    "no-eq-null": 0
+    "no-eq-null": 0,
+
+    // Warn when there are dangling commas
+    "comma-dangle": ["warn", "never"]
   }
 }
