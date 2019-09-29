@@ -45,18 +45,10 @@
     "stk500-v2": "^1.0.4"
   },
   "devDependencies": {
-    "@babel/register": "^7.0.0",
     "avrga-tester": "1.x",
     "eslint": "^6.5.0",
-    "esm": "^3.0.82",
-    "gulp": "^4.0.0",
-    "gulp-jscs": "^4.0.0",
-    "gulp-jshint": "^2.0.3",
-    "gulp-tape": "0.0.9",
     "istanbul": "^0.4.0",
     "istanbul-coveralls": "^1.0.3",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.1.0",
     "proxyquire": "^1.7.3",
     "sinon": "^4.1.2",
     "tap-spec": "^5.0.0",

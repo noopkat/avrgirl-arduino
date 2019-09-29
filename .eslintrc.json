@@ -20,7 +20,7 @@
     "eqeqeq": 2,
 
     // Enforce tab width of 2 spaces.
-    "indent": ["error", 2],
+    "indent": ["warn", 2],
 
     // Prohibit use of a variable before it is defined.
     "no-use-before-define": 2,
