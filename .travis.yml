@@ -1,26 +1,26 @@
 language: node_js
 node_js:
-- "12"
-- "10"
-- "8"
+  - "12"
+  - "10"
+  - "8"
 
 env:
-- CC=clang CXX=clang++ npm_config_clang=1
+  - CC=clang CXX=clang++ npm_config_clang=1
 
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.8
-    - g++-4.8
-    - build-essential
-    - libudev-dev
+      - gcc-4.8
+      - g++-4.8
+      - build-essential
+      - libudev-dev
 
 before_script:
-- npm install -g gulp
-- npm install -g istanbul
-- npm install -g istanbul-coveralls
+  - npm install -g gulp
+  - npm install -g istanbul
+  - npm install -g istanbul-coveralls
 
 after_success:
-- npm run cover
+  - npm run cover
