@@ -43,8 +43,11 @@ const globalConfigNonMin = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'avrgirl-arduino.global.js',
     library: 'AvrgirlArduino',
-    libraryTarget: 'window'
+    libraryTarget: 'window',
   },
+  optimization: {
+    minimize: false,
+  }
 };
 
 module.exports = [importableConfig, importableMinConfig, globalConfig, globalConfigNonMin];
