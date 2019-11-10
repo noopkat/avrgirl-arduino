@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+  <head>
+    <title>avrgirl test</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina|Cabin+Sketch|Fugaz+One|Itim|Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+  <div class="main">
+      <div class="wrapper">
+        <div class="bot">
+          <h1>Upload-o-matic</h1>
+          <p>Choose a program to upload to an arduino</p>
+
+          <form id="uploadForm"> 
+            <label>Board:
+              <select id="boardType">
+                <option value="uno">Uno</option>
+                <option value="mega">Mega</option>
+              </select>
+            </label>
+
+            <label>Program:
+              <div class="fileButtonWrapper">
+                <button id="fileButton" type="button" aria-controls="fileInput">Choose file</button>
+                <input id="fileInput" tabindex="-1" type="file"/>
+                <span id="fileName">no file chosen</span>
+              </div>
+            </label>
+
+            <button type="submit" id="uploadBtn">Upload!</button>
+          </form>
+        </div>
+        <div class="board">
+          <img src="images/ArduinoUno.svg"/>
+        </div>
+        <div id="pipe"></div>
+        <div id="progress"></div>
+        <div id="gear"><img src="images/gear4.svg"/></div>
+        <div id="logbox">
+          <h2>Byte dump</h2>
+          <div id="log"></div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/avrgirl-arduino.global.js"></script>
+    <script>
+      function handleSubmit(e) {
+        e.preventDefault();
+        // get the file chosen from the form
+				let filecontents;
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        // get the requested board name
+        const board = boardType.value;
+        reader.onload = function(event) {
+          // get the string text of the file
+          filecontents = event.target.result;
+          console.log(filecontents.byteLength);
+
+					let avrgirl = new AvrgirlArduino({
+						board: board,
+						debug: true
+					});
+
+          let pageCounter = 0;
+
+          const hex = avrgirl.tools._parseHex(filecontents);
+          console.log(hex.length, hex);
+          
+          // the worst hack for this whole thing honestly 
+          avrgirl.protocol.chip.on('connection:open', () => gear.classList.add('spinning'));
+
+          avrgirl.on('page:load:complete', (data) => {
+            pageCounter += 1;
+            const page = Array.prototype.map.call(data,(b) => ('0' + (b & 0xff).toString(16)).slice(-2)).join('</span><span>'); 
+            log.innerHTML = log.innerHTML + '<span>' + page + '</span>';
+            const w = (pageCounter / (hex.length / 128)) * barWidth;
+            progress.style.width = `${w}px`;
+            if (w > 99) {
+              progress.textContent = "verifying";
+            }
+          }); 
+
+
+					avrgirl.flash(filecontents, (error) =>  {
+            gear.classList.remove('spinning');
+            progress.textContent = "done!";
+						if (error) {
+							console.error(error);
+						} else {
+							console.info('bananas.');
+						}
+					});
+
+       };
+        // we can send the filecontents to the chrome app as plain text
+        reader.readAsArrayBuffer(file);
+      }
+
+      
+      const uploadForm = document.getElementById('uploadForm');
+      const fileInput = document.getElementById('fileInput');
+      const fileButton = document.getElementById('fileButton');
+      const fileName = document.getElementById('fileName');
+      const boardType = document.getElementById('boardType');
+      const uploadBtn = document.getElementById('uploadBtn');
+      const log = document.getElementById('log');
+      const progress = document.getElementById('progress');
+      const gear = document.getElementById('gear');
+      const pages = 256;
+      const barWidth = 100;
+
+      uploadForm.addEventListener('submit', handleSubmit, false);
+      fileButton.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) fileName.textContent = file.name;
+      });
+
+    </script>
+  </body>
+</html>

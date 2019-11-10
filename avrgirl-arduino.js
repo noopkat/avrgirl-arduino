@@ -1,10 +1,14 @@
 var injectDependencies = function(boards, Connection, protocols) {
+  var EventEmitter = require('events');
+  var util = require('util');
+  var tools = require('./lib/tools');
   /**
    * Constructor
    *
    * @param {object} opts - options for consumer to pass in
    */
   var AvrgirlArduino = function(opts) {
+    var _this = this;
     opts = opts || {};
 
     this.options = {
@@ -44,10 +48,21 @@ var injectDependencies = function(boards, Connection, protocols) {
       this.protocol = new Protocol({
         board: this.options.board,
         connection: this.connection,
-        debug: this.debug
+        debug: this.debug,
       });
     }
+
+    EventEmitter.call(this);
+    
+    if (!this.protocol.chip.on) return;
+
+    this.protocol.chip.on('page:load:complete', function(data) {
+      //console.log('page load complete', data);
+      _this.emit('page:load:complete', data);
+    });
   };
+
+  util.inherits(AvrgirlArduino, EventEmitter);
 
   /**
    * Validates the board properties
@@ -121,7 +136,11 @@ var injectDependencies = function(boards, Connection, protocols) {
     });
   };
 
+  // shift public static exposure for demo purposes
+  AvrgirlArduino.prototype.tools = tools;
+
   return AvrgirlArduino;
 };
+
 
 module.exports = injectDependencies;
