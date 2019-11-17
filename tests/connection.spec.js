@@ -32,8 +32,8 @@ test('[ Connection ]  - new creation', function(t) {
 test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
+      list: function(callback) { return Promise.resolve(
+        [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
             pnpId: '', locationId: '', vendorId: '', productId: '' },
           { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
@@ -62,8 +62,8 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
 test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
+      list: function(callback) { return Promise.resolve(
+         [
           { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
             pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
             locationId: '', vendorId: '', productId: '' }
@@ -87,8 +87,8 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
 test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
+      list: function(callback) { return Promise.resolve(
+        [
           { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
             pnpId: '', locationId: '', vendorId: '', productId: '' },
           { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
@@ -117,8 +117,8 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
 test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-    list: function(callback) {
-      callback(null, [
+    list: function(callback) { return Promise.resolve(
+      [
         { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
           pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
           locationId: '', vendorId: '', productId: '' }
@@ -139,29 +139,11 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   }, 200);
 });
 
-test('[ Connection ] ::_cycleDTR', function(t) {
-  t.plan(2);
-  var options = {
-    debug: false,
-    board: 'uno',
-    port: '/dev/cu.usbmodem1421'
-  };
-  var c = new ConnectionTest(options);
-  var stub = sinon.stub(c, '_setDTR').callsFake(function(bool, timeout, callback) {
-    return callback(null);
-  });
-
-  c._cycleDTR(function(error) {
-    t.ok(stub.calledTwice, '_setDTR was called twice');
-    t.error(error, 'no error');
-  });
-});
-
 test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
   var mockedSerial = mockSerial.SerialPort;
-  mockedSerial.list = function(callback) {
-      callback(null, [
+  mockedSerial.list = function(callback) { return Promise.resolve(
+      [
         { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
           pnpId: '', locationId: '', vendorId: '', productId: '' },
         { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',

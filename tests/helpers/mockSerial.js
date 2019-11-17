@@ -44,10 +44,11 @@ MockSerial.prototype.set = function(props, callback) {
   return;
 };
 
+MockSerial.list = MockSerial.prototype.list = function() { return Promise.resolve([])};
+
 module.exports = {
-  list: function(callback) {
-    callback(null, []);
-  },
+  list: function() { return Promise.resolve([])},
+
 
   parsers: {
     raw: function() {},

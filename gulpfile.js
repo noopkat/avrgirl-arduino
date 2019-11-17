@@ -31,6 +31,6 @@ exports.spec = spec;
 exports.jscs = jscs;
 exports.lint = lint;
 
-var test = gulp.series(lint, spec);
+var test = gulp.series(spec);
 
 gulp.task('test', test);

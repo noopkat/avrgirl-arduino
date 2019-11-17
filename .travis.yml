@@ -1,10 +1,8 @@
 language: node_js
 node_js:
+- "12"
 - "10"
-- "9"
 - "8"
-- "7"
-- "6"
 
 env:
 - CC=clang CXX=clang++ npm_config_clang=1

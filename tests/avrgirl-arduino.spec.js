@@ -1,13 +1,12 @@
 var test = require('tape');
 var proxyquire = require('proxyquire');
-
 var sinon = require('sinon');
 
 // proxyquired connection module
 // var Connection = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
 var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-  list: function(callback) {
-    callback(null, [
+  list: function() { return Promise.resolve(
+    [
       { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
         pnpId: '', locationId: '', vendorId: '', productId: '' },
       { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
@@ -16,11 +15,12 @@ var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport:
       { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
         serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
         vendorId: '0x2341', productId: '0x0043' }
-    ]);
+    ])
+  }
   },
 
   SerialPort: require('./helpers/mockSerial').SerialPort
-} });
+});
 
 // module to test
 var Avrgirl = proxyquire('../avrgirl-arduino', { Connection: Connection });
