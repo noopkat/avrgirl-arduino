@@ -82,7 +82,7 @@ window["AvrgirlArduino"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 30);
+/******/ 	return __webpack_require__(__webpack_require__.s = 29);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,8 +100,8 @@ window["AvrgirlArduino"] =
 
 
 
-var base64 = __webpack_require__(32)
-var ieee754 = __webpack_require__(33)
+var base64 = __webpack_require__(31)
+var ieee754 = __webpack_require__(32)
 var isArray = __webpack_require__(19)
 
 exports.Buffer = Buffer
@@ -2636,7 +2636,7 @@ var util = __webpack_require__(9);
 util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
-var Readable = __webpack_require__(25);
+var Readable = __webpack_require__(24);
 var Writable = __webpack_require__(18);
 
 util.inherits(Duplex, Readable);
@@ -3258,7 +3258,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(45);
+exports.isBuffer = __webpack_require__(44);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -3468,10 +3468,10 @@ module['exports'] = colors;
 
 colors.themes = {};
 
-var ansiStyles = colors.styles = __webpack_require__(48);
+var ansiStyles = colors.styles = __webpack_require__(47);
 var defineProps = Object.defineProperties;
 
-colors.supportsColor = __webpack_require__(49);
+colors.supportsColor = __webpack_require__(48);
 
 if (typeof colors.enabled === "undefined") {
   colors.enabled = colors.supportsColor;
@@ -3570,7 +3570,7 @@ function applyTheme (theme) {
 colors.setTheme = function (theme) {
   if (typeof theme === 'string') {
     try {
-      colors.themes[theme] = __webpack_require__(23)(theme);
+      colors.themes[theme] = __webpack_require__(22)(theme);
       applyTheme(colors.themes[theme]);
       return colors.themes[theme];
     } catch (err) {
@@ -3601,15 +3601,15 @@ var sequencer = function sequencer (map, str) {
 };
 
 // custom formatter methods
-colors.trap = __webpack_require__(50);
-colors.zalgo = __webpack_require__(51);
+colors.trap = __webpack_require__(49);
+colors.zalgo = __webpack_require__(50);
 
 // maps
 colors.maps = {};
-colors.maps.america = __webpack_require__(52);
-colors.maps.zebra = __webpack_require__(53);
-colors.maps.rainbow = __webpack_require__(54);
-colors.maps.random = __webpack_require__(55)
+colors.maps.america = __webpack_require__(51);
+colors.maps.zebra = __webpack_require__(52);
+colors.maps.rainbow = __webpack_require__(53);
+colors.maps.random = __webpack_require__(54)
 
 for (var map in colors.maps) {
   (function(map){
@@ -3678,7 +3678,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(36);
+__webpack_require__(35);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -9562,7 +9562,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).setImmediate, __webpack_require__(1), __webpack_require__(2), __webpack_require__(37)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).setImmediate, __webpack_require__(1), __webpack_require__(2), __webpack_require__(36)(module)))
 
 /***/ }),
 /* 14 */
@@ -9590,7 +9590,7 @@ module.exports = {
   Cmnd_STK_READ_PAGE: 0x74,
 
 
-  OK_RESPONSE: new Buffer([Resp_STK_INSYNC, Resp_STK_OK])
+  OK_RESPONSE: Buffer.from([Resp_STK_INSYNC, Resp_STK_OK])
 };
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
@@ -9610,7 +9610,7 @@ module['exports'] = colors;
 //   colors.red("foo")
 //
 //
-__webpack_require__(56)();
+__webpack_require__(55)();
 
 /***/ }),
 /* 16 */
@@ -9658,13 +9658,13 @@ module.exports = Protocol;
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(25);
+exports = module.exports = __webpack_require__(24);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(18);
 exports.Duplex = __webpack_require__(5);
-exports.Transform = __webpack_require__(29);
-exports.PassThrough = __webpack_require__(69);
+exports.Transform = __webpack_require__(28);
+exports.PassThrough = __webpack_require__(68);
 
 
 /***/ }),
@@ -9744,12 +9744,12 @@ util.inherits = __webpack_require__(4);
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(68)
+  deprecate: __webpack_require__(67)
 };
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(26);
+var Stream = __webpack_require__(25);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -9765,7 +9765,7 @@ function _isUint8Array(obj) {
 
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(27);
+var destroyImpl = __webpack_require__(26);
 
 util.inherits(Writable, Stream);
 
@@ -10520,26 +10520,6 @@ exports.parse = function parseIntelHex(data, bufferSize) {
 
 /***/ }),
 /* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Buffer = __webpack_require__(0).Buffer; // for use with browserify
-
-module.exports = function (a, b) {
-    if (!Buffer.isBuffer(a)) return undefined;
-    if (!Buffer.isBuffer(b)) return undefined;
-    if (typeof a.equals === 'function') return a.equals(b);
-    if (a.length !== b.length) return false;
-    
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] !== b[i]) return false;
-    }
-    
-    return true;
-};
-
-
-/***/ }),
-/* 23 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -10550,10 +10530,10 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 23;
+webpackEmptyContext.id = 22;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
  
@@ -10651,7 +10631,7 @@ module.exports.ANSWER_CKSUM_ERROR = 0xB0
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10704,7 +10684,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(26);
+var Stream = __webpack_require__(25);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -10726,7 +10706,7 @@ util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(65);
+var debugUtil = __webpack_require__(64);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -10735,8 +10715,8 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(66);
-var destroyImpl = __webpack_require__(27);
+var BufferList = __webpack_require__(65);
+var destroyImpl = __webpack_require__(26);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -10826,7 +10806,7 @@ function ReadableState(options, stream) {
   this.decoder = null;
   this.encoding = null;
   if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(28).StringDecoder;
+    if (!StringDecoder) StringDecoder = __webpack_require__(27).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
@@ -10982,7 +10962,7 @@ Readable.prototype.isPaused = function () {
 
 // backwards compatibility.
 Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(28).StringDecoder;
+  if (!StringDecoder) StringDecoder = __webpack_require__(27).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -11677,14 +11657,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(3).EventEmitter;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11764,7 +11744,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12066,7 +12046,7 @@ function simpleEnd(buf) {
 }
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12286,20 +12266,20 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var boards = __webpack_require__(31);
-var Connection = __webpack_require__(34);
-var protocols = __webpack_require__(41);
-var AvrgirlArduino = __webpack_require__(75);
+var boards = __webpack_require__(30);
+var Connection = __webpack_require__(33);
+var protocols = __webpack_require__(40);
+var AvrgirlArduino = __webpack_require__(74);
 
 module.exports = AvrgirlArduino(boards, Connection, protocols);
 
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var boards = [
@@ -12616,7 +12596,7 @@ module.exports = boardLookupTable();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12775,7 +12755,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -12865,12 +12845,12 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Serialport = __webpack_require__(35);
+var Serialport = __webpack_require__(34);
 var async = __webpack_require__(13);
-var awty = __webpack_require__(38);
+var awty = __webpack_require__(37);
 var tools = __webpack_require__(10);
 
 var Connection = function(options) {
@@ -13064,7 +13044,7 @@ module.exports = Connection;
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {const { EventEmitter } = __webpack_require__(3);
@@ -13161,7 +13141,7 @@ module.exports = SerialPort;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -13354,7 +13334,7 @@ module.exports = SerialPort;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -13382,11 +13362,11 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isval = __webpack_require__(39)
-  , doubler = __webpack_require__(40);
+var isval = __webpack_require__(38)
+  , doubler = __webpack_require__(39);
 
 module.exports = function awty(poll) {
   if (!arguments.length) {
@@ -13499,7 +13479,7 @@ module.exports = function awty(poll) {
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = function isval(value, type) {
@@ -13574,7 +13554,7 @@ module.exports = function isval(value, type) {
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = function doubler(start, n) {
@@ -13587,21 +13567,21 @@ module.exports = function doubler(start, n) {
 
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  stk500v1: __webpack_require__(42),
-  stk500v2: __webpack_require__(57),
-  avr109: __webpack_require__(62)
+  stk500v1: __webpack_require__(41),
+  stk500v2: __webpack_require__(56),
+  avr109: __webpack_require__(61)
 };
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var STK = __webpack_require__(43);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var STK = __webpack_require__(42);
 var colors = __webpack_require__(15);
 var tools = __webpack_require__(10);
 var Protocol = __webpack_require__(16);
@@ -13680,18 +13660,16 @@ module.exports = Stk500v1;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var async = __webpack_require__(44);
-var bufferEqual = __webpack_require__(22);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var async = __webpack_require__(43);
 var EventEmitter = __webpack_require__(3);
 var util = __webpack_require__(6);
 var Statics = __webpack_require__(14);
-var sendCommand = __webpack_require__(46);
+var sendCommand = __webpack_require__(45);
 
 var stk500 = function (opts) {
-  console.log('using local');
   this.opts = opts || {};
   this.quiet = this.opts.quiet || false;
   if(this.quiet){
@@ -13709,7 +13687,7 @@ var stk500 = function (opts) {
 util.inherits(stk500, EventEmitter);
 
 stk500.prototype.sync = function (stream, attempts, timeout, done) {
-	this.log("sync");
+	//this.log("sync");
 	var self = this;
 	var tries = 1;
 
@@ -13725,9 +13703,9 @@ stk500.prototype.sync = function (stream, attempts, timeout, done) {
     sendCommand(stream, opt, function (err, data) {
 			if (err && tries <= attempts) {
         if (err) {
-          self.log(err);
+         // self.log(err);
         }
-				self.log("failed attempt again", tries);
+				//self.log("failed attempt again", tries);
 				return attempt();
       }
       self.log('sync complete', err, data, tries);
@@ -13738,12 +13716,12 @@ stk500.prototype.sync = function (stream, attempts, timeout, done) {
 };
 
 stk500.prototype.verifySignature = function (stream, signature, timeout, done) {
-	this.log("verify signature");
+	//this.log("verify signature");
 	var self = this;
 	match = Buffer.concat([
-    new Buffer([Statics.Resp_STK_INSYNC]),
+    Buffer.from([Statics.Resp_STK_INSYNC]),
     signature,
-    new Buffer([Statics.Resp_STK_OK])
+    Buffer.from([Statics.Resp_STK_OK])
   ]);
 
   var opt = {
@@ -13755,16 +13733,16 @@ stk500.prototype.verifySignature = function (stream, signature, timeout, done) {
   };
   sendCommand(stream, opt, function (err, data) {
     if(data){
-      self.log('confirm signature', err, data, data.toString('hex'));
+      //self.log('confirm signature', err, data, data.toString('hex'));
     }else{
-      self.log('confirm signature', err, 'no data');
+      //self.log('confirm signature', err, 'no data');
     }
     done(err, data);
   });
 };
 
 stk500.prototype.getSignature = function (stream, timeout, done) {
-	this.log("get signature");
+	//this.log("get signature");
   var opt = {
     cmd: [
       Statics.Cmnd_STK_READ_SIGN
@@ -13773,13 +13751,13 @@ stk500.prototype.getSignature = function (stream, timeout, done) {
     timeout: timeout
   };
   sendCommand(stream, opt, function (err, data) {
-    this.log('getSignature', err, data);
+    //this.log('getSignature', err, data);
     done(err, data);
   });
 };
 
 stk500.prototype.setOptions = function (stream, options, timeout, done) {
-	this.log("set device");
+	//this.log("set device");
 	var self = this;
 	
   var opt = {
@@ -13810,88 +13788,119 @@ stk500.prototype.setOptions = function (stream, options, timeout, done) {
     timeout: timeout
   };
   sendCommand(stream, opt, function (err, data) {
-    self.log('setOptions', err, data);
-    if (err) {
-      return done(err);
-    }
-    done();
+    //self.log('setOptions', err, data);
+    return done(err);
   });
 };
 
 stk500.prototype.enterProgrammingMode = function (stream, timeout, done) {
-	this.log("send enter programming mode");
-  var self = this;
-  var opt = {
-    cmd: [
-      Statics.Cmnd_STK_ENTER_PROGMODE
-    ],
-    responseData: Statics.OK_RESPONSE,
-    timeout: timeout
-  };
-  sendCommand(stream, opt, function (err, data) {
-		self.log("sent enter programming mode", err, data);
-    done(err, data);
-  });
+ // return new Promise(function (resolve, reject) {
+    //this.log("send enter programming mode");
+    var self = this;
+    var opt = {
+      cmd: [
+        Statics.Cmnd_STK_ENTER_PROGMODE
+      ],
+      responseData: Statics.OK_RESPONSE,
+      timeout: timeout
+    };
+    sendCommand(stream, opt, function (err, data) {
+      //self.log("sent enter programming mode", err, data);
+      if (done) return done(err, data);
+  //    else (err) ? reject(err) : resolve(data);
+    });
+ // });
 };
 
 stk500.prototype.loadAddress = function (stream, useaddr, timeout, done) {
-	this.log("load address");
-  var self = this;
-	var addr_low = useaddr & 0xff;
-	var addr_high = (useaddr >> 8) & 0xff;
-  var opt = {
-    cmd: [
-      Statics.Cmnd_STK_LOAD_ADDRESS,
-      addr_low,
-      addr_high
-    ],
-    responseData: Statics.OK_RESPONSE,
-    timeout: timeout
-  };
-  sendCommand(stream, opt, function (err, data) {
-		self.log('loaded address', err, data);
-    done(err, data);
-  });
+  //return new Promise(function (resolve, reject) {
+    //this.log("load address");
+    var self = this;
+    var addr_low = useaddr & 0xff;
+    var addr_high = (useaddr >> 8) & 0xff;
+    var opt = {
+      cmd: [
+        Statics.Cmnd_STK_LOAD_ADDRESS,
+        addr_low,
+        addr_high
+      ],
+      responseData: Statics.OK_RESPONSE,
+      timeout: timeout
+    };
+    sendCommand(stream, opt, function (err, data) {
+      //self.log('loaded address', err, data);
+      if (done) return done(err, data);
+  //    else (err) ? reject(err) : resolve(data);
+    });
+ // });
 };
 
 stk500.prototype.loadPage = function (stream, writeBytes, timeout, done) {
-	this.log("load page");
-  var self = this;
-	var bytes_low = writeBytes.length & 0xff;
-	var bytes_high = writeBytes.length >> 8;
+ // return new Promise(function (resolve, reject) {
+    //this.log("load page");
+    var self = this;
+    var bytes_low = writeBytes.length & 0xff;
+    var bytes_high = writeBytes.length >> 8;
 
-	var cmd = Buffer.concat([
-    new Buffer([Statics.Cmnd_STK_PROG_PAGE, bytes_high, bytes_low, 0x46]),
-    writeBytes,
-    new Buffer([Statics.Sync_CRC_EOP])
-  ]);
+    var cmd = Buffer.concat([
+      Buffer.from([Statics.Cmnd_STK_PROG_PAGE, bytes_high, bytes_low, 0x46]),
+      writeBytes,
+      Buffer.from([Statics.Sync_CRC_EOP])
+    ]);
 
-  var opt = {
-    cmd: cmd,
-    responseData: Statics.OK_RESPONSE,
-    timeout: timeout
-  };
-  sendCommand(stream, opt, function (err, data) {
-		self.log('loaded page', err, data);
-    self.emit('page:load:complete', writeBytes);
-    done(err, data);
-  });
+    var opt = {
+      cmd: cmd,
+      responseData: Statics.OK_RESPONSE,
+      timeout: timeout
+    };
+    sendCommand(stream, opt, function (err, data) {
+      //self.log('loaded page', err, data);
+      self.emit('page:load:complete', writeBytes);
+      if (done) return done(err, data);
+ //     else (err) ? reject(err) : resolve(data);
+    });
+//  });
 };
 
-stk500.prototype.upload = function (stream, hex, pageSize, timeout, done) {
-	this.log("program");
+stk500.prototype.upload = async function (stream, hex, pageSize, timeout, done) {
+	//this.log("program");
 
 	var pageaddr = 0;
 	var writeBytes;
 	var useaddr;
+  var pageend;
 
 	var self = this;
 
+/*  
+  while (pageaddr < hex.length) {
+    //self.log("program page");
+    useaddr = pageaddr >> 1;
+    pageend = hex.length > pageSize ? (pageaddr + pageSize) : hex.length - 1;
+    writeBytes = hex.slice(pageaddr, pageend);
+
+    try {
+      await self.loadAddress(stream, useaddr, timeout);
+      await self.loadPage(stream, writeBytes, timeout);
+    } catch (e) {
+      if (done) return done(e);
+    }
+    
+    //self.log("programmed page");
+    //self.log("page done");
+    pageaddr =  pageaddr + writeBytes.length;
+    // TODO: look into why this slight pause is needed for these boards
+    await async function() {return new Promise(function(resolve) {setTimeout(resolve, 4)})};
+  }
+  
+  //self.log("upload done");
+  if (done) return done();
+*/
 	// program individual pages
   async.whilst(
     function() { return pageaddr < hex.length; },
     function(pagedone) {
-			self.log("program page");
+			//self.log("program page");
       async.series([
       	function(cbdone){
       		useaddr = pageaddr >> 1;
@@ -13909,41 +13918,44 @@ stk500.prototype.upload = function (stream, hex, pageSize, timeout, done) {
         	self.loadPage(stream, writeBytes, timeout, cbdone);
         },
         function(cbdone){
-					self.log("programmed page");
+					//self.log("programmed page");
         	pageaddr =  pageaddr + writeBytes.length;
         	setTimeout(cbdone, 4);
         }
       ],
       function(error) {
-      	self.log("page done");
+      	//self.log("page done");
       	pagedone(error);
       });
     },
     function(error) {
-    	self.log("upload done");
+    	//self.log("upload done");
     	done(error);
     }
   );
 };
 
 stk500.prototype.exitProgrammingMode = function (stream, timeout, done) {
-	this.log("send leave programming mode");
-  var self = this;
-  var opt = {
-    cmd: [
-      Statics.Cmnd_STK_LEAVE_PROGMODE
-    ],
-    responseData: Statics.OK_RESPONSE,
-    timeout: timeout
-  };
-  sendCommand(stream, opt, function (err, data) {
-		self.log('sent leave programming mode', err, data);
-    done(err, data);
-  });
+//  return new Promise(function (resolve, reject) {
+    //this.log("send leave programming mode");
+    var self = this;
+    var opt = {
+      cmd: [
+        Statics.Cmnd_STK_LEAVE_PROGMODE
+      ],
+      responseData: Statics.OK_RESPONSE,
+      timeout: timeout
+    };
+    sendCommand(stream, opt, function (err, data) {
+      //self.log('sent leave programming mode', err, data);
+      if (done) return done(err, data);
+  //    else (err) ? reject(err) : resolve(data);
+    });
+ // });
 };
 
 stk500.prototype.verify = function (stream, hex, pageSize, timeout, done) {
-	this.log("verify");
+	//this.log("verify");
 
 	var pageaddr = 0;
 	var writeBytes;
@@ -13955,7 +13967,7 @@ stk500.prototype.verify = function (stream, hex, pageSize, timeout, done) {
   async.whilst(
     function() { return pageaddr < hex.length; },
     function(pagedone) {
-			self.log("verify page");
+			//self.log("verify page");
       async.series([
       	function(cbdone){
       		useaddr = pageaddr >> 1;
@@ -13973,30 +13985,30 @@ stk500.prototype.verify = function (stream, hex, pageSize, timeout, done) {
         	self.verifyPage(stream, writeBytes, pageSize, timeout, cbdone);
         },
         function(cbdone){
-					self.log("verified page");
+					//self.log("verified page");
         	pageaddr =  pageaddr + writeBytes.length;
         	setTimeout(cbdone, 4);
         }
       ],
       function(error) {
-      	self.log("verify done");
+      	//self.log("verify done");
       	pagedone(error);
       });
     },
     function(error) {
-    	self.log("verify done");
+    	//self.log("verify done");
     	done(error);
     }
   );
 };
 
 stk500.prototype.verifyPage = function (stream, writeBytes, pageSize, timeout, done) {
-	this.log("verify page");
+	//this.log("verify page");
 	var self = this;
 	match = Buffer.concat([
-    new Buffer([Statics.Resp_STK_INSYNC]),
+    Buffer.from([Statics.Resp_STK_INSYNC]),
     writeBytes,
-    new Buffer([Statics.Resp_STK_OK])
+    Buffer.from([Statics.Resp_STK_OK])
   ]);
 
 	var size = writeBytes.length >= pageSize ? pageSize : writeBytes.length;
@@ -14012,8 +14024,11 @@ stk500.prototype.verifyPage = function (stream, writeBytes, pageSize, timeout, d
     timeout: timeout
   };
   sendCommand(stream, opt, function (err, data) {
-		self.log('confirm page', err, data, data.toString('hex'));
+    if (err) return done(err);
+		//self.log('confirm page', err, data, data.toString('hex'));
     self.emit('page:read:complete', data);
+//    if (writeBytes.equals(data)) console.log('matches page') && self.emit('page:verify:complete', data);
+ //   else err = new Error('page did not match expected data');
     done(err, data);
   }); 
 };
@@ -14046,7 +14061,7 @@ module.exports = stk500;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, setImmediate) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15175,7 +15190,7 @@ module.exports = stk500;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(8).setImmediate))
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = function isBuffer(arg) {
@@ -15186,11 +15201,10 @@ module.exports = function isBuffer(arg) {
 }
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var bufferEqual = __webpack_require__(22);
-var receiveData = __webpack_require__(47);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var receiveData = __webpack_require__(46);
 var Statics = __webpack_require__(14);
 
 module.exports = function (stream, opt, callback) {
@@ -15214,7 +15228,7 @@ module.exports = function (stream, opt, callback) {
   }
   var cmd = opt.cmd;
   if (cmd instanceof Array) {
-    cmd = new Buffer(cmd.concat(Statics.Sync_CRC_EOP));
+    cmd = Buffer.from(cmd.concat(Statics.Sync_CRC_EOP));
   }
 
   stream.write(cmd, function (err) {
@@ -15228,7 +15242,7 @@ module.exports = function (stream, opt, callback) {
         return callback(error);
       }
 
-      if (responseData && !bufferEqual(data, responseData)) {
+      if (responseData && !data.equals(responseData)) {
         error = new Error(cmd + ' response mismatch: '+data.toString('hex')+', '+responseData.toString('hex'));
         return callback(error);
       }
@@ -15240,7 +15254,7 @@ module.exports = function (stream, opt, callback) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var Statics = __webpack_require__(14);
@@ -15250,7 +15264,7 @@ var startingBytes = [
 ];
 
 module.exports = function (stream, timeout, responseLength, callback) {
-  var buffer = new Buffer(0);
+  var buffer = Buffer.alloc(0);
   var started = false;
   var timeoutId = null;
   var handleChunk = function (data) {
@@ -15294,7 +15308,7 @@ module.exports = function (stream, timeout, responseLength, callback) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports) {
 
 /*
@@ -15376,7 +15390,7 @@ Object.keys(codes).forEach(function (key) {
 });
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*
@@ -15443,7 +15457,7 @@ module.exports = (function () {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module['exports'] = function runTheTrap (text, options) {
@@ -15494,7 +15508,7 @@ module['exports'] = function runTheTrap (text, options) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports) {
 
 // please no
@@ -15604,7 +15618,7 @@ module['exports'] = function zalgo(text, options) {
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(7);
@@ -15621,7 +15635,7 @@ module['exports'] = (function() {
 })();
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(7);
@@ -15631,7 +15645,7 @@ module['exports'] = function (letter, i, exploded) {
 };
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(7);
@@ -15650,7 +15664,7 @@ module['exports'] = (function () {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(7);
@@ -15663,7 +15677,7 @@ module['exports'] = (function () {
 })();
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(7);
@@ -15766,7 +15780,7 @@ module['exports'] = function () {
   colors.setTheme = function (theme) {
     if (typeof theme === 'string') {
       try {
-        colors.themes[theme] = __webpack_require__(23)(theme);
+        colors.themes[theme] = __webpack_require__(22)(theme);
         applyTheme(colors.themes[theme]);
         return colors.themes[theme];
       } catch (err) {
@@ -15781,10 +15795,10 @@ module['exports'] = function () {
 };
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var STK2 = __webpack_require__(58);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var STK2 = __webpack_require__(57);
 var async = __webpack_require__(13);
 var colors = __webpack_require__(15);
 var tools = __webpack_require__(10);
@@ -15855,15 +15869,15 @@ module.exports = Stk500v2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {//use strict might have screwed up my this context, or might not have.. 
 
-var async = __webpack_require__(59);
-var bufferEqual = __webpack_require__(60);
-var parser = __webpack_require__(61);
-var c = __webpack_require__(24);
+var async = __webpack_require__(58);
+var bufferEqual = __webpack_require__(59);
+var parser = __webpack_require__(60);
+var c = __webpack_require__(23);
 
 var CMD_SIGN_ON = 0x01;
 var CMD_LOAD_ADDRESS = 0x06;
@@ -16261,7 +16275,7 @@ module.exports = stk500;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, setImmediate) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -17390,7 +17404,7 @@ module.exports = stk500;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(8).setImmediate))
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Buffer = __webpack_require__(0).Buffer; // for use with browserify
@@ -17410,10 +17424,10 @@ module.exports = function (a, b) {
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(setImmediate, Buffer) {var c = __webpack_require__(24);
+/* WEBPACK VAR INJECTION */(function(setImmediate, Buffer) {var c = __webpack_require__(23);
 var EventEmitter = __webpack_require__(3).EventEmitter;
 
 module.exports = function(serialPort){
@@ -17526,7 +17540,7 @@ module.exports = function(serialPort){
       this.port.drain(function(){
         if(current !== z._current) return z.emit('log',"current was no longer the current message after drain callback"); 
         current.timeout = setTimeout(function(){
-          var err = new Error("stk500 timeout. "+message.timeout+"ms "+ message.buf)
+          var err = new Error("stk500 timeout. "+message.timeout+"ms")
           err.code = "E_TIMEOUT";
           z._resolveCurrent(err);
         },message.timeout);
@@ -17698,13 +17712,13 @@ function ext(o1,o2){
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).setImmediate, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var AVR109 = __webpack_require__(63);
+var AVR109 = __webpack_require__(62);
 var colors = __webpack_require__(15);
 var fs = __webpack_require__(20);
-var Serialport = __webpack_require__(74);
+var Serialport = __webpack_require__(73);
 var async = __webpack_require__(13);
 var Protocol = __webpack_require__(16);
 var util = __webpack_require__(6);
@@ -17842,12 +17856,12 @@ module.exports = Avr109;
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {var
   intelHex = __webpack_require__(21),
-  Stream   = __webpack_require__(64).Stream,
+  Stream   = __webpack_require__(63).Stream,
   util     = __webpack_require__(6);
 
 var out = module.exports = {};
@@ -18099,7 +18113,7 @@ out.init = function(serialport, options, fn) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -18130,10 +18144,10 @@ var inherits = __webpack_require__(4);
 
 inherits(Stream, EE);
 Stream.Readable = __webpack_require__(17);
-Stream.Writable = __webpack_require__(70);
-Stream.Duplex = __webpack_require__(71);
-Stream.Transform = __webpack_require__(72);
-Stream.PassThrough = __webpack_require__(73);
+Stream.Writable = __webpack_require__(69);
+Stream.Duplex = __webpack_require__(70);
+Stream.Transform = __webpack_require__(71);
+Stream.PassThrough = __webpack_require__(72);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -18232,13 +18246,13 @@ Stream.prototype.pipe = function(dest, options) {
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18247,7 +18261,7 @@ Stream.prototype.pipe = function(dest, options) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Buffer = __webpack_require__(12).Buffer;
-var util = __webpack_require__(67);
+var util = __webpack_require__(66);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -18323,13 +18337,13 @@ if (util && util.inspect && util.inspect.custom) {
 }
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -18403,7 +18417,7 @@ function config (name) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18436,7 +18450,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(29);
+var Transform = __webpack_require__(28);
 
 /*<replacement>*/
 var util = __webpack_require__(9);
@@ -18456,41 +18470,41 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(18);
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(5);
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(17).Transform
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(17).PassThrough
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var injectDependencies = function(boards, Connection, protocols) {
