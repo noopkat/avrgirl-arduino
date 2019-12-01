@@ -12,7 +12,7 @@ var DEF_OPTS1 = {
   debug: false,
   board: {
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -162,7 +162,7 @@ test('[ Connection ] ::_pollForPort', function(t) {
     debug: false,
     board: {
       baud: 115200,
-      signature: new Buffer([0x1e, 0x95, 0x0f]),
+      signature: Buffer.from([0x1e, 0x95, 0x0f]),
       pageSize: 128,
       numPages: 256,
       timeout: 400,
