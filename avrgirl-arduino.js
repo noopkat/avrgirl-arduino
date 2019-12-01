@@ -31,8 +31,6 @@ var AvrgirlArduino = function(opts) {
 
   if (typeof this.options.board === 'string') {
     this.options.board = boards[this.options.board];
-  } else if (typeof this.options.board === 'object') {
-    this.options.board = this.options.board;
   }
 
   if (this.options.board && !this.options.board.manualReset) {

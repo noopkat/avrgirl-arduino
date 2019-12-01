@@ -31,20 +31,20 @@ test('[ Connection ]  - new creation', function(t) {
 test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function() { return Promise.resolve(
-        [
-          { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-            pnpId: '', locationId: '', vendorId: '', productId: '' },
-          { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-            serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-            productId: '' },
-          { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-            serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-            vendorId: '0x2341', productId: '0x0043' }
-        ]);
-      },
-      SerialPort: mockSerial.SerialPort,
+    list: function() { return Promise.resolve(
+      [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ]);
     },
+    SerialPort: mockSerial.SerialPort
+  }
   });
 
   // nodejs 0.10.x race condition needs this
@@ -61,19 +61,19 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
 test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) { return Promise.resolve(
-         [
-          { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
-            pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
-            locationId: '',
-            vendorId: '',
-            productId: ''
-          }
-        ]);
-      },
+    list: function(callback) { return Promise.resolve(
+      [
+        { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
+          pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
+          locationId: '',
+          vendorId: '',
+          productId: ''
+        }
+      ]);
+    },
 
-      SerialPort: mockSerial.SerialPort
-    }
+    SerialPort: mockSerial.SerialPort
+  }
   });
 
   // nodejs 0.10.x race condition needs this
@@ -90,20 +90,20 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
 test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) { return Promise.resolve(
-        [
-          { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-            pnpId: '', locationId: '', vendorId: '', productId: '' },
-          { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-            serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-            productId: '' },
-          { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-            serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-            vendorId: '0x2341', productId: '0x0043' }
-        ]);
-      },
-      SerialPort: mockSerial.SerialPort
-    }
+    list: function(callback) { return Promise.resolve(
+      [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ]);
+    },
+    SerialPort: mockSerial.SerialPort
+  }
   });
 
   // nodejs 0.10.x race condition needs this
@@ -127,9 +127,9 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
           locationId: '', vendorId: '', productId: '' }
       ]);
     },
-      SerialPort: mockSerial.SerialPort,
-    },
-});
+    SerialPort: mockSerial.SerialPort
+  }
+  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -146,20 +146,20 @@ test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
   var mockedSerial = mockSerial.SerialPort;
   mockedSerial.list = function(callback) { return Promise.resolve(
-      [
-        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-          pnpId: '', locationId: '', vendorId: '', productId: '' },
-        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-          productId: '' },
-        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-          vendorId: '0x2341', productId: '0x0043' }
-      ]);
-    };
+    [
+      { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+        pnpId: '', locationId: '', vendorId: '', productId: '' },
+      { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+        serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+        productId: '' },
+      { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+        serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+        vendorId: '0x2341', productId: '0x0043' }
+    ]);
+  };
 
   var ConnectionTest = proxyquire.noCallThru()
-                        .load('../lib/connection', { serialport: mockSerial.SerialPort });
+    .load('../lib/connection', { serialport: mockSerial.SerialPort });
 
   var options = {
     debug: false,
