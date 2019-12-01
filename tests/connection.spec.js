@@ -129,7 +129,7 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
     },
       SerialPort: mockSerial.SerialPort,
     },
-==  });
+});
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
