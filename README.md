@@ -242,7 +242,9 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `"nano (new bootloader)"`, `pro-mini`, `duemilanove168`, `yun`, `esplora`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
++ **-a** specify the spcification of the Arduino. It can be:
+  + the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `"nano (new bootloader)"`, `pro-mini`, `duemilanove168`, `yun`, `esplora`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
+  + a JSON file describing a custom board
 
 Optional flags:
 

@@ -5,12 +5,13 @@ var parseArgs = require('minimist');
 var path = require('path');
 var child = require('child_process');
 var testPilot = require('../lib/test-pilot-checker');
+var fs = require('fs');
 
 var args = (process.argv.slice(2));
 var argv = parseArgs(args, {});
 var userAction = argv._[0];
 var help = 'Usage:\n' +
-  '  avrgirl-arduino flash -f <file> -a <arduino name> [-p <port>] [-v]\n' +
+  '  avrgirl-arduino flash -f <file> -a <arduino spec> [-p <port>] [-v]\n' +
   '  avrgirl-arduino boards\n' +
   '  avrgirl-arduino list\n' +
   '  avrgirl-arduino test-pilot';
@@ -31,19 +32,48 @@ function flash(file, options) {
   });
 }
 
+function handlePotentialCustomBoardFile(filename) {
+  const filepath = path.resolve(process.cwd(), filename);
+
+  let contents;
+  try {
+    contents = fs.readFileSync(filepath, 'utf8');
+  } catch (error) {
+    // let's try to provide a more precise error if it looks like a real filename
+    if (filename.includes('.') || filename.includes(path.sep)) {
+      console.error(new Error('Oops! We could not read the custom board JSON file.'));
+      process.exit(1);
+    }
+    return;
+  }
+
+  try {
+    let board = JSON.parse(contents);
+    board.signature = Buffer.from(board.signature);
+    return board;
+  } catch (error) {
+    console.error(new Error('Oops! The custom board JSON file is invalid.'));
+    process.exit(1);
+  }
+}
+
 function handleInput(action, argz) {
   switch (action) {
     case 'flash': {
       if (!argz.f || !argz.a) {
         showHelp();
         process.exit(1);
-      } else if (!boards[argz.a]) {
-        console.error(new Error('Oops! That board is not supported, sorry.'));
-        process.exit(1);
       } else {
+        const arduino = argz.a;
+        let board = boards[arduino] || handlePotentialCustomBoardFile(arduino);
+
+        if (!board) {
+          console.error(new Error('Oops! That board is not supported, sorry.'));
+          process.exit(1);
+        }
         // run flash function here if all is well
         var options = {
-          board: argz.a,
+          board: board,
           port: argz.p || '',
           debug: argz.v || false
         };
