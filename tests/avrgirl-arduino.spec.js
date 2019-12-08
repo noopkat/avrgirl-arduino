@@ -63,6 +63,24 @@ test('[ AVRGIRL-ARDUINO ] ::_validateBoard (GOOD)', function(t) {
   });
 });
 
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE)', function(t) {
+  t.plan(1);
+
+  var a = new Avrgirl({ board: { name: DEF_OPTS2.board } });
+  a._validateBoard(function(error) {
+    t.error(error, 'no error');
+  });
+});
+
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE NO NAME)', function(t) {
+  t.plan(1);
+
+  var a = new Avrgirl({ board: { notName: DEF_OPTS2.board } });
+  a._validateBoard(function(error) {
+    t.ok(error, 'error returned');
+  });
+});
+
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO BOARD)', function(t) {
   t.plan(1);
 

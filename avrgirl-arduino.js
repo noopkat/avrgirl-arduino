@@ -29,6 +29,14 @@ var AvrgirlArduino = function(opts) {
     this.debug = function() {};
   }
 
+  // handle 'sparse' boards, ie. boards with only the 'name' property defined
+  if (typeof this.options.board === 'object') {
+    const properties = Object.getOwnPropertyNames(this.options.board);
+    if ((properties.length === 1) && (properties[0] === 'name')) {
+      this.options.board = this.options.board.name;
+    }
+  }
+
   if (typeof this.options.board === 'string') {
     this.options.board = boards[this.options.board];
   }
