@@ -35,26 +35,23 @@ function flash(file, options) {
 function handlePotentialCustomBoardFile(filename) {
   const filepath = path.resolve(process.cwd(), filename);
 
-  let contents;
-  try {
-    contents = fs.readFileSync(filepath, 'utf8');
-  } catch (error) {
+  if (!fs.existsSync(filepath)) {
     // let's try to provide a more precise error if it looks like a real filename
     if (filename.includes('.') || filename.includes(path.sep)) {
-      console.error(new Error('Oops! We could not read the custom board JSON file.'));
+      console.error(new Error('Oops! We could not read the custom board file.'));
       process.exit(1);
     }
     return;
   }
 
-  try {
-    let board = JSON.parse(contents);
-    board.signature = Buffer.from(board.signature);
-    return board;
-  } catch (error) {
-    console.error(new Error('Oops! The custom board JSON file is invalid.'));
+  const board = require(filepath);
+
+  if (!board) {
+    console.error(new Error('Oops! It seems like the custom board file does not export \'board\'.'));
     process.exit(1);
   }
+
+  return board;
 }
 
 function handleInput(action, argz) {
