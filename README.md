@@ -275,6 +275,22 @@ As well as listing all available USB devices on your computer:
 
 The output will be presented in JSON format, very similar to the output of the `Serialport.list()` method (if you've used [node-serialport](https://github.com/voodootikigod/node-serialport) before).
 
+## Custom board specification
+
+When specifying a custom board object, a number of properties must be provided:
+
++ `name`: the name of the board, used in debug and error messages
++ `baud`: the data rate for data transmission
++ `signature`: a `Buffer` containing the device signature
++ `productId`: an array of valid USB product IDs for the board
++ `protocol`: the board communication protocol (`avr109`, `stk500v1` and `stk500v2` are currently supported)
+
+If using the `stk500v2` protocol, you also need to specify:
+
++ `pageSize`: the size of the page used to load programs
+
+The other board specification properties are optional. You may look at `boards.js` for more details.
+
 ## Sourcing a compiled Arduino hex file
 
 A .hex file is the compiled end result of an Arduino sketch file. I have provided some example hex files for each board within the `junk/hex` folder of this repo. Feel free to use these, or if you're after something specific not provided, see the directions below.
