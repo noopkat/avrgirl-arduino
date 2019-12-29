@@ -6,6 +6,8 @@
 
 A NodeJS library for flashing compiled sketch files to Arduino microcontroller boards.
 
+🆕[Alpha release of web serial support](tests/demos/webserial) for some Arduino boards 🆕
+
 **Want to [contribute](CONTRIBUTING.md)?**
 
 **Own a supported Arduino and want to be a test pilot for this project with two minutes of your time?**
