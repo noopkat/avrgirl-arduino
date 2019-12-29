@@ -2162,7 +2162,7 @@ if (typeof Object.create === 'function') {
 
 /*<replacement>*/
 
-var pna = __webpack_require__(10);
+var pna = __webpack_require__(11);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -2177,7 +2177,7 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = __webpack_require__(8);
+var util = __webpack_require__(9);
 util.inherits = __webpack_require__(3);
 /*</replacement>*/
 
@@ -2266,198 +2266,6 @@ Duplex.prototype._destroy = function (err, cb) {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-
-The MIT License (MIT)
-
-Original Library 
-  - Copyright (c) Marak Squires
-
-Additional functionality
- - Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-
-var colors = {};
-module['exports'] = colors;
-
-colors.themes = {};
-
-var ansiStyles = colors.styles = __webpack_require__(47);
-var defineProps = Object.defineProperties;
-
-colors.supportsColor = __webpack_require__(48);
-
-if (typeof colors.enabled === "undefined") {
-  colors.enabled = colors.supportsColor;
-}
-
-colors.stripColors = colors.strip = function(str){
-  return ("" + str).replace(/\x1B\[\d+m/g, '');
-};
-
-
-var stylize = colors.stylize = function stylize (str, style) {
-  if (!colors.enabled) {
-    return str+'';
-  }
-
-  return ansiStyles[style].open + str + ansiStyles[style].close;
-}
-
-var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
-var escapeStringRegexp = function (str) {
-  if (typeof str !== 'string') {
-    throw new TypeError('Expected a string');
-  }
-  return str.replace(matchOperatorsRe,  '\\$&');
-}
-
-function build(_styles) {
-  var builder = function builder() {
-    return applyStyle.apply(builder, arguments);
-  };
-  builder._styles = _styles;
-  // __proto__ is used because we must return a function, but there is
-  // no way to create a function with a different prototype.
-  builder.__proto__ = proto;
-  return builder;
-}
-
-var styles = (function () {
-  var ret = {};
-  ansiStyles.grey = ansiStyles.gray;
-  Object.keys(ansiStyles).forEach(function (key) {
-    ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
-    ret[key] = {
-      get: function () {
-        return build(this._styles.concat(key));
-      }
-    };
-  });
-  return ret;
-})();
-
-var proto = defineProps(function colors() {}, styles);
-
-function applyStyle() {
-  var args = arguments;
-  var argsLen = args.length;
-  var str = argsLen !== 0 && String(arguments[0]);
-  if (argsLen > 1) {
-    for (var a = 1; a < argsLen; a++) {
-      str += ' ' + args[a];
-    }
-  }
-
-  if (!colors.enabled || !str) {
-    return str;
-  }
-
-  var nestedStyles = this._styles;
-
-  var i = nestedStyles.length;
-  while (i--) {
-    var code = ansiStyles[nestedStyles[i]];
-    str = code.open + str.replace(code.closeRe, code.open) + code.close;
-  }
-
-  return str;
-}
-
-function applyTheme (theme) {
-  for (var style in theme) {
-    (function(style){
-      colors[style] = function(str){
-        if (typeof theme[style] === 'object'){
-          var out = str;
-          for (var i in theme[style]){
-            out = colors[theme[style][i]](out);
-          }
-          return out;
-        }
-        return colors[theme[style]](str);
-      };
-    })(style)
-  }
-}
-
-colors.setTheme = function (theme) {
-  if (typeof theme === 'string') {
-    try {
-      colors.themes[theme] = __webpack_require__(23)(theme);
-      applyTheme(colors.themes[theme]);
-      return colors.themes[theme];
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
-  } else {
-    applyTheme(theme);
-  }
-};
-
-function init() {
-  var ret = {};
-  Object.keys(styles).forEach(function (name) {
-    ret[name] = {
-      get: function () {
-        return build([name]);
-      }
-    };
-  });
-  return ret;
-}
-
-var sequencer = function sequencer (map, str) {
-  var exploded = str.split(""), i = 0;
-  exploded = exploded.map(map);
-  return exploded.join("");
-};
-
-// custom formatter methods
-colors.trap = __webpack_require__(49);
-colors.zalgo = __webpack_require__(50);
-
-// maps
-colors.maps = {};
-colors.maps.america = __webpack_require__(51);
-colors.maps.zebra = __webpack_require__(52);
-colors.maps.rainbow = __webpack_require__(53);
-colors.maps.random = __webpack_require__(54)
-
-for (var map in colors.maps) {
-  (function(map){
-    colors[map] = function (str) {
-      return sequencer(colors.maps[map], str);
-    }
-  })(map)
-}
-
-defineProps(colors, init());
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2912,6 +2720,198 @@ function unwrapListeners(arr) {
 
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+
+The MIT License (MIT)
+
+Original Library 
+  - Copyright (c) Marak Squires
+
+Additional functionality
+ - Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
+var colors = {};
+module['exports'] = colors;
+
+colors.themes = {};
+
+var ansiStyles = colors.styles = __webpack_require__(47);
+var defineProps = Object.defineProperties;
+
+colors.supportsColor = __webpack_require__(48);
+
+if (typeof colors.enabled === "undefined") {
+  colors.enabled = colors.supportsColor;
+}
+
+colors.stripColors = colors.strip = function(str){
+  return ("" + str).replace(/\x1B\[\d+m/g, '');
+};
+
+
+var stylize = colors.stylize = function stylize (str, style) {
+  if (!colors.enabled) {
+    return str+'';
+  }
+
+  return ansiStyles[style].open + str + ansiStyles[style].close;
+}
+
+var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
+var escapeStringRegexp = function (str) {
+  if (typeof str !== 'string') {
+    throw new TypeError('Expected a string');
+  }
+  return str.replace(matchOperatorsRe,  '\\$&');
+}
+
+function build(_styles) {
+  var builder = function builder() {
+    return applyStyle.apply(builder, arguments);
+  };
+  builder._styles = _styles;
+  // __proto__ is used because we must return a function, but there is
+  // no way to create a function with a different prototype.
+  builder.__proto__ = proto;
+  return builder;
+}
+
+var styles = (function () {
+  var ret = {};
+  ansiStyles.grey = ansiStyles.gray;
+  Object.keys(ansiStyles).forEach(function (key) {
+    ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+    ret[key] = {
+      get: function () {
+        return build(this._styles.concat(key));
+      }
+    };
+  });
+  return ret;
+})();
+
+var proto = defineProps(function colors() {}, styles);
+
+function applyStyle() {
+  var args = arguments;
+  var argsLen = args.length;
+  var str = argsLen !== 0 && String(arguments[0]);
+  if (argsLen > 1) {
+    for (var a = 1; a < argsLen; a++) {
+      str += ' ' + args[a];
+    }
+  }
+
+  if (!colors.enabled || !str) {
+    return str;
+  }
+
+  var nestedStyles = this._styles;
+
+  var i = nestedStyles.length;
+  while (i--) {
+    var code = ansiStyles[nestedStyles[i]];
+    str = code.open + str.replace(code.closeRe, code.open) + code.close;
+  }
+
+  return str;
+}
+
+function applyTheme (theme) {
+  for (var style in theme) {
+    (function(style){
+      colors[style] = function(str){
+        if (typeof theme[style] === 'object'){
+          var out = str;
+          for (var i in theme[style]){
+            out = colors[theme[style][i]](out);
+          }
+          return out;
+        }
+        return colors[theme[style]](str);
+      };
+    })(style)
+  }
+}
+
+colors.setTheme = function (theme) {
+  if (typeof theme === 'string') {
+    try {
+      colors.themes[theme] = __webpack_require__(23)(theme);
+      applyTheme(colors.themes[theme]);
+      return colors.themes[theme];
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  } else {
+    applyTheme(theme);
+  }
+};
+
+function init() {
+  var ret = {};
+  Object.keys(styles).forEach(function (name) {
+    ret[name] = {
+      get: function () {
+        return build([name]);
+      }
+    };
+  });
+  return ret;
+}
+
+var sequencer = function sequencer (map, str) {
+  var exploded = str.split(""), i = 0;
+  exploded = exploded.map(map);
+  return exploded.join("");
+};
+
+// custom formatter methods
+colors.trap = __webpack_require__(49);
+colors.zalgo = __webpack_require__(50);
+
+// maps
+colors.maps = {};
+colors.maps.america = __webpack_require__(51);
+colors.maps.zebra = __webpack_require__(52);
+colors.maps.rainbow = __webpack_require__(53);
+colors.maps.random = __webpack_require__(54)
+
+for (var map in colors.maps) {
+  (function(map){
+    colors[map] = function (str) {
+      return sequencer(colors.maps[map], str);
+    }
+  })(map)
+}
+
+defineProps(colors, init());
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2983,120 +2983,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
-
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
-  }
-  return objectToString(arg) === '[object Array]';
-}
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
@@ -3806,7 +3692,159 @@ exports.callbackify = callbackify;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+
+function isArray(arg) {
+  if (Array.isArray) {
+    return Array.isArray(arg);
+  }
+  return objectToString(arg) === '[object Array]';
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = Buffer.isBuffer;
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
+
+/***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var fs = __webpack_require__(21);
+var intelhex = __webpack_require__(22);
+
+var tools = {};
+
+/**
+ * Opens and parses a given hex file
+ */
+tools._parseHex = function(file) {
+  try {
+    var data;
+    if (typeof file === 'string') {
+      data = fs.readFileSync(file, {
+        encoding: 'utf8'
+      });
+    } else {
+      // ensure compatibility with browser array buffers
+      data = Buffer.from(file);
+    }
+
+    return intelhex.parse(data).data;
+  } catch (error) {
+    return error;
+  }
+};
+
+tools._hexStringToByte = function(str) {
+  return Buffer.from([parseInt(str,16)]);
+}
+
+module.exports = tools;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3858,7 +3896,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
@@ -3926,7 +3964,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, process, global, module) {(function (global, factory) {
@@ -9527,44 +9565,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).setImmediate, __webpack_require__(1), __webpack_require__(2), __webpack_require__(37)(module)))
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(Buffer) {var fs = __webpack_require__(21);
-var intelhex = __webpack_require__(22);
-
-var tools = {};
-
-/**
- * Opens and parses a given hex file
- */
-tools._parseHex = function(file) {
-  try {
-    var data;
-    if (typeof file === 'string') {
-      data = fs.readFileSync(file, {
-        encoding: 'utf8'
-      });
-    } else {
-      // ensure compatibility with browser array buffers
-      data = Buffer.from(file);
-    }
-
-    return intelhex.parse(data).data;
-  } catch (error) {
-    return error;
-  }
-};
-
-tools._hexStringToByte = function(str) {
-  return Buffer.from([parseInt(str,16)]);
-}
-
-module.exports = tools;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9619,7 +9619,7 @@ module.exports = {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 module['exports'] = colors;
 
 // Remark: By default, colors will add style properties to String.prototype
@@ -9647,6 +9647,7 @@ var Protocol = function(options) {
   this.connection = options.connection;
 
   this.chip = new options.protocol({ quiet: true });
+
 };
 
 /**
@@ -9720,7 +9721,7 @@ exports.PassThrough = __webpack_require__(68);
 
 /*<replacement>*/
 
-var pna = __webpack_require__(10);
+var pna = __webpack_require__(11);
 /*</replacement>*/
 
 module.exports = Writable;
@@ -9757,7 +9758,7 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(8);
+var util = __webpack_require__(9);
 util.inherits = __webpack_require__(3);
 /*</replacement>*/
 
@@ -9773,7 +9774,7 @@ var Stream = __webpack_require__(26);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(11).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -10679,7 +10680,7 @@ module.exports.ANSWER_CKSUM_ERROR = 0xB0
 
 /*<replacement>*/
 
-var pna = __webpack_require__(10);
+var pna = __webpack_require__(11);
 /*</replacement>*/
 
 module.exports = Readable;
@@ -10695,7 +10696,7 @@ var Duplex;
 Readable.ReadableState = ReadableState;
 
 /*<replacement>*/
-var EE = __webpack_require__(6).EventEmitter;
+var EE = __webpack_require__(5).EventEmitter;
 
 var EElistenerCount = function (emitter, type) {
   return emitter.listeners(type).length;
@@ -10708,7 +10709,7 @@ var Stream = __webpack_require__(26);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(11).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -10720,7 +10721,7 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(8);
+var util = __webpack_require__(9);
 util.inherits = __webpack_require__(3);
 /*</replacement>*/
 
@@ -11679,7 +11680,7 @@ function indexOf(xs, x) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(6).EventEmitter;
+module.exports = __webpack_require__(5).EventEmitter;
 
 
 /***/ }),
@@ -11691,7 +11692,7 @@ module.exports = __webpack_require__(6).EventEmitter;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(10);
+var pna = __webpack_require__(11);
 /*</replacement>*/
 
 // undocumented cb() API, needed for core, not for public API
@@ -11792,7 +11793,7 @@ module.exports = {
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(11).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer.isEncoding || function (encoding) {
@@ -12139,7 +12140,7 @@ module.exports = Transform;
 var Duplex = __webpack_require__(4);
 
 /*<replacement>*/
-var util = __webpack_require__(8);
+var util = __webpack_require__(9);
 util.inherits = __webpack_require__(3);
 /*</replacement>*/
 
@@ -12868,9 +12869,9 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Serialport = __webpack_require__(35);
-var async = __webpack_require__(12);
+var async = __webpack_require__(13);
 var awty = __webpack_require__(38);
-var tools = __webpack_require__(13);
+var tools = __webpack_require__(10);
 
 var Connection = function(options) {
   this.options = options;
@@ -12889,10 +12890,14 @@ Connection.prototype._init = function(callback) {
  * Create new serialport instance for the Arduino board, but do not immediately connect.
  */
 Connection.prototype._setUpSerial = function(callback) {
+  var _this = this;
   this.serialPort = new Serialport('', {
     baudRate: this.board.baud,
     autoOpen: false
   });
+  this.serialPort.on('open', function() {
+//    _this.emit('connection:open');
+  })
   return callback(null);
 };
 
@@ -12928,7 +12933,7 @@ Connection.prototype._sniffPort = function(callback) {
 Connection.prototype._setDTR = function(bool, timeout, callback) {
   var _this = this;
   var props = {
-    rts: bool,
+    rts: false,
     dtr: bool
   };
 
@@ -13066,7 +13071,8 @@ module.exports = Connection;
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {const { EventEmitter } = __webpack_require__(6);
+/* WEBPACK VAR INJECTION */(function(Buffer) {// TODO: switch out this browser shim for mitt: https://github.com/developit/mitt
+const { EventEmitter } = __webpack_require__(5);
 
 class SerialPort extends EventEmitter {
   constructor(port, options) {
@@ -13086,15 +13092,16 @@ class SerialPort extends EventEmitter {
 	}
 
   list(callback) {
-    navigator.serial.getPorts()
-      .then((list) => callback(null, list))
-      .catch((error) => callback(error)); 
+    return navigator.serial.getPorts()
+      .then((list) => {if (callback) {return callback(null, list)}})
+      .catch((error) => {if (callback) {return callback(error)}}); 
   }
 
   open(callback) {
     navigator.serial.requestPort(this.requestOptions)
       .then(serialPort => {
         this.port = serialPort;
+        if (this.isOpen) return;
         return this.port.open({ baudrate: this.baudrate || 57600 });
       })
       .then(() => this.writer = this.port.writable.getWriter())
@@ -13103,33 +13110,42 @@ class SerialPort extends EventEmitter {
         this.emit('open');
         this.isOpen = true;
         callback(null);
-        while (this.port.readable) {
-          try {
-            while (true) {
-              const { value, done } = await this.reader.read();
-              if (done) {
-                break;
-              }
-              this.emit('data', Buffer.from(value));
+        try {
+          while (this.port.readable.locked) {
+            const { value, done } = await this.reader.read();
+            if (done) {
+              break;
             }
-          } catch (e) {
-            console.log('ERROR while reading port:', e);
+            this.emit('data', Buffer.from(value));
           }
+        } catch (e) {
+          throw e;
         }
-      })
-      .catch(error => {callback(error)});
+    })
+    .catch(error => {callback(error)});
   }
 
-  close(callback) {
-    this.port.close();
-    this.isOpen = false;
-		if (callback) return callback(null);
+  async close(callback) {
+    try {
+      await this.reader.releaseLock();
+      await this.writer.releaseLock();
+      await this.port.close();
+      this.isOpen = false;
+    } catch (error) {
+      if (callback) return callback(error);
+      throw error;
+    }
+    callback && callback(null);
   }
 
-  set(props, callback) {
-    this.port.setSignals(props)
-      .then(() => callback(null))
-      .catch((error) => callback(error));
+  async set(props, callback) {
+    try {
+      await this.port.setSignals(props);
+    } catch (error) {
+      if (callback) return callback(error);
+      throw error;
+    }
+    if (callback) return callback(null);
   }
 
   write(buffer, callback) {
@@ -13137,19 +13153,27 @@ class SerialPort extends EventEmitter {
     if (callback) return callback(null);
   }
 
-  read(callback) {
-    this.reader.read()
-      .then((buffer) => callback(null, buffer))
-      .catch((error) => callback(error));
+  async read(callback) {
+    try {
+      const buffer = await this.reader.read();
+    } catch (error) {
+      if (callback) return callback(error);
+      throw error;
+    }
+    if (callback) callback(null, buffer);
   }
 
   // TODO: is this correct?
   flush(callback) {
-    //this.port.flush();
+    //this.port.flush(); // is this sync or a promise?
+    console.warn('flush method is a NOP right now');
     if (callback) return callback(null);
   }
 
+  // TODO: is this correct?
   drain(callback) {
+    // this.port.drain(); // is this sync or a promise?
+    console.warn('drain method is a NOP right now');
     if (callback) return callback(null);
   }
 }
@@ -13601,9 +13625,9 @@ module.exports = {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var STK = __webpack_require__(43);
 var colors = __webpack_require__(16);
-var tools = __webpack_require__(13);
+var tools = __webpack_require__(10);
 var Protocol = __webpack_require__(17);
-var util = __webpack_require__(9);
+var util = __webpack_require__(8);
 
 var Stk500v1 = function(options) {
   options.protocol = STK;
@@ -15585,7 +15609,7 @@ module['exports'] = function zalgo(text, options) {
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 
 module['exports'] = (function() {
   return function (letter, i, exploded) {
@@ -15602,7 +15626,7 @@ module['exports'] = (function() {
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 
 module['exports'] = function (letter, i, exploded) {
   return i % 2 === 0 ? letter : colors.inverse(letter);
@@ -15612,7 +15636,7 @@ module['exports'] = function (letter, i, exploded) {
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 
 module['exports'] = (function () {
   var rainbowColors = ['red', 'yellow', 'green', 'blue', 'magenta']; //RoY G BiV
@@ -15631,7 +15655,7 @@ module['exports'] = (function () {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 
 module['exports'] = (function () {
   var available = ['underline', 'inverse', 'grey', 'yellow', 'red', 'green', 'blue', 'white', 'cyan', 'magenta'];
@@ -15644,7 +15668,7 @@ module['exports'] = (function () {
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var colors = __webpack_require__(5);
+var colors = __webpack_require__(6);
 
 module['exports'] = function () {
 
@@ -15774,11 +15798,11 @@ module.exports = function isBuffer(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var STK2 = __webpack_require__(58);
-var async = __webpack_require__(12);
+var async = __webpack_require__(13);
 var colors = __webpack_require__(16);
-var tools = __webpack_require__(13);
+var tools = __webpack_require__(10);
 var Protocol = __webpack_require__(17);
-var util = __webpack_require__(9);
+var util = __webpack_require__(8);
 
 var Stk500v2 = function(options) {
   options.protocol = function() { return STK2; };
@@ -15797,9 +15821,9 @@ util.inherits(Stk500v2, Protocol);
 Stk500v2.prototype._upload = function(file, callback) {
   var _this = this;
 
-  // open/parse supplied hex file
   _this.serialPort = _this.connection.serialPort;
 
+  // open/parse supplied hex file
   var hex = tools._parseHex(file);
   if (!Buffer.isBuffer(hex)) {
     return callback(hex);
@@ -17383,7 +17407,7 @@ module.exports = stk500;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, Buffer) {var c = __webpack_require__(24);
-var EventEmitter = __webpack_require__(6).EventEmitter;
+var EventEmitter = __webpack_require__(5).EventEmitter;
 
 module.exports = function(serialPort){
 
@@ -17674,9 +17698,9 @@ var AVR109 = __webpack_require__(62);
 var colors = __webpack_require__(16);
 var fs = __webpack_require__(21);
 var Serialport = __webpack_require__(73);
-var async = __webpack_require__(12);
+var async = __webpack_require__(13);
 var Protocol = __webpack_require__(17);
-var util = __webpack_require__(9);
+var util = __webpack_require__(8);
 
 var Avr109 = function(options) {
   options.protocol = function() { return AVR109; };
@@ -17817,7 +17841,7 @@ module.exports = Avr109;
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {var
   intelHex = __webpack_require__(22),
   Stream   = __webpack_require__(63).Stream,
-  util     = __webpack_require__(9);
+  util     = __webpack_require__(8);
 
 var out = module.exports = {};
 
@@ -18094,7 +18118,7 @@ out.init = function(serialport, options, fn) {
 
 module.exports = Stream;
 
-var EE = __webpack_require__(6).EventEmitter;
+var EE = __webpack_require__(5).EventEmitter;
 var inherits = __webpack_require__(3);
 
 inherits(Stream, EE);
@@ -18215,7 +18239,7 @@ Stream.prototype.pipe = function(dest, options) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Buffer = __webpack_require__(11).Buffer;
+var Buffer = __webpack_require__(12).Buffer;
 var util = __webpack_require__(66);
 
 function copyBuffer(src, target, offset) {
@@ -18408,7 +18432,7 @@ module.exports = PassThrough;
 var Transform = __webpack_require__(29);
 
 /*<replacement>*/
-var util = __webpack_require__(8);
+var util = __webpack_require__(9);
 util.inherits = __webpack_require__(3);
 /*</replacement>*/
 
@@ -18460,15 +18484,19 @@ module.exports = __webpack_require__(18).PassThrough
 
 /***/ }),
 /* 74 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 var injectDependencies = function(boards, Connection, protocols) {
+  var EventEmitter = __webpack_require__(5);
+  var util = __webpack_require__(8);
+  var tools = __webpack_require__(10);
   /**
    * Constructor
    *
    * @param {object} opts - options for consumer to pass in
    */
   var AvrgirlArduino = function(opts) {
+    var _this = this;
     opts = opts || {};
 
     this.options = {
@@ -18508,10 +18536,20 @@ var injectDependencies = function(boards, Connection, protocols) {
       this.protocol = new Protocol({
         board: this.options.board,
         connection: this.connection,
-        debug: this.debug
+        debug: this.debug,
       });
     }
+
+    EventEmitter.call(this);
+    
+    if (!this.protocol.chip.on) return;
+
+    this.protocol.chip.on('page:load:complete', function(data) {
+      _this.emit('page:load:complete', data);
+    });
   };
+
+  util.inherits(AvrgirlArduino, EventEmitter);
 
   /**
    * Validates the board properties
@@ -18585,8 +18623,12 @@ var injectDependencies = function(boards, Connection, protocols) {
     });
   };
 
+  // shift public static exposure for demo purposes
+  AvrgirlArduino.prototype.tools = tools;
+
   return AvrgirlArduino;
 };
+
 
 module.exports = injectDependencies;
 

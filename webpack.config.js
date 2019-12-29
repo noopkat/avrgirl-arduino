@@ -8,6 +8,9 @@ const importableConfig = {
     filename: 'avrgirl-arduino.js',
     libraryTarget: 'umd'
   },
+  optimization: {
+    minimize: false,
+  }
 };
 
 const importableMinConfig = {

@@ -7,7 +7,9 @@
   "module": "dist/avrgirl-arduino.min.js",
   "scripts": {
     "test": "gulp test",
-    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
+    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls",
+    "build-browser": "webpack -p",
+    "dev-browser": "webpack --watch"
   },
   "repository": {
     "type": "git",

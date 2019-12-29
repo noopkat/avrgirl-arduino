@@ -1,0 +1,218 @@
+body {
+  font-family: sans-serif;
+  background-color: #3F2B96;
+  background-color: #503bad;
+  padding: 0px;
+  margin: 0px;
+}
+
+.main {
+  height: 100%;
+  text-align: center;
+  min-height: 24em;
+  overflow: hidden;
+}
+
+.wrapper {
+  text-align: left;
+  overflow: hidden;
+  width: 1000px;
+  margin: 100px auto;
+}
+
+.wrapper div {
+  float: left;
+  width: 400px;
+}
+
+.bot {
+  float: left;
+  position: relative;
+  z-index: 999;
+  border-radius: 20px;
+  border: 2px solid #aaa;
+  background-color: #fafafa;
+  background-color: #eee;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin-right: 100px;
+  height: 300px;
+  width: 400px;
+}
+
+.bot h1 {
+  padding-top: 0;
+  margin-top: 0;
+  font-family: 'Fugaz One', cursive;
+  color: #333;
+}
+
+.board {
+  width: 400px;
+  position: relative;
+  z-index: 999;
+}
+
+.board img {
+  height: 330px;
+}
+
+.board svg {
+  font-family: sans-serif;
+}
+
+label, input, select {
+  display: block;
+  margin: 0 0 15px 0;
+  width: 200px;
+}
+
+select, input {
+  height: 30px;
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+.fileButtonWrapper {
+  display: block;
+}
+
+#fileButton, button[type=submit] {
+  background-color: #acd3f6;
+  border: 1px solid #7998b4;
+  border-radius: 4px;
+  padding: 4px 8px 4px 8px;
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+input[type=file]:focus {
+  outline: 3px solid #0000ff;
+  border: 3px solid #0000ff;
+}
+
+button[type=submit] {
+  float: right;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-right: 5px;
+  background-color: #99f89c;
+  border: 2px solid #7fc381;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+#fileName {
+  min-width: 175px;
+  max-width: 175px;
+  max-height: 20px;
+  color: #666;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+}
+
+#gear {
+  position: absolute;
+  margin-top: 60px;
+  z-index: 1000;
+  margin-left: 400px;
+  width: 80px;
+  height: 80px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.spinning {
+  animation: rotation 0.8s infinite linear;
+}
+
+#progress, #pipe {
+  position: absolute;
+  margin-top: 85px;
+  margin-left: 461px;
+  z-index: 1;
+  text-align: left;
+  width: 100px;
+  max-width: 100px;
+  height: 20px;
+  overflow: hidden;
+  border: 2px solid #f6f6f6;
+  border: 2px solid #aaa;
+  background-color: #fff;
+  background-color: #eee;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+}
+
+#progress {
+  width: 0px;
+  background-color: #99f89c;
+  z-index: 3;
+  color: forestgreen;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 2px;
+  height: 17px;
+  font-size: 15px;
+  font-weight: bold;
+  transition: width 0.2s;
+}
+
+#logbox {
+  position: relative;
+  text-align: left;
+  width: 922px;
+  max-width: 922px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+#logbox h2 {
+  color: #ad9aff;
+}
+
+#log {
+  position: relative;
+  text-align: left;
+  width: 922px;
+  max-width: 922px;
+  margin-top: 10px;
+}
+
+#log > span {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #0000ff;
+  color: blue;
+  border-radius: 4px;
+  background-color: #ad9aff;
+  padding: 1px 4px;
+  font-family: monospace;
+  font-size: 9px;
+  float: left;
+  display: inline-block;
+}
+
