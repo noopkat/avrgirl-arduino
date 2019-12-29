@@ -23,7 +23,7 @@ var Connection = proxyquire.noCallThru().load('../lib/connection',
   });
 
 // module to test
-var Avrgirl = proxyquire('../avrgirl-arduino', { Connection: Connection });
+var Avrgirl = proxyquire('../', { Connection: Connection });
 
 // default options
 var DEF_OPTS2 = {
