@@ -242,7 +242,23 @@ The same example above would look like the following as a CLI call in your shell
 Required flags:
 
 + **-f** specify the location of the hex file to flash
-+ **-a** specify the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `"nano (new bootloader)"`, `pro-mini`, `duemilanove168`, `yun`, `esplora`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
++ **-a** specify the spcification of the Arduino. It can be:
+  + the name of the Arduino (`uno`, `mega`,`leonardo`, `micro`, `nano`, `"nano (new bootloader)"`, `pro-mini`, `duemilanove168`, `yun`, `esplora`, `blend-micro`, `tinyduino`, `sf-pro-micro`, `qduino`, `pinoccio`, `feather`, or `imuduino`)
+  + a JavaScript file describing a custom board
+
+When using a custom board, the JavaScript file must export the board specification:
+
+```javascript
+var board = {
+  name: 'micro',
+  baud: 57600,
+  signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+  productId: ['0x0037', '0x8037', '0x0036'],
+  protocol: 'avr109',
+};
+
+module.exports = board;
+```
 
 Optional flags:
 
@@ -258,6 +274,22 @@ As well as listing all available USB devices on your computer:
 `avrgirl-arduino list`
 
 The output will be presented in JSON format, very similar to the output of the `Serialport.list()` method (if you've used [node-serialport](https://github.com/voodootikigod/node-serialport) before).
+
+## Custom board specification
+
+When specifying a custom board object, a number of properties must be provided:
+
++ `name`: the name of the board, used in debug and error messages
++ `baud`: the data rate for data transmission
++ `signature`: a `Buffer` containing the device signature
++ `productId`: an array of valid USB product IDs for the board
++ `protocol`: the board communication protocol (`avr109`, `stk500v1` and `stk500v2` are currently supported)
+
+If using the `stk500v2` protocol, you also need to specify:
+
++ `pageSize`: the size of the page used to load programs
+
+The other board specification properties are optional. You may look at `boards.js` for more details.
 
 ## Sourcing a compiled Arduino hex file
 

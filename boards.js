@@ -2,7 +2,7 @@ var boards = [
   {
     name: 'uno',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -13,7 +13,7 @@ var boards = [
   {
     name: 'micro',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0037', '0x8037', '0x0036', '0x0237'],
     productPage: 'https://store.arduino.cc/arduino-micro',
     protocol: 'avr109'
@@ -21,7 +21,7 @@ var boards = [
   {
     name: 'imuduino',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8037', '0x8036'],
     productPage: 'https://www.kickstarter.com/projects/1265095814/imuduino-wireless-3d-motion-html-js-apps-arduino-p?lang=de',
     protocol: 'avr109'
@@ -29,7 +29,7 @@ var boards = [
   {
     name: 'leonardo',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036', '0x800c'],
     productPage: 'https://store.arduino.cc/leonardo',
     protocol: 'avr109'
@@ -37,7 +37,7 @@ var boards = [
   {
     name: 'arduboy',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036', '0x800c'],
     productPage: 'https://arduboy.com/',
     protocol: 'avr109'
@@ -45,7 +45,7 @@ var boards = [
   {
     name: 'feather',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x800c', '0x000c'],
     productPage: 'https://www.adafruit.com/feather',
     protocol: 'avr109'
@@ -53,7 +53,7 @@ var boards = [
   {
     name: 'little-bits',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0036', '0x8036'],
     productPage: 'https://littlebits.com/collections/bits-and-accessories/products/arduino-bit',
     protocol: 'avr109'
@@ -61,7 +61,7 @@ var boards = [
   {
     name: 'blend-micro',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x2404'],
     productPage: 'https://redbear.cc/product/retired/blend-micro.html',
     protocol: 'avr109'
@@ -69,7 +69,7 @@ var boards = [
   {
     name: 'nano',
     baud: 57600,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -80,7 +80,7 @@ var boards = [
   {
     name: 'nano (new bootloader)',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -91,7 +91,7 @@ var boards = [
   {
     name: 'duemilanove168',
     baud: 19200,
-    signature: new Buffer([0x1e, 0x94, 0x06]),
+    signature: Buffer.from([0x1e, 0x94, 0x06]),
     pageSize: 128,
     numPages: 128,
     timeout: 400,
@@ -102,7 +102,7 @@ var boards = [
   {
     name: 'duemilanove328',
     baud: 57600,
-    signature: new Buffer([0x1e, 0x95, 0x14]),
+    signature: Buffer.from([0x1e, 0x95, 0x14]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -115,7 +115,7 @@ var boards = [
   {
     name: 'tinyduino',
     baud: 57600,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -127,7 +127,7 @@ var boards = [
   {
     name: 'mega',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
+    signature: Buffer.from([0x1e, 0x98, 0x01]), // ATmega2560
     pageSize: 256,
     delay1: 10,
     delay2: 1,
@@ -145,7 +145,7 @@ var boards = [
   {
     name: 'adk',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x98, 0x01]), // ATmega2560
+    signature: Buffer.from([0x1e, 0x98, 0x01]), // ATmega2560
     pageSize: 256,
     delay1: 10,
     delay2: 1,
@@ -163,15 +163,15 @@ var boards = [
   {
     name: 'sf-pro-micro',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
-    productId: ['0x9206', '0x9205'],
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    productId: ['0x9206', '0x9205', '0x0036'],
     productPage: 'https://www.sparkfun.com/products/12640',
     protocol: 'avr109'
   },
   {
     name: 'pro-mini',
     baud: 57600,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -181,7 +181,7 @@ var boards = [
   {
     name: 'qduino',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x516d', '0x514d'],
     productPage: 'https://www.sparkfun.com/products/13614',
     protocol: 'avr109'
@@ -189,7 +189,7 @@ var boards = [
   {
     name: 'pinoccio',
     baud: 115200,
-    signature: new Buffer([0x1e, 0xa8, 0x02]), // ATmega256RFR2
+    signature: Buffer.from([0x1e, 0xa8, 0x02]), // ATmega256RFR2
     pageSize: 256,
     delay1: 10,
     delay2: 1,
@@ -207,7 +207,7 @@ var boards = [
   {
     name: 'lilypad-usb',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x9207', '0x9208', '0x1B4F'],
     productPage: 'https://www.sparkfun.com/products/12049',
     protocol: 'avr109'
@@ -215,7 +215,7 @@ var boards = [
   {
     name: 'yun',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0041', '0x8041'],
     productPage: 'https://store.arduino.cc/arduino-yun',
     protocol: 'avr109'
@@ -223,7 +223,7 @@ var boards = [
   {
     name: 'esplora',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x003C', '0x803C'],
     productPage: 'https://store.arduino.cc/arduino-esplora',
     protocol: 'avr109'
@@ -231,7 +231,7 @@ var boards = [
   {
     name: 'circuit-playground-classic',
     baud: 57600,
-    signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+    signature: Buffer.from([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
     productId: ['0x0011', '0x8011'],
     productPage: 'https://www.adafruit.com/product/3000',
     protocol: 'avr109'
@@ -240,7 +240,7 @@ var boards = [
   {
     name: 'zumjunior',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -251,7 +251,7 @@ var boards = [
   {
     name: 'zumcore2',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -262,7 +262,7 @@ var boards = [
   {
     name: 'bqZum',
     baud: 19200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -276,7 +276,7 @@ var boards = [
   {
     name: 'xprov4',
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x16]),
+    signature: Buffer.from([0x1e, 0x95, 0x16]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,

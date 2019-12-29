@@ -30,10 +30,16 @@ var injectDependencies = function(boards, Connection, protocols) {
       this.debug = function() {};
     }
 
+    // handle 'sparse' boards, ie. boards with only the 'name' property defined
+    if (typeof this.options.board === 'object') {
+      const properties = Object.getOwnPropertyNames(this.options.board);
+      if ((properties.length === 1) && (properties[0] === 'name')) {
+        this.options.board = this.options.board.name;
+      }
+    }
+
     if (typeof this.options.board === 'string') {
       this.options.board = boards[this.options.board];
-    } else if (typeof this.options.board === 'object') {
-      this.options.board = this.options.board;
     }
 
     if (this.options.board && !this.options.board.manualReset) {
@@ -48,7 +54,7 @@ var injectDependencies = function(boards, Connection, protocols) {
       this.protocol = new Protocol({
         board: this.options.board,
         connection: this.connection,
-        debug: this.debug,
+        debug: this.debug
       });
     }
 
@@ -135,5 +141,5 @@ var injectDependencies = function(boards, Connection, protocols) {
   return AvrgirlArduino;
 };
 
-
 module.exports = injectDependencies;
+

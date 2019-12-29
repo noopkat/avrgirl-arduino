@@ -1,10 +1,10 @@
 var Avrgirl = require('../../');
-var avrgirl = new Avrgirl({
+const avrgirl = new Avrgirl({
   board: 'imuduino',
   debug: true
 });
 
-var hex = __dirname + '/../../junk/hex/imuduino/Blink.cpp.hex';
+const hex = __dirname + '/../../junk/hex/imuduino/Blink.cpp.hex';
 
 avrgirl.flash(hex, function(error) {
   if (error) {

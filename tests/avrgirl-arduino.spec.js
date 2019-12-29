@@ -1,26 +1,26 @@
 var test = require('tape');
 var proxyquire = require('proxyquire');
-
 var sinon = require('sinon');
 
 // proxyquired connection module
-// var Connection = proxyquire.noCallThru().load('../lib/connection', {SerialPort: mockSerial});
-var Connection = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-  list: function(callback) {
-    callback(null, [
-      { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-        pnpId: '', locationId: '', vendorId: '', productId: '' },
-      { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-        serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-        productId: '' },
-      { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-        serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-        vendorId: '0x2341', productId: '0x0043' }
-    ]);
+var Connection = proxyquire.noCallThru().load('../lib/connection',
+  { serialport: {
+    list: function() { return Promise.resolve(
+      [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ])
+    }
   },
 
   SerialPort: require('./helpers/mockSerial').SerialPort
-} });
+  });
 
 // module to test
 var Avrgirl = proxyquire('../avrgirl-arduino', { Connection: Connection });
@@ -36,14 +36,10 @@ test('[ AVRGIRL-ARDUINO ] method presence', function(t) {
     return typeof a[name] === 'function';
   }
 
-  var methods = [
-    'flash',
-    '_validateBoard',
-    'listPorts',
-  ];
+  var methods = ['flash', '_validateBoard', 'listPorts'];
   for (var i = 0; i < methods.length; i += 1) {
     t.ok(isFn(methods[i]), methods[i]);
-    if (i === (methods.length - 1)) {
+    if (i === methods.length - 1) {
       t.end();
     }
   }
@@ -64,6 +60,24 @@ test('[ AVRGIRL-ARDUINO ] ::_validateBoard (GOOD)', function(t) {
   var a = new Avrgirl(DEF_OPTS2);
   a._validateBoard(function(error) {
     t.error(error, 'no error');
+  });
+});
+
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE)', function(t) {
+  t.plan(1);
+
+  var a = new Avrgirl({ board: { name: DEF_OPTS2.board } });
+  a._validateBoard(function(error) {
+    t.error(error, 'no error');
+  });
+});
+
+test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE NO NAME)', function(t) {
+  t.plan(1);
+
+  var a = new Avrgirl({ board: { notName: DEF_OPTS2.board } });
+  a._validateBoard(function(error) {
+    t.ok(error, 'error returned');
   });
 });
 
@@ -114,18 +128,20 @@ test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function(t) {
   });
 });
 
-  test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
-    t.plan(4);
-    var a = new Avrgirl(DEF_OPTS2);
-    var spyInit = sinon.stub(a.connection, '_init').callsFake(function(callback) {return callback(null);});
+test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
+  t.plan(4);
+  var a = new Avrgirl(DEF_OPTS2);
+  var spyInit = sinon.stub(a.connection, '_init').callsFake(function(callback) {
+    return callback(null);
+  });
 
-    var spyUpload = sinon.stub(a.protocol, '_upload').callsFake(function(file, callback) {
-      return callback(null);
-    });
+  var spyUpload = sinon.stub(a.protocol, '_upload').callsFake(function(file, callback) {
+    return callback(null);
+  });
 
-    var spyValidate = sinon.spy(a, '_validateBoard');
+  var spyValidate = sinon.spy(a, '_validateBoard');
 
-    a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
+  a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
     t.ok(spyValidate.calledOnce, 'validated board');
     t.ok(spyInit.calledOnce, 'connection init');
     t.ok(spyUpload.calledOnce, 'upload to board attempt');

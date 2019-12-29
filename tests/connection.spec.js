@@ -4,15 +4,14 @@ var mockSerial = require('./helpers/mockSerial');
 var sinon = require('sinon');
 
 // module to test
-var ConnectionTest = proxyquire.noCallThru()
-                      .load('../lib/connection', { SerialPort: mockSerial.SerialPort });
+var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { SerialPort: mockSerial.SerialPort });
 
 // default options
 var DEF_OPTS1 = {
   debug: false,
   board: {
     baud: 115200,
-    signature: new Buffer([0x1e, 0x95, 0x0f]),
+    signature: Buffer.from([0x1e, 0x95, 0x0f]),
     pageSize: 128,
     numPages: 256,
     timeout: 400,
@@ -32,21 +31,21 @@ test('[ Connection ]  - new creation', function(t) {
 test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
-          { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-            pnpId: '', locationId: '', vendorId: '', productId: '' },
-          { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-            serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-            productId: '' },
-          { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-            serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-            vendorId: '0x2341', productId: '0x0043' }
-        ]);
-      },
-
-      SerialPort: mockSerial.SerialPort
-    } });
+    list: function() { return Promise.resolve(
+      [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ]);
+    },
+    SerialPort: mockSerial.SerialPort
+  }
+  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -62,16 +61,20 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
 test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
-          { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
-            pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
-            locationId: '', vendorId: '', productId: '' }
-        ]);
-      },
+    list: function(callback) { return Promise.resolve(
+      [
+        { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
+          pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
+          locationId: '',
+          vendorId: '',
+          productId: ''
+        }
+      ]);
+    },
 
-      SerialPort: mockSerial.SerialPort
-    } });
+    SerialPort: mockSerial.SerialPort
+  }
+  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -87,21 +90,21 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
 test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-      list: function(callback) {
-        callback(null, [
-          { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-            pnpId: '', locationId: '', vendorId: '', productId: '' },
-          { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-            serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-            productId: '' },
-          { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-            serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-            vendorId: '0x2341', productId: '0x0043' }
-        ]);
-      },
-
-      SerialPort: mockSerial.SerialPort
-    } });
+    list: function(callback) { return Promise.resolve(
+      [
+        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+          pnpId: '', locationId: '', vendorId: '', productId: '' },
+        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+          productId: '' },
+        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+          vendorId: '0x2341', productId: '0x0043' }
+      ]);
+    },
+    SerialPort: mockSerial.SerialPort
+  }
+  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -117,16 +120,16 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
 test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   t.plan(3);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
-    list: function(callback) {
-      callback(null, [
+    list: function(callback) { return Promise.resolve(
+      [
         { comName: 'COM3', manufacturer: 'Microsoft', serialNumber: '',
           pnpId: 'USB\\\\VID_2341&PID_0043\\\\55432333038351F03170',
           locationId: '', vendorId: '', productId: '' }
       ]);
     },
-
     SerialPort: mockSerial.SerialPort
-  } });
+  }
+  });
 
   // nodejs 0.10.x race condition needs this
   setTimeout(function() {
@@ -139,48 +142,30 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   }, 200);
 });
 
-test('[ Connection ] ::_cycleDTR', function(t) {
-  t.plan(2);
-  var options = {
-    debug: false,
-    board: 'uno',
-    port: '/dev/cu.usbmodem1421'
-  };
-  var c = new ConnectionTest(options);
-  var stub = sinon.stub(c, '_setDTR').callsFake(function(bool, timeout, callback) {
-    return callback(null);
-  });
-
-  c._cycleDTR(function(error) {
-    t.ok(stub.calledTwice, '_setDTR was called twice');
-    t.error(error, 'no error');
-  });
-});
-
 test('[ Connection ] ::_pollForPort', function(t) {
   t.plan(1);
   var mockedSerial = mockSerial.SerialPort;
-  mockedSerial.list = function(callback) {
-      callback(null, [
-        { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
-          pnpId: '', locationId: '', vendorId: '', productId: '' },
-        { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
-          serialNumber: '', pnpId: '', locationId: '', vendorId: '',
-          productId: '' },
-        { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
-          serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
-          vendorId: '0x2341', productId: '0x0043' }
-      ]);
-    };
+  mockedSerial.list = function(callback) { return Promise.resolve(
+    [
+      { comName: '/dev/cu.sierravsp', manufacturer: '', serialNumber: '',
+        pnpId: '', locationId: '', vendorId: '', productId: '' },
+      { comName: '/dev/cu.Bluetooth-Incoming-Port', manufacturer: '',
+        serialNumber: '', pnpId: '', locationId: '', vendorId: '',
+        productId: '' },
+      { comName: '/dev/cu.usbmodem1421', manufacturer: 'Arduino (www.arduino.cc)',
+        serialNumber: '55432333038351F03170', pnpId: '', locationId: '0x14200000',
+        vendorId: '0x2341', productId: '0x0043' }
+    ]);
+  };
 
   var ConnectionTest = proxyquire.noCallThru()
-                        .load('../lib/connection', { serialport: mockSerial.SerialPort });
+    .load('../lib/connection', { serialport: mockSerial.SerialPort });
 
   var options = {
     debug: false,
     board: {
       baud: 115200,
-      signature: new Buffer([0x1e, 0x95, 0x0f]),
+      signature: Buffer.from([0x1e, 0x95, 0x0f]),
       pageSize: 128,
       numPages: 256,
       timeout: 400,
@@ -197,5 +182,4 @@ test('[ Connection ] ::_pollForPort', function(t) {
       t.error(error, 'no error on polling result');
     });
   }, 200);
-
 });
