@@ -31,6 +31,8 @@ You can then navigate to `http://localhost:3000` in Chrome and play with the app
 
 Currently there is no support for AVR109 / boards that use USB emulation on chip. This includes boards such as Arduino Leonardo, Arduino Micro, Arduboy, etc. There are some technical limitations behind this, and be my guest to give this a try if you're up for a challenge because it's definitely possible to hack this in, it's just something not included with this alpha release.
 
+The Web Serial API is currently in development and is only available behind a flag on the stable branch of Chrome. Please enable the `#enable-experimental-web-platform-features` flag in `chrome://flags` to run this example.
+
 ## Find bugs / problems?
 
 I'd love for you to open an issue or a pull request! This is super new and not thoroughly tested so you'll be helping us move towards beta and full releases by contributing. Thank you!
