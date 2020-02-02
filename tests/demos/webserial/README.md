@@ -2,8 +2,7 @@
 
 ⚠️ Web serial support in AvrGirl Arduino is alpha right now and not guaranteed to be stable and full featured. ⚠️
 
-This directory contains a simple web app example of how to use Avrgirl Arduino in the browser. 
-
+This directory contains a simple web app example of how to use Avrgirl Arduino in the browser. An equivalent example using React can be found [here](./react-demo).
 
 ## How to navigate this example
 
