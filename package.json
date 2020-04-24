@@ -53,7 +53,7 @@
     "proxyquire": "^1.7.3",
     "sinon": "^4.1.2",
     "tap-spec": "^5.0.0",
-    "tape": "^4.2.1",
+    "tape": "^5.0.0",
     "terser-webpack-plugin": "^2.1.0",
     "virtual-serialport": "^0.3.1",
     "webpack": "^4.40.2",
