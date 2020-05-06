@@ -54,7 +54,7 @@
     "sinon": "^4.1.2",
     "tap-spec": "^5.0.0",
     "tape": "^4.2.1",
-    "terser-webpack-plugin": "^2.1.0",
+    "terser-webpack-plugin": "^3.0.1",
     "virtual-serialport": "^0.3.1",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9"
