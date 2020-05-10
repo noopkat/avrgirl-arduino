@@ -41,7 +41,7 @@
     "intel-hex": "^0.1.2",
     "jscs-loader": "^0.3.0",
     "minimist": "^1.2.0",
-    "serialport": "^8.0.5",
+    "serialport": "^9.0.0",
     "stk500": "^2.0.3",
     "stk500-v2": "^1.0.4"
   },
