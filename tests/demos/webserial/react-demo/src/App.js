@@ -5,12 +5,18 @@ import ArduinoUno from "./img/ArduinoUno.svg";
 import gear from "./img/gear4.svg";
 
 function App() {
+  const boardChoices = [
+    "micro",
+    "uno",
+    "mega"
+  ];
+
   const fileInput = useRef(null);
-  const [board, updateBoard] = useState("");
+  const [board, updateBoard] = useState(boardChoices[0]);
   const [fileName, updateFileName] = useState("");
   const [uploading, updateUploading] = useState(false);
 
-  const handleSubmit = e => {
+    const handleSubmit = e => {
     e.preventDefault();
     updateUploading(true);
 
@@ -36,6 +42,9 @@ function App() {
     };
   };
 
+  const BoardOptions = boardChoices.map((board, i) => <option value={board} key={i}>{board}</option>)
+  
+
   return (
     <div className="main">
       <div className="wrapper">
@@ -51,8 +60,7 @@ function App() {
                 value={board}
                 onChange={event => updateBoard(event.target.value)}
               >
-                <option value="uno">Uno</option>
-                <option value="mega">Mega</option>
+                {BoardOptions}   
               </select>
             </label>
 
