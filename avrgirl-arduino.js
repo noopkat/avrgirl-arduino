@@ -8,7 +8,6 @@ var injectDependencies = function(boards, Connection, protocols) {
    * @param {object} opts - options for consumer to pass in
    */
   var AvrgirlArduino = function(opts) {
-    var _this = this;
     opts = opts || {};
 
     this.options = {

@@ -27,7 +27,7 @@
     "no-use-before-define": 2,
 
     // Enforce line length to 100 characters
-    "max-len": ["error", { "code": 200 }],
+    "max-len": ["error", { "code": 300 }],
 
     // Require capitalized names for constructor functions.
     "new-cap": 1,
