@@ -161,7 +161,7 @@ test('[ Connection ] ::_pollForPort', function(t) {
     .load('../lib/connection', { serialport: mockSerial.SerialPort });
 
   var options = {
-    debug: false,
+    debug: function(){},
     board: {
       baud: 115200,
       signature: Buffer.from([0x1e, 0x95, 0x0f]),
@@ -174,11 +174,9 @@ test('[ Connection ] ::_pollForPort', function(t) {
     port: '/dev/cu.usbmodem1421'
   };
 
-  // nodejs 0.10.x race condition needs this
-  setTimeout(function() {
-    var c = new ConnectionTest(options);
-    c._pollForPort(function(error) {
-      t.error(error, 'no error on polling result');
-    });
-  }, 200);
+  var c = new ConnectionTest(options);
+  c._pollForPort(function(error, ports) {
+    console.log(error, ports);
+    t.error(error, 'no error on polling result');
+  });
 });
