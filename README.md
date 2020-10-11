@@ -206,7 +206,7 @@ Example without custom board:
 
 ```javascript
 var avrgirl = new Avrgirl({
-  board: 'uno',
+  board: 'leonardo',
   // you can put it here:
   manualReset: true
 });
@@ -223,6 +223,40 @@ var board = {
   protocol: 'avr109',
   // or you can put it here:
   manualReset: true
+};
+
+
+var avrgirl = new Avrgirl({
+  board: board
+});
+```
+
+**Want to Disable Code Verification?** 
+
+You can pass in a `disableVerify` property as a boolean, in either your custom board object _or_ in the general Avrgirl options. This will skip the Verification after flashing the board. Please note that this is only available for use with boards that speak the AVR109 protocol (most ATMega32U4 powered boards).
+
+
+Example without custom board:
+
+```javascript
+var avrgirl = new Avrgirl({
+  board: 'leonardo',
+  // you can put it here:
+  disableVerify: true
+});
+```
+
+Example with custom board:
+
+```javascript
+var board = {
+  name: 'micro',
+  baud: 57600,
+  signature: new Buffer([0x43, 0x41, 0x54, 0x45, 0x52, 0x49, 0x4e]),
+  productId: ['0x0037', '0x8037', '0x0036'],
+  protocol: 'avr109',
+  // or you can put it here:
+  disableVerify: true
 };
 
 

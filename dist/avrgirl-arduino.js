@@ -2171,7 +2171,7 @@ if (typeof Object.create === 'function') {
 
 /*<replacement>*/
 
-var pna = __webpack_require__(11);
+var pna = __webpack_require__(10);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -2897,7 +2897,7 @@ function applyTheme (theme) {
 colors.setTheme = function (theme) {
   if (typeof theme === 'string') {
     try {
-      colors.themes[theme] = __webpack_require__(22)(theme);
+      colors.themes[theme] = __webpack_require__(20)(theme);
       applyTheme(colors.themes[theme]);
       return colors.themes[theme];
     } catch (err) {
@@ -3846,44 +3846,6 @@ function objectToString(o) {
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var fs = __webpack_require__(20);
-var intelhex = __webpack_require__(21);
-
-var tools = {};
-
-/**
- * Opens and parses a given hex file
- */
-tools._parseHex = function(file) {
-  try {
-    var data;
-    if (typeof file === 'string') {
-      data = fs.readFileSync(file, {
-        encoding: 'utf8'
-      });
-    } else {
-      // ensure compatibility with browser array buffers
-      data = Buffer.from(file);
-    }
-
-    return intelhex.parse(data).data;
-  } catch (error) {
-    return error;
-  }
-};
-
-tools._hexStringToByte = function(str) {
-  return Buffer.from([parseInt(str,16)]);
-}
-
-module.exports = tools;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -3933,7 +3895,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
@@ -4001,7 +3963,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate, process, global, module) {(function (global, factory) {
@@ -9602,7 +9564,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).setImmediate, __webpack_require__(1), __webpack_require__(2), __webpack_require__(36)(module)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var Resp_STK_INSYNC = 0x14;
@@ -9633,7 +9595,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var colors = __webpack_require__(6);
@@ -9648,6 +9610,44 @@ module['exports'] = colors;
 //
 //
 __webpack_require__(54)();
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(Buffer) {var fs = __webpack_require__(21);
+var intelhex = __webpack_require__(22);
+
+var tools = {};
+
+/**
+ * Opens and parses a given hex file
+ */
+tools._parseHex = function(file) {
+  try {
+    var data;
+    if (typeof file === 'string') {
+      data = fs.readFileSync(file, {
+        encoding: 'utf8'
+      });
+    } else {
+      // ensure compatibility with browser array buffers
+      data = Buffer.from(file);
+    }
+
+    return intelhex.parse(data).data;
+  } catch (error) {
+    return error;
+  }
+};
+
+tools._hexStringToByte = function(str) {
+  return Buffer.from([parseInt(str,16)]);
+}
+
+module.exports = tools;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
 /* 16 */
@@ -9738,7 +9738,7 @@ exports.PassThrough = __webpack_require__(67);
 
 /*<replacement>*/
 
-var pna = __webpack_require__(11);
+var pna = __webpack_require__(10);
 /*</replacement>*/
 
 module.exports = Writable;
@@ -9791,7 +9791,7 @@ var Stream = __webpack_require__(25);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(12).Buffer;
+var Buffer = __webpack_require__(11).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -10413,10 +10413,24 @@ module.exports = Array.isArray || function (arr) {
 /* 20 */
 /***/ (function(module, exports) {
 
-/* (ignored) */
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = 20;
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {//Intel Hex record types
@@ -10557,20 +10571,6 @@ exports.parse = function parseIntelHex(data, bufferSize) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-function webpackEmptyContext(req) {
-	var e = new Error("Cannot find module '" + req + "'");
-	e.code = 'MODULE_NOT_FOUND';
-	throw e;
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 22;
-
-/***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
@@ -10698,7 +10698,7 @@ module.exports.ANSWER_CKSUM_ERROR = 0xB0
 
 /*<replacement>*/
 
-var pna = __webpack_require__(11);
+var pna = __webpack_require__(10);
 /*</replacement>*/
 
 module.exports = Readable;
@@ -10727,7 +10727,7 @@ var Stream = __webpack_require__(25);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(12).Buffer;
+var Buffer = __webpack_require__(11).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -11710,7 +11710,7 @@ module.exports = __webpack_require__(5).EventEmitter;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(11);
+var pna = __webpack_require__(10);
 /*</replacement>*/
 
 // undocumented cb() API, needed for core, not for public API
@@ -11811,7 +11811,7 @@ module.exports = {
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(12).Buffer;
+var Buffer = __webpack_require__(11).Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer.isEncoding || function (encoding) {
@@ -12887,9 +12887,8 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var Serialport = __webpack_require__(34);
-var async = __webpack_require__(13);
+var async = __webpack_require__(12);
 var awty = __webpack_require__(37);
-var tools = __webpack_require__(10);
 
 var Connection = function(options) {
   this.options = options;
@@ -12898,7 +12897,9 @@ var Connection = function(options) {
   this.board = this.options.board;
   // TODO: support avr109 boards
   if (this.board.protocol === 'avr109') {
-    throw new Error(`Sorry, we currently don't support ${this.board.name} or other avr109 boards in webserial. Please see https://github.com/noopkat/avrgirl-arduino/issues/204#issuecomment-703284131 for further details`);
+    throw new Error(
+      `Sorry, we currently don't support ${this.board.name} or other avr109 boards in webserial. Please see https://github.com/noopkat/avrgirl-arduino/issues/204#issuecomment-703284131 for further details`
+    );
   }
 };
 
@@ -12912,7 +12913,6 @@ Connection.prototype._init = function(callback) {
  * Create new serialport instance for the Arduino board, but do not immediately connect.
  */
 Connection.prototype._setUpSerial = function(callback) {
-  var _this = this;
   this.serialPort = new Serialport('', {
     baudRate: this.board.baud,
     autoOpen: false
@@ -13020,7 +13020,7 @@ Connection.prototype._pollForOpen = function(callback) {
 
   poll(function(isOpen) {
     var error;
-    if (!isOpen) {
+    if (!isOpen) {
       error = new Error('could not open board on ' + _this.serialPort.path);
     }
 
@@ -13647,8 +13647,8 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var STK = __webpack_require__(42);
-var colors = __webpack_require__(15);
-var tools = __webpack_require__(10);
+var colors = __webpack_require__(14);
+var tools = __webpack_require__(15);
 var Protocol = __webpack_require__(16);
 var util = __webpack_require__(8);
 
@@ -13725,7 +13725,7 @@ module.exports = Stk500v1;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var async = __webpack_require__(43);
-var Statics = __webpack_require__(14);
+var Statics = __webpack_require__(13);
 var sendCommand = __webpack_require__(44);
 
 var stk500 = function (opts) {
@@ -15211,7 +15211,7 @@ module.exports = stk500;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var receiveData = __webpack_require__(45);
-var Statics = __webpack_require__(14);
+var Statics = __webpack_require__(13);
 
 module.exports = function (stream, opt, callback) {
   var timeout = opt.timeout || 0;
@@ -15263,7 +15263,7 @@ module.exports = function (stream, opt, callback) {
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var Statics = __webpack_require__(14);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var Statics = __webpack_require__(13);
 
 var startingBytes = [
   Statics.Resp_STK_INSYNC
@@ -15786,7 +15786,7 @@ module['exports'] = function () {
   colors.setTheme = function (theme) {
     if (typeof theme === 'string') {
       try {
-        colors.themes[theme] = __webpack_require__(22)(theme);
+        colors.themes[theme] = __webpack_require__(20)(theme);
         applyTheme(colors.themes[theme]);
         return colors.themes[theme];
       } catch (err) {
@@ -15816,9 +15816,9 @@ module.exports = function isBuffer(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var STK2 = __webpack_require__(57);
-var async = __webpack_require__(13);
-var colors = __webpack_require__(15);
-var tools = __webpack_require__(10);
+var async = __webpack_require__(12);
+var colors = __webpack_require__(14);
+var tools = __webpack_require__(15);
 var Protocol = __webpack_require__(16);
 var util = __webpack_require__(8);
 
@@ -17712,10 +17712,10 @@ function ext(o1,o2){
 /***/ (function(module, exports, __webpack_require__) {
 
 var AVR109 = __webpack_require__(61);
-var colors = __webpack_require__(15);
-var fs = __webpack_require__(20);
+var colors = __webpack_require__(14);
+var fs = __webpack_require__(21);
 var Serialport = __webpack_require__(72);
-var async = __webpack_require__(13);
+var async = __webpack_require__(12);
 var Protocol = __webpack_require__(16);
 var util = __webpack_require__(8);
 
@@ -17762,8 +17762,8 @@ Avr109.prototype._upload = function(file, callback) {
       _this._write(data, function(error) {
         var color = (error ? colors.red : colors.green);
         _this.debug(color('flash complete.'));
-  // this is a workaround, please see https://github.com/noopkat/avrgirl-arduino/issues/193 
-  //      _this.connection.serialPort.close();
+        // this is a workaround, please see https://github.com/noopkat/avrgirl-arduino/issues/193 
+        //      _this.connection.serialPort.close();
 
         return callback(error);
       });
@@ -17779,10 +17779,10 @@ Avr109.prototype._upload = function(file, callback) {
  */
 Avr109.prototype._write = function(data, callback) {
   var _this = this;
-
+  
   var options = {
     signature: _this.board.signature.toString(),
-    debug: false
+    debug: false,
   };
 
   _this.chip.init(_this.connection.serialPort, options, function(error, flasher) {
@@ -17794,7 +17794,11 @@ Avr109.prototype._write = function(data, callback) {
       flasher.erase.bind(flasher),
       flasher.program.bind(flasher, data.toString()),
       function verify(done) {
-        flasher.verify(done);
+        if (_this.board.disableVerify === true) {
+          done();
+        } else {
+          flasher.verify(done);
+        }
       },
 
       flasher.fuseCheck.bind(flasher)
@@ -17854,7 +17858,7 @@ module.exports = Avr109;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer) {var
-  intelHex = __webpack_require__(21),
+  intelHex = __webpack_require__(22),
   Stream   = __webpack_require__(62).Stream,
   util     = __webpack_require__(8);
 
@@ -18254,7 +18258,7 @@ Stream.prototype.pipe = function(dest, options) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Buffer = __webpack_require__(12).Buffer;
+var Buffer = __webpack_require__(11).Buffer;
 var util = __webpack_require__(65);
 
 function copyBuffer(src, target, offset) {
@@ -18504,21 +18508,21 @@ module.exports = __webpack_require__(17).PassThrough
 var injectDependencies = function(boards, Connection, protocols) {
   var EventEmitter = __webpack_require__(5);
   var util = __webpack_require__(8);
-  var tools = __webpack_require__(10);
+  var tools = __webpack_require__(15);
   /**
    * Constructor
    *
    * @param {object} opts - options for consumer to pass in
    */
   var AvrgirlArduino = function(opts) {
-    var _this = this;
     opts = opts || {};
 
     this.options = {
       debug: opts.debug || false,
       board: opts.board || 'uno',
       port: opts.port || '',
-      manualReset: opts.manualReset || false
+      manualReset: opts.manualReset || false,
+      disableVerify: opts.disableVerify || false
     };
 
     // this here checks for 3 conditions:
@@ -18547,6 +18551,10 @@ var injectDependencies = function(boards, Connection, protocols) {
 
     if (this.options.board && !this.options.board.manualReset) {
       this.options.board.manualReset = this.options.manualReset;
+    }
+
+    if (this.options.board && !this.options.board.disableVerify) {
+      this.options.board.disableVerify = this.options.disableVerify;
     }
 
     this.connection = new Connection(this.options);

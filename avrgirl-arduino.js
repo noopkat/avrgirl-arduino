@@ -14,7 +14,8 @@ var injectDependencies = function(boards, Connection, protocols) {
       debug: opts.debug || false,
       board: opts.board || 'uno',
       port: opts.port || '',
-      manualReset: opts.manualReset || false
+      manualReset: opts.manualReset || false,
+      disableVerify: opts.disableVerify || false
     };
 
     // this here checks for 3 conditions:
@@ -43,6 +44,10 @@ var injectDependencies = function(boards, Connection, protocols) {
 
     if (this.options.board && !this.options.board.manualReset) {
       this.options.board.manualReset = this.options.manualReset;
+    }
+
+    if (this.options.board && !this.options.board.disableVerify) {
+      this.options.board.disableVerify = this.options.disableVerify;
     }
 
     this.connection = new Connection(this.options);
