@@ -13186,13 +13186,13 @@ class SerialPort extends EventEmitter {
   async set(props = {}, callback) {
     try {
       const signals = {};
-      if (props.hasOwnProperty('dtr')) {
+      if (Object.prototype.hasOwnProperty.call(props, 'dtr')) {
         signals.dataTerminalReady = props.dtr;
       }
-      if (props.hasOwnProperty('rts')) {
+      if (Object.prototype.hasOwnProperty.call(props, 'rts')) {
         signals.requestToSend = props.rts;
       }
-      if (props.hasOwnProperty('brk')) {
+      if (Object.prototype.hasOwnProperty.call(props, 'brk')) {
         signals.break = props.brk;
       }
       if (Object.keys(signals).length > 0) {
