@@ -50,6 +50,10 @@
     // Warn when there are dangling commas
     "comma-dangle": ["warn", "never"],
 
-    "no-irregular-whitespace": ["warn"]
+    "no-irregular-whitespace": ["warn"],
+
+    "no-self-assign": ["warn"],
+
+    "no-redeclare": ["warn"]
   }
 }
