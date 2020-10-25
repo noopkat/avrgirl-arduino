@@ -23,11 +23,11 @@ var injectDependencies = function(boards, Connection, protocols) {
     // if a custom debug function is passed in, we want to assign debug to be that
     // if debug option is false, then run debug as a no-op
     if (this.options.debug === true) {
-      this.debug = console.log.bind(console);
+      this.debug = this.options.debug = console.log.bind(console);
     } else if (typeof this.options.debug === 'function') {
-      this.debug = this.options.debug;
+      this.debug = this.options.debug = this.options.debug;
     } else {
-      this.debug = function() {};
+      this.debug = this.options.debug = function debugNoop() {};
     }
 
     // handle 'sparse' boards, ie. boards with only the 'name' property defined
