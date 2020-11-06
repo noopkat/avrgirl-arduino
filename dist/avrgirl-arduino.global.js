@@ -13183,9 +13183,21 @@ class SerialPort extends EventEmitter {
     callback && callback(null);
   }
 
-  async set(props, callback) {
+  async set(props = {}, callback) {
     try {
-      await this.port.setSignals(props);
+      const signals = {};
+      if (Object.prototype.hasOwnProperty.call(props, 'dtr')) {
+        signals.dataTerminalReady = props.dtr;
+      }
+      if (Object.prototype.hasOwnProperty.call(props, 'rts')) {
+        signals.requestToSend = props.rts;
+      }
+      if (Object.prototype.hasOwnProperty.call(props, 'brk')) {
+        signals.break = props.brk;
+      }
+      if (Object.keys(signals).length > 0) {
+        await this.port.setSignals(signals);
+      }
     } catch (error) {
       if (callback) return callback(error);
       throw error;
