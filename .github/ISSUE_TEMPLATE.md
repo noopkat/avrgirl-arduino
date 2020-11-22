@@ -56,7 +56,18 @@ _A full List of boards and processor names are [available on Wikipedia](https://
 
 ## Log output, if available
 
-_Please add any log output, which can be used to describe the issue or circumstances surrounding the issues._
+_Please add any log output, which can be used to describe the issue or circumstances surrounding the issues._ 
+
+There is a property you can use named `megaDebug` that is passed into the instance options. This will output much more low level debugging info that could help the author debug your issue more quickly. See below for how to use it:
+
+```javascript
+var avrgirl = new Avrgirl({
+  board: 'uno',
+  debug: true,
+  // turn on megaDebug mode!
+  megaDebug: true
+});
+```
 
 ## Step by step guide to reproducing the issue
 

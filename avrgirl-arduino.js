@@ -12,6 +12,7 @@ var injectDependencies = function(boards, Connection, protocols) {
 
     this.options = {
       debug: opts.debug || false,
+      megaDebug: opts.megaDebug || false,
       board: opts.board || 'uno',
       port: opts.port || '',
       manualReset: opts.manualReset || false,
@@ -58,7 +59,8 @@ var injectDependencies = function(boards, Connection, protocols) {
       this.protocol = new Protocol({
         board: this.options.board,
         connection: this.connection,
-        debug: this.debug
+        debug: this.debug,
+        megaDebug: this.options.megaDebug
       });
     }
 
