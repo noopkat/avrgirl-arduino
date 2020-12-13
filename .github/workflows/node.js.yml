@@ -35,7 +35,7 @@ jobs:
     
     steps:
     - name: Check out code
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
       
     - name: Coverage report
       uses: actions/setup-node@v1
@@ -45,7 +45,7 @@ jobs:
         npm i
         npm run cover
       
-    - uses: coverallsapp/github-action@master
     - name: Coveralls
+      uses: coverallsapp/github-action@master
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
