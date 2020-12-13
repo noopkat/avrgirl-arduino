@@ -1,5 +1,5 @@
 var testpilot = require('avrga-tester');
-var Avrgirl = require('../avrgirl-arduino');
+var Avrgirl = require('../');
 var fs = require('fs');
 var path = require('path');
 
