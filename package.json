@@ -10,7 +10,7 @@
     "lint": "eslint --fix \"tests/*.spec.js\" \"tests/helpers/*.js\" \"avrgirl-arduino.js\" \"lib/*.js\"",
     "tape": "tape \"tests/*.spec.js\" | tap-spec",
     "test": "npm run tape && npm run lint",
-    "cover": "istanbul cover ./tests/*.spec.js && istanbul-coveralls"
+    "cover": "istanbul cover ./tests/*.spec.js"
   },
   "repository": {
     "type": "git",
