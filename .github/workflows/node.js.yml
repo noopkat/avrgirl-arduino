@@ -19,10 +19,33 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
+      
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm test
+    - run: |
+        npm i
+        npm test
+  
+  coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out code
+    - uses: actions/checkout@v2
+      
+    - name: Coverage report
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: |
+        npm i
+        npm run cover
+      
+    - uses: coverallsapp/github-action@master
+    - name: Coveralls
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
