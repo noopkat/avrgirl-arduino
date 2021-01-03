@@ -1,6 +1,8 @@
-name: 'GH release'
+name: 'GitHub release'
 on:
   push:
+    branches:
+      - 'master'
     tags:
       - '*'
 jobs:
@@ -13,16 +15,12 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Preview Release
-        run: echo ${{steps.github_release.outputs.changelog}}
-        shell: bash
-
-#      - name: Create Release
-#        uses: actions/create-release@v1
-#        with:
-#          tag_name: ${{ github.ref }}
-#          release_name: ${{ github.ref }}
-#          body: ${{steps.github_release.outputs.changelog}}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Publish Release          
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{steps.github_release.outputs.changelog}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
