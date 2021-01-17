@@ -1,8 +1,6 @@
 name: 'GitHub release'
 on:
   push:
-    branches:
-      - 'master'
     tags:
       - 'v*'
 jobs:
