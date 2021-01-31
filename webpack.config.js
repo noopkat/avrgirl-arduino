@@ -1,5 +1,21 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
+
+const resolve = {
+  fallback: {
+     "util": require.resolve("util/"),
+     "stream": require.resolve("stream-browserify"),
+     "os": require.resolve("os-browserify/browser"),
+  }
+}
+
+const plugins = [
+  new webpack.ProvidePlugin({
+    Buffer: ['buffer', 'Buffer'],
+    process: 'process/browser.js',
+  })
+];
 
 const importableConfig = {
   entry: './avrgirl-arduino-browser.js',
@@ -10,7 +26,9 @@ const importableConfig = {
   },
   optimization: {
     minimize: false,
-  }
+  },
+  resolve,
+  plugins
 };
 
 const importableMinConfig = {
@@ -24,6 +42,8 @@ const importableMinConfig = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
+  resolve,
+  plugins
 };
 
 
@@ -39,6 +59,7 @@ const globalConfig = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
+  resolve,
 };
 const globalConfigNonMin = {
   entry: './avrgirl-arduino-browser.js',
@@ -50,7 +71,9 @@ const globalConfigNonMin = {
   },
   optimization: {
     minimize: false,
-  }
+  },
+  resolve,
+  plugins
 };
 
 module.exports = [importableConfig, importableMinConfig, globalConfig, globalConfigNonMin];
