@@ -104,16 +104,14 @@ var injectDependencies = function(boards, Connection, protocols) {
     var _this = this;
 
     // validate board properties first
-    _this._validateBoard(function(error) {
+    _this._validateBoard(async function(error) {
       if (error) { return callback(error); }
 
       // set up serialport connection
-      _this.connection._init(function(error) {
-        if (error) { return callback(error); }
+      await _this.connection._init(); 
 
-        // upload file to board
-        _this.protocol._upload(file, callback);
-      });
+      // upload file to board
+      _this.protocol._upload(file, callback);
     });
   };
 
