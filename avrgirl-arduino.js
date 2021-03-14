@@ -74,23 +74,19 @@ var injectDependencies = function(boards, Connection, protocols) {
    *
    * @param {function} callback - function to run upon completion/error
    */
-  AvrgirlArduino.prototype._validateBoard = function(callback) {
+  AvrgirlArduino.prototype._validateBoard = function() {
     if (typeof this.options.board !== 'object') {
       // cannot find a matching board in supported list
-      return callback(new Error('"' + this.options.board + '" is not a supported board type.'));
+      throw new Error('"' + this.options.board + '" is not a supported board type.');
 
     } else if (!this.protocol.chip) {
       // something went wrong trying to set up the protocol
       var errorMsg = 'not a supported programming protocol: ' + this.options.board.protocol;
-      return callback(new Error(errorMsg));
+      throw new Error(errorMsg);
 
     } else if (!this.options.port && this.options.board.name === 'pro-mini') {
       // when using a pro mini, a port is required in the options
-      return callback(new Error('using a pro-mini, please specify the port in your options.'));
-
-    } else {
-      // all good
-      return callback(null);
+      throw new Error('using a pro-mini, please specify the port in your options.');
     }
   };
 
@@ -100,19 +96,15 @@ var injectDependencies = function(boards, Connection, protocols) {
    * @param {string} file - path to hex file for uploading
    * @param {function} callback - function to run upon completion/error
    */
-  AvrgirlArduino.prototype.flash = function(file, callback) {
-    var _this = this;
-
+  AvrgirlArduino.prototype.flash = async function(file) {
     // validate board properties first
-    _this._validateBoard(async function(error) {
-      if (error) { return callback(error); }
+    this._validateBoard();
 
-      // set up serialport connection
-      await _this.connection._init(); 
+    // set up serialport connection
+    await this.connection._init(); 
 
-      // upload file to board
-      _this.protocol._upload(file, callback);
-    });
+    // upload file to board
+    await this.protocol._upload(file);
   };
 
   /**
