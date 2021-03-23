@@ -15,6 +15,7 @@ var injectDependencies = function(boards, Connection, protocols) {
       megaDebug: opts.megaDebug || false,
       board: opts.board || 'uno',
       port: opts.port || '',
+      serialPort: opts.serialPort || null,
       manualReset: opts.manualReset || false,
       disableVerify: opts.disableVerify || false
     };
