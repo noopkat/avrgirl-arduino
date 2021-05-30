@@ -1,4 +1,4 @@
-var test = require('tape');
+var test = require('tape-async');
 var Protocol = require('../lib/protocol.js');
 var STK = require('stk500');
 

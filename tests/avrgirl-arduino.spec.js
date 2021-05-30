@@ -1,4 +1,4 @@
-var test = require('tape');
+var test = require('tape-async');
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
 
@@ -58,36 +58,29 @@ test('[ AVRGIRL-ARDUINO ] ::_validateBoard (GOOD)', function(t) {
   t.plan(1);
 
   var a = new Avrgirl(DEF_OPTS2);
-  a._validateBoard(function(error) {
-    t.error(error, 'no error');
-  });
+  t.doesNotThrow(a._validateBoard.bind(a), 'does not throw');
 });
 
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE)', function(t) {
   t.plan(1);
 
   var a = new Avrgirl({ board: { name: DEF_OPTS2.board } });
-  a._validateBoard(function(error) {
-    t.error(error, 'no error');
-  });
+  a._validateBoard();
+  t.doesNotThrow(a._validateBoard.bind(a), 'does not throw');
 });
 
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (SPARSE NO NAME)', function(t) {
   t.plan(1);
 
   var a = new Avrgirl({ board: { notName: DEF_OPTS2.board } });
-  a._validateBoard(function(error) {
-    t.ok(error, 'error returned');
-  });
+  t.throws(a._validateBoard.bind(a), 'error returned');
 });
 
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO BOARD)', function(t) {
   t.plan(1);
 
   var a = new Avrgirl({ board: 'bacon' });
-  a._validateBoard(function(error) {
-    t.ok(error, 'error returned');
-  });
+  t.throws(a._validateBoard.bind(a), 'error returned');
 });
 
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PROTOCOL)', function(t) {
@@ -95,56 +88,49 @@ test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PROTOCOL)', function(t) {
 
   var a = new Avrgirl(DEF_OPTS2);
   a.protocol = 'bacon';
-  a._validateBoard(function(error) {
-    t.ok(error, 'error returned');
-  });
+  t.throws(a._validateBoard.bind(a), 'error returned');
 });
 
 test('[ AVRGIRL-ARDUINO ] ::_validateBoard (NO PORT & PRO-MINI)', function(t) {
   t.plan(1);
 
   var a = new Avrgirl({ board: 'pro-mini' });
-  a._validateBoard(function(error) {
-    t.ok(error, 'error returned');
-  });
+  t.throws(a._validateBoard.bind(a), 'error returned');
 });
 
-test('[ AVRGIRL-ARDUINO ] ::listPorts', function(t) {
-  t.plan(3);
-  Avrgirl.listPorts(function(error, ports) {
-    t.ok(ports.length, 'got a list of ports');
-    t.ok(ports[2]._standardPid, 'added _standardPid property');
-    t.error(error, 'no error on listing');
-  });
+test('[ AVRGIRL-ARDUINO ] ::listPorts', async (t) => {
+  t.plan(2);
+
+  var ports = await Avrgirl.listPorts();
+  t.ok(ports.length, 'got a list of ports');
+  t.ok(ports[2]._standardPid, 'added _standardPid property');
 });
 
-test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', function(t) {
-  t.plan(3);
+test('[ AVRGIRL-ARDUINO ] ::listPorts (prototype)', async (t) => {
+  t.plan(2);
+
   var a = new Avrgirl(DEF_OPTS2);
-  a.listPorts(function(error, ports) {
-    t.ok(ports.length, 'got a list of ports');
-    t.ok(ports[2]._standardPid, 'added _standardPid property');
-    t.error(error, 'no error on listing');
-  });
+  var ports = await a.listPorts();
+  t.ok(ports.length, 'got a list of ports');
+  t.ok(ports[2]._standardPid, 'added _standardPid property');
 });
 
-test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', function(t) {
-  t.plan(4);
+test('[ AVRGIRL-ARDUINO ] ::flash (shallow)', async (t) => {
+  t.plan(3);
+
   var a = new Avrgirl(DEF_OPTS2);
-  var spyInit = sinon.stub(a.connection, '_init').callsFake(function(callback) {
-    return callback(null);
+  var spyInit = sinon.stub(a.connection, '_init').callsFake(function() {
+    return Promise.resolve();
   });
 
-  var spyUpload = sinon.stub(a.protocol, '_upload').callsFake(function(file, callback) {
-    return callback(null);
+  var spyUpload = sinon.stub(a.protocol, '_upload').callsFake(function() {
+    return Promise.resolve();
   });
 
   var spyValidate = sinon.spy(a, '_validateBoard');
 
-  a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex', function(error) {
-    t.ok(spyValidate.calledOnce, 'validated board');
-    t.ok(spyInit.calledOnce, 'connection init');
-    t.ok(spyUpload.calledOnce, 'upload to board attempt');
-    t.error(error, 'no error');
-  });
+  await a.flash(__dirname + '/../junk/hex/uno/Blink.cpp.hex');
+  t.ok(spyValidate.calledOnce, 'validated board');
+  t.ok(spyInit.calledOnce, 'connection init');
+  t.ok(spyUpload.calledOnce, 'upload to board attempt');
 });

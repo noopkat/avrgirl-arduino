@@ -1,4 +1,4 @@
-var test = require('tape');
+var test = require('tape-async');
 var proxyquire = require('proxyquire');
 var mockSerial = require('./helpers/mockSerial');
 
@@ -20,15 +20,15 @@ var DEF_OPTS1 = {
   port: ''
 };
 
-test('[ Connection ]  - new creation', function(t) {
+test('[ Connection ]  - new creation', async (t) => {
   t.plan(2);
   var c = new ConnectionTest(DEF_OPTS1);
   t.ok(c.board, 'board exists');
   t.equal(c.board.protocol, 'stk500v1', 'random board property is as expected');
 });
 
-test('[ Connection ] ::_listPorts (UNIX)', function(t) {
-  t.plan(3);
+test('[ Connection ] ::_listPorts (UNIX)', async (t) => {
+  t.plan(2);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
     list: function() { return Promise.resolve(
       [
@@ -46,19 +46,14 @@ test('[ Connection ] ::_listPorts (UNIX)', function(t) {
   }
   });
 
-  // nodejs 0.10.x race condition needs this
-  setTimeout(function() {
-    var c = new ConnectionTest(DEF_OPTS1);
-    c._listPorts(function(error, ports) {
-      t.ok(ports.length, 'got a list of ports');
-      t.ok(ports[2]._standardPid, 'added _standardPid property');
-      t.error(error, 'no error on listing');
-    });
-  }, 200);
+  var c = new ConnectionTest(DEF_OPTS1);
+  var ports =  await c._listPorts();
+  t.ok(ports.length, 'got a list of ports');
+  t.ok(ports[2]._standardPid, 'added _standardPid property');
 });
 
-test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
-  t.plan(3);
+test('[ Connection ] ::_listPorts (WINDOWS)', async (t) => {
+  t.plan(2);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
     list: function() { return Promise.resolve(
       [
@@ -75,19 +70,14 @@ test('[ Connection ] ::_listPorts (WINDOWS)', function(t) {
   }
   });
 
-  // nodejs 0.10.x race condition needs this
-  setTimeout(function() {
-    var c = new ConnectionTest(DEF_OPTS1);
-    c._listPorts(function(error, ports) {
-      t.ok(ports.length, 'got a list of ports');
-      t.ok(ports[0]._standardPid, 'added _standardPid property');
-      t.error(error, 'no error on listing');
-    });
-  }, 200);
+  var c = new ConnectionTest(DEF_OPTS1);
+  var ports = await c._listPorts();
+  t.ok(ports.length, 'got a list of ports');
+  t.ok(ports[0]._standardPid, 'added _standardPid property');
 });
 
-test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
-  t.plan(3);
+test('[ Connection ] ::_sniffPort (UNIX)', async (t) => {
+  t.plan(2);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
     list: function() { return Promise.resolve(
       [
@@ -105,19 +95,14 @@ test('[ Connection ] ::_sniffPort (UNIX)', function(t) {
   }
   });
 
-  // nodejs 0.10.x race condition needs this
-  setTimeout(function() {
-    var c = new ConnectionTest(DEF_OPTS1);
-    c._sniffPort(function(error, match) {
-      t.ok(match.length, 'board was detected');
-      t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
-      t.error(error, 'no error on return');
-    });
-  }, 200);
+  var c = new ConnectionTest(DEF_OPTS1);
+  var match = await c._sniffPort();
+  t.ok(match.length, 'board was detected');
+  t.equal(match[0].comName, '/dev/cu.usbmodem1421', 'correct comName to match against');
 });
 
-test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
-  t.plan(3);
+test('[ Connection ] ::_sniffPort (WINDOWS)', async (t) => {
+  t.plan(2);
   var ConnectionTest = proxyquire.noCallThru().load('../lib/connection', { serialport: {
     list: function() { return Promise.resolve(
       [
@@ -130,18 +115,13 @@ test('[ Connection ] ::_sniffPort (WINDOWS)', function(t) {
   }
   });
 
-  // nodejs 0.10.x race condition needs this
-  setTimeout(function() {
-    var c = new ConnectionTest(DEF_OPTS1);
-    c._sniffPort(function(error, match) {
-      t.ok(match.length, 'board was detected');
-      t.equal(match[0].comName, 'COM3', 'correct comName to match against');
-      t.error(error, 'no error on return');
-    });
-  }, 200);
+  var c = new ConnectionTest(DEF_OPTS1);
+  var match = await c._sniffPort();
+  t.ok(match.length, 'board was detected');
+  t.equal(match[0].comName, 'COM3', 'correct comName to match against');
 });
 
-test('[ Connection ] ::_pollForPort', function(t) {
+test('[ Connection ] ::_pollForPort', async (t) => {
   t.plan(1);
   var mockedSerial = mockSerial.SerialPort;
   mockedSerial.list = function() { return Promise.resolve(
@@ -175,8 +155,5 @@ test('[ Connection ] ::_pollForPort', function(t) {
   };
 
   var c = new ConnectionTest(options);
-  c._pollForPort(function(error, ports) {
-    console.log(error, ports);
-    t.error(error, 'no error on polling result');
-  });
+  t.doesNotThrow(c._pollForPort.bind(c), 'does not throw');
 });
