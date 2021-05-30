@@ -99,13 +99,14 @@ var injectDependencies = function(boards, Connection, protocols) {
   AvrgirlArduino.prototype.flash = async function(file) {
     // validate board properties first
     this._validateBoard();
-
+    
     // set up serialport connection
     await this.connection._init(); 
 
     // upload file to board
     await this.protocol._upload(file);
   };
+
 
   /**
    * Return a list of devices on serial ports. In addition to the output provided
@@ -114,8 +115,8 @@ var injectDependencies = function(boards, Connection, protocols) {
    * @param {function} callback - function to run upon completion/error
    */
   AvrgirlArduino.prototype.listPorts = AvrgirlArduino.listPorts =
-  AvrgirlArduino.prototype.list = AvrgirlArduino.list = function(callback) {
-    return Connection.prototype._listPorts(callback);
+  AvrgirlArduino.prototype.list = AvrgirlArduino.list = function() {
+    return Connection.prototype._listPorts();
   };
 
   /**
