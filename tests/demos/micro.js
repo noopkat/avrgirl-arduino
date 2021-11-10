@@ -1,4 +1,5 @@
 var Avrgirl = require('../../');
+/*
 var board = {
   name: 'micro',
   baud: 57600,
@@ -6,18 +7,19 @@ var board = {
   productId: ['0x0037', '0x8037', '0x0036'],
   protocol: 'avr109'
 };
-
+*/
 var avrgirl = new Avrgirl({
-  board: board,
+  board: 'micro',
   debug: true
 });
 
-var hex = __dirname + '/../../junk/hex/micro/Blink.cpp.hex';
+var hex = __dirname + '/../../junk/hex/micro/StandardFirmata.cpp.hex';
 
-avrgirl.flash(hex, function(error) {
-  if (error) {
-    console.error(error);
-  } else {
+(async function() {
+  try {
+    await avrgirl.flash(hex);
     console.info('done.');
+  } catch (error) {
+    console.error(error);
   }
-});
+})();

@@ -7,6 +7,7 @@ const resolve = {
      "util": require.resolve("util/"),
      "stream": require.resolve("stream-browserify"),
      "os": require.resolve("os-browserify/browser"),
+     "fs": false
   }
 }
 

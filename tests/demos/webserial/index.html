@@ -29,6 +29,7 @@
             </label>
 
             <button type="submit" id="uploadBtn">Upload!</button>
+            <span id="status"></span>
           </form>
         </div>
         <div class="board">
@@ -49,26 +50,25 @@
         const reader = new FileReader();
         const board = boardType.value;
 
-        reader.onload = function(event) {
+        reader.onload = async function(event) {
           filecontents = event.target.result;
 
 					let avrgirl = new AvrgirlArduino({
 						board: board,
-						debug: true
+						debug: true,
+        //    megaDebug: true
 					});
           
           gear.classList.add('spinning');
-
-          avrgirl.flash(filecontents, (error) =>  {
+          
+          try {
+            await avrgirl.flash(filecontents);
             gear.classList.remove('spinning');
             progress.textContent = "done!";
-						if (error) {
-							console.error(error);
-						} else {
-							console.info('done correctly.');
-						}
-					});
-
+            console.log('done correctly.');
+          } catch (e) {
+            console.error(e);
+          }
        };
         reader.readAsArrayBuffer(file);
       }

@@ -7,6 +7,7 @@
   "module": "dist/avrgirl-arduino.min.js",
   "scripts": {
     "dev-browser": "webpack --watch",
+    "build-browser": "webpack",
     "lint": "eslint --fix \"tests/*.spec.js\" \"tests/helpers/*.js\" \"avrgirl-arduino.js\" \"lib/*.js\"",
     "tape": "tape \"tests/*.spec.js\" | tap-spec",
     "test": "npm run tape && npm run lint",
@@ -33,7 +34,6 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
-    "async": "^2.6.3",
     "awty": "^0.1.0",
     "browser-serialport": "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b",
     "chip.avr.avr109": "^1.1.1",
@@ -47,19 +47,20 @@
     "stk500-v2": "^1.0.4"
   },
   "devDependencies": {
-    "jscs-loader": "^0.3.0",
-    "util": "^0.12.3",
     "buffer": "^6.0.3",
-    "stream-browserify": "^3.0.0",
-    "os-browserify": "^0.3.0",
+    "tape-async": "^2.3.0",
+    "tape": "^5.2.2",
     "eslint": "^6.5.0",
     "istanbul": "^0.4.0",
     "istanbul-coveralls": "^1.0.3",
+    "jscs-loader": "^0.3.0",
+    "os-browserify": "^0.3.0",
     "proxyquire": "^1.7.3",
     "sinon": "^9.2.3",
+    "stream-browserify": "^3.0.0",
     "tap-spec": "^5.0.0",
-    "tape": "^5.1.1",
     "terser-webpack-plugin": "^5.1.1",
+    "util": "^0.12.3",
     "virtual-serialport": "^0.3.1",
     "webpack": "^5.15.0",
     "webpack-cli": "^3.3.12"
