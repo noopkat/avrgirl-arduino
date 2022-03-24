@@ -2,6 +2,7 @@ var injectDependencies = function(boards, Connection, protocols) {
   var EventEmitter = require('events');
   var util = require('util');
   var tools = require('./lib/tools');
+
   /**
    * Constructor
    *
