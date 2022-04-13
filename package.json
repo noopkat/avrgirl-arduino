@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/noopkat/avrgirl-arduino",
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^3.2.2",
     "awty": "^0.1.0",
     "browser-serialport": "git+https://github.com/noopkat/browser-serialport.git#c8628c41c11890d3058875994c15f83f2df8185b",
     "chip.avr.avr109": "^1.1.1",
