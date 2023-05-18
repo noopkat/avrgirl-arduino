@@ -147,6 +147,29 @@ var injectDependencies = function(boards, Connection, protocols) {
     });
   };
 
+    /**
+   * Public method for flashing a hex file to the main program allocation of the Arduino
+   *
+   * @param {string} file - path to hex file for uploading
+   * @param {function} callback - function to run upon completion/error
+   */
+    AvrgirlArduino.prototype.flashonPort = function(file, port, callback) {
+      var _this = this;
+  
+      // validate board properties first
+      _this._validateBoard(function(error) {
+        if (error) { return callback(error); }
+  
+        // set up serialport connection
+        _this.connection._init(function(error) {
+          if (error) { return callback(error); }
+  
+          // upload file to board
+          _this.protocol._upload(file, callback);
+        });
+      });
+    };
+
   /**
    * Return a list of devices on serial ports. In addition to the output provided
    * by SerialPort.list, it adds a platform independent PID in _pid
@@ -672,6 +695,16 @@ class SerialPort extends EventEmitter {
     if (this.options.autoOpen) this.open();
   }
 
+  getPortToUse() {
+    if (this.port) {
+      return new Promise(function (resolve, reject) {
+        resolve(this.port)
+      });
+    } else {
+      window.navigator.serial.requestPort(this.requestOptions)
+    }
+  }
+
   list(callback) {
     return navigator.serial.getPorts()
       .then((list) => {if (callback) {return callback(null, list)}})
@@ -679,7 +712,7 @@ class SerialPort extends EventEmitter {
   }
 
   open(callback) {
-    window.navigator.serial.requestPort(this.requestOptions)
+    this.getPortToUse()
       .then(serialPort => {
         this.port = serialPort;
         if (this.isOpen) return;
@@ -704,6 +737,38 @@ class SerialPort extends EventEmitter {
         }
       })
       .catch(error => {callback(error)});
+  }
+
+  openWithPort(callback, port) {
+    try {
+    this.port = serialPort;
+    if (!this.isOpen) return;
+      this.port.open({ baudRate: this.baudRate || 57600 });
+    this.writer = this.port.writable.getWriter()
+    this.reader = this.port.readable.getReader()
+
+    async () => {
+      this.emit('open');
+      this.isOpen = true;
+      callback(null);
+      while (this.port.readable.locked) {
+        try {
+          const { value, done } = await this.reader.read();
+          if (done) {
+            break;
+          }
+          this.emit('data', Buffer.from(value));
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+
+    } catch(error) {
+      callback(error)
+    }
+   
   }
 
   async close(callback) {
@@ -787,7 +852,7 @@ var awty = __webpack_require__(9911);
 var Connection = function(options) {
   this.options = options;
   this.debug = this.options.debug ? console.log.bind(console) : function() {};
-
+  this.port = options.port;
   this.board = this.options.board;
   // TODO: support avr109 boards
   if (this.board.protocol === 'avr109') {
@@ -798,7 +863,7 @@ var Connection = function(options) {
 };
 
 Connection.prototype._init = function(callback) {
-  this._setUpSerial(function(error) {
+  this._setUpSerial(this.port, function(error) {
     return callback(error);
   });
 };
@@ -806,11 +871,14 @@ Connection.prototype._init = function(callback) {
 /**
  * Create new serialport instance for the Arduino board, but do not immediately connect.
  */
-Connection.prototype._setUpSerial = function(callback) {
+Connection.prototype._setUpSerial = function(port, callback) {
   this.serialPort = new Serialport('', {
     baudRate: this.board.baud,
     autoOpen: false
   });
+  if (port) {
+    this.serialPort.port = port;
+  }
   this.serialPort.on('open', function() {
     //    _this.emit('connection:open');
   })

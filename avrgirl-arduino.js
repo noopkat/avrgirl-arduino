@@ -117,6 +117,29 @@ var injectDependencies = function(boards, Connection, protocols) {
     });
   };
 
+    /**
+   * Public method for flashing a hex file to the main program allocation of the Arduino
+   *
+   * @param {string} file - path to hex file for uploading
+   * @param {function} callback - function to run upon completion/error
+   */
+    AvrgirlArduino.prototype.flashonPort = function(file, port, callback) {
+      var _this = this;
+  
+      // validate board properties first
+      _this._validateBoard(function(error) {
+        if (error) { return callback(error); }
+  
+        // set up serialport connection
+        _this.connection._init(function(error) {
+          if (error) { return callback(error); }
+  
+          // upload file to board
+          _this.protocol._upload(file, callback);
+        });
+      });
+    };
+
   /**
    * Return a list of devices on serial ports. In addition to the output provided
    * by SerialPort.list, it adds a platform independent PID in _pid
