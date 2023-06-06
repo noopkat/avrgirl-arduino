@@ -672,6 +672,17 @@ class SerialPort extends EventEmitter {
     if (this.options.autoOpen) this.open();
   }
 
+  getPortToUse() {
+    if (this.port) {
+      const _this = this;
+      return new Promise((resolve, reject) => {
+        resolve(_this.port)
+      });
+    } else {
+      return window.navigator.serial.requestPort(this.requestOptions)
+    }
+  }
+
   list(callback) {
     return navigator.serial.getPorts()
       .then((list) => {if (callback) {return callback(null, list)}})
@@ -679,7 +690,7 @@ class SerialPort extends EventEmitter {
   }
 
   open(callback) {
-    window.navigator.serial.requestPort(this.requestOptions)
+    this.getPortToUse()
       .then(serialPort => {
         this.port = serialPort;
         if (this.isOpen) return;
@@ -787,7 +798,7 @@ var awty = __webpack_require__(9911);
 var Connection = function(options) {
   this.options = options;
   this.debug = this.options.debug ? console.log.bind(console) : function() {};
-
+  this.port = options.port;
   this.board = this.options.board;
   // TODO: support avr109 boards
   if (this.board.protocol === 'avr109') {
@@ -811,6 +822,9 @@ Connection.prototype._setUpSerial = function(callback) {
     baudRate: this.board.baud,
     autoOpen: false
   });
+  if (this.port) {
+    this.serialPort.port = this.port;
+  }
   this.serialPort.on('open', function() {
     //    _this.emit('connection:open');
   })
